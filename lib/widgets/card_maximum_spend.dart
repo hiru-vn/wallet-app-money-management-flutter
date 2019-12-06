@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_exe/widgets/card_maximun_spend_item.dart';
+import 'package:wallet_exe/widgets/item_maximum_spend.dart';
 
 class CardMaximunSpend extends StatefulWidget {
   CardMaximunSpend({Key key}) : super(key: key);

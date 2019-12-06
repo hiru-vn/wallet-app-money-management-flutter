@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
 import 'package:wallet_exe/widgets/card_maximum_spend.dart';
+import 'package:wallet_exe/widgets/card_spend_chart.dart';
 
 class HomeFragment extends StatefulWidget {
   HomeFragment({Key key}) : super(key: key);
@@ -13,7 +14,7 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> {
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
+    return Container(
       child: Column(
         children: <Widget>[
           Container(
@@ -65,6 +66,10 @@ class _HomeFragmentState extends State<HomeFragment> {
           SizedBox(height: 15,),
 
           CardMaximunSpend(),
+
+          SizedBox(height: 15,),
+
+          CardSpendChart(),
         ],
       ),
     );

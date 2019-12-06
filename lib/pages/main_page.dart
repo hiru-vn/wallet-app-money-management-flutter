@@ -94,7 +94,9 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      body: _getDrawerItemWidget(_selectedDrawerIndex),
+      body: SingleChildScrollView(
+        child: _getDrawerItemWidget(_selectedDrawerIndex),
+      ),
     );
   }
 }
