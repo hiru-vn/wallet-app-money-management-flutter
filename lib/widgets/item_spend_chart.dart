@@ -13,6 +13,7 @@ class SpendChart extends StatelessWidget {
     return charts.BarChart(
       _seriesList,
       animate: animate,
+      animationDuration: Duration(milliseconds: 500),
     );
   }
 }

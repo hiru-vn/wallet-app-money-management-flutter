@@ -3,7 +3,9 @@ import 'package:wallet_exe/widgets/item_spend_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CardSpendChart extends StatefulWidget {
-  CardSpendChart({Key key}) : super(key: key);
+  final showDetail;
+
+  CardSpendChart({this.showDetail = false});
 
   @override
   _CardSpendChartState createState() => _CardSpendChartState();
@@ -26,6 +28,44 @@ class _CardSpendChartState extends State<CardSpendChart> {
 
   @override
   Widget build(BuildContext context) {
+    Widget detailContent = Padding(
+      padding: EdgeInsets.only(right: 20, left: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Trung bình tháng:',
+                style: Theme.of(context).textTheme.body2,
+              ),
+              Text('378.000 đ')
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Tổng chi:',
+                style: Theme.of(context).textTheme.body2,
+              ),
+              Text('6.278.000 đ'),
+            ],
+          ),
+          SizedBox(
+            height: 60,
+          )
+        ],
+      ),
+    );
+
     return Container(
         width: double.infinity,
         padding: EdgeInsets.all(15),
@@ -53,26 +93,30 @@ class _CardSpendChartState extends State<CardSpendChart> {
                     child: Row(
                       children: <Widget>[
                         Text('Chọn năm'),
-                        SizedBox(width: 5,),
-                        Icon(Icons.create,size: 20),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(Icons.create, size: 20),
                       ],
                     ),
                     color: Theme.of(context).accentColor,
                   ),
                 ],
               ),
-              
               SizedBox(
                 height: 10,
               ),
-
               Text('(Đơn vị: Nghìn)'),
-              
               Container(
                 height: 200,
                 width: double.infinity,
                 child: SpendChart(_createSampleData()),
-              )
+              ),
+              widget.showDetail
+                  ? detailContent
+                  : SizedBox(
+                      height: 10,
+                    )
             ]));
   }
 

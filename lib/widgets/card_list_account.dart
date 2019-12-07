@@ -42,12 +42,9 @@ class _CardListAccountState extends State<CardListAccount> {
           Container(
             width: double.infinity,
             child: ExpansionTile(
-              title: Text("Tài khoản tiết kiệm: (1.596.000 đ)",style: Theme.of(context).textTheme.subhead,),
+              title: Text("Tài khoản tiết kiệm: (0 đ)",style: Theme.of(context).textTheme.subhead,),
               initiallyExpanded: false,
               children: <Widget>[
-                ItemAccount('assets/bank.png', 'ATM', 1500000.toString()),
-                ItemAccount('assets/bank.png', 'ATM', 1500000.toString()),
-                ItemAccount('assets/bank.png', 'ATM', 1500000.toString()),
                 ItemAccount('assets/bank.png', 'ATM', 1500000.toString()),
               ],
             ),

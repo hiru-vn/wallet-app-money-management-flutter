@@ -25,21 +25,29 @@ class _TransactionFragmentState extends State<TransactionFragment> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: Column(
-         children: <Widget>[
-           RaisedButton(
-                    onPressed: () => _selectDate(context),
-                    child: Row(
-                      children: <Widget>[
-                        Text('Chọn năm'),
-                        SizedBox(width: 5,),
-                        Icon(Icons.create,size: 20),
-                      ],
+      padding: EdgeInsets.all(15),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () => _selectDate(context),
+                child: Row(
+                  children: <Widget>[
+                    Text('Tìm ngày'),
+                    SizedBox(
+                      width: 5,
                     ),
-                    color: Theme.of(context).accentColor,
-                  ),
-         ],
-       ),
+                    Icon(Icons.create, size: 20),
+                  ],
+                ),
+                color: Theme.of(context).accentColor,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
