@@ -57,7 +57,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                         Icon(Icons.create,size: 20),
                       ],
                     ),
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                   ),
                 ],
               ),

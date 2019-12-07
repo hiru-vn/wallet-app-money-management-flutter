@@ -73,6 +73,11 @@ class _MainPageState extends State<MainPage> {
     ScreenUtil.instance = ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       appBar: AppBar(
         title: Text(widget.drawerItems[_selectedDrawerIndex].title),
       ),
