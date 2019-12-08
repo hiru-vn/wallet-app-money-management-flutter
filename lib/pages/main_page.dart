@@ -8,6 +8,7 @@ import 'package:wallet_exe/fragments/chart_fragment.dart';
 import 'package:wallet_exe/fragments/home_fragment.dart';
 import 'package:wallet_exe/fragments/setting_fragment.dart';
 import 'package:wallet_exe/fragments/transaction_fragment.dart';
+import 'package:wallet_exe/pages/new_transaction_page.dart';
 
 class DrawerItem {
   String title;
@@ -74,7 +75,11 @@ class _MainPageState extends State<MainPage> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){ Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => NewTransactionPage()),
+          );
+        },
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
       ),

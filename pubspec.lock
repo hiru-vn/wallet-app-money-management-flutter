@@ -76,6 +76,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  flutter_masked_text:
+    dependency: "direct main"
+    description:
+      name: flutter_masked_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -89,7 +96,7 @@ packages:
     source: sdk
     version: "0.0.0"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
