@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet_exe/pages/add_category_page.dart';
 import 'package:wallet_exe/widgets/card_category_list.dart';
 import 'package:wallet_exe/widgets/item_category.dart';
 
@@ -43,7 +44,12 @@ class _CategoryPageState extends State<CategoryPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => AddCategoryPage()),
+              );
+            },
           )
         ],
       ),

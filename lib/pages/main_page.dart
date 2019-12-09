@@ -8,6 +8,7 @@ import 'package:wallet_exe/fragments/chart_fragment.dart';
 import 'package:wallet_exe/fragments/home_fragment.dart';
 import 'package:wallet_exe/fragments/setting_fragment.dart';
 import 'package:wallet_exe/fragments/transaction_fragment.dart';
+import 'package:wallet_exe/pages/add_account_page.dart';
 import 'package:wallet_exe/pages/new_transaction_page.dart';
 
 class DrawerItem {
@@ -56,6 +57,13 @@ class _MainPageState extends State<MainPage> {
     Navigator.of(context).pop(); // close the drawer
   }
 
+  _actionAdd() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddAccountPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var drawerOptions = <Widget>[];
@@ -71,21 +79,30 @@ class _MainPageState extends State<MainPage> {
     }
 
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance = ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+    ScreenUtil.instance =
+        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){ Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => NewTransactionPage()),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NewTransactionPage()),
           );
         },
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
-        title: Text(widget.drawerItems[_selectedDrawerIndex].title),
-      ),
+          title: Text(widget.drawerItems[_selectedDrawerIndex].title),
+          actions: _selectedDrawerIndex == 2
+              ? <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: _actionAdd,
+                  )
+                ]
+              : null),
       drawer: Drawer(
         child: Column(
           children: <Widget>[

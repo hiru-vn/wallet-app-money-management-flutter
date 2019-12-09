@@ -17,6 +17,11 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
+    _submit() {
+      //save data
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Giao dịch mới'),
@@ -270,7 +275,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                     ],
                   ),
                 ),
-                onPressed: () {},
+                onPressed: _submit,
               ),
             ),
             SizedBox(
