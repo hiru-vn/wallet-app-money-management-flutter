@@ -90,6 +90,7 @@ class _CardbalanceState extends State<Cardbalance> {
           Expanded(
             flex: 6,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 DropdownButton(
                   value: _currentOption,

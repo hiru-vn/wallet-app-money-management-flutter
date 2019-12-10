@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_exe/pages/new_transaction_page.dart';
 
 class Category {
   final String name;
