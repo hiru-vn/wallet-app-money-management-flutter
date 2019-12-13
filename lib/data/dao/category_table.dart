@@ -16,7 +16,7 @@ class CategoryTable {
         '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
         '$color INTEGER NOT NULL,'
         '$name TEXT NOT NULL UNIQUE,'
-        '$type INTEGER NOT NULL)'
+        '$type INTEGER NOT NULL,'
         '$icon INTEGER NOT NULL)');
   }
 

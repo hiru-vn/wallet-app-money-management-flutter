@@ -18,8 +18,8 @@ class UserAccountTable {
         '$name TEXT NOT NULL,'
         '$mail TEXT NOT NULL,'
         '$password TEXT NOT NULL,'
-        '$balance INTEGER DEFAULT 0'
-        '$themeColor INTEGER NOT NULL,');
+        '$balance INTEGER NOT NULL,'
+        '$themeColor INTEGER NOT NULL');
   }
 
   Future<int> insert(UserAccount userAccount) async {

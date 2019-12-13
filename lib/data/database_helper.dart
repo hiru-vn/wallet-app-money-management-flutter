@@ -17,6 +17,8 @@ class DatabaseHelper {
     if (_db == null) {
       _db = await _initDb();
     }
+    String databasesPath = await getDatabasesPath();
+    print(databasesPath);
     return _db;
   }
 
@@ -42,7 +44,7 @@ class DatabaseHelper {
     AccountTable().onCreate(db, version);
     CategoryTable().onCreate(db, version);
     SpendLimitTable().onCreate(db, version);
-    UserAccountTable().onCreate(db, version);
+    //UserAccountTable().onCreate(db, version);
     TransactionTable().onCreate(db, version);
   }
 }

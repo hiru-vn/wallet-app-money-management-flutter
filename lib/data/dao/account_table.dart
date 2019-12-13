@@ -17,7 +17,7 @@ class AccountTable {
         '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
         '$name TEXT NOT NULL UNIQUE,'
         '$balance INTEGER NOT NULL,'
-        '$type INTEGER NOT NULL)'
+        '$type INTEGER NOT NULL,'
         '$icon INTEGER NOT NULL)');
   }
 
@@ -27,5 +27,14 @@ class AccountTable {
 
     // Insert the Account into the correct table.
     return db.insert(tableName, account.toMap());
+  }
+
+  Future<String> getTotalBalance() async {
+    final Database db = await DatabaseHelper().db;
+
+    String rawQuery = 'SELECT SUM($balance) FROM $tableName';
+
+    final List<Map<String, dynamic>> map = await db.rawQuery(rawQuery);
+    return map[0].values.toString();
   }
 }

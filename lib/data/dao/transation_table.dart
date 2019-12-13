@@ -19,7 +19,7 @@ class TransactionTable {
         '$amount INTEGER,'
         '$description TEXT,'
         '$idCategory INTEGER,'
-        '$idAccount INTEGER,');
+        '$idAccount INTEGER)');
   }
 
   Future<int> insert(trans.Transaction transaction) async {
