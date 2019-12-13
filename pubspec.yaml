@@ -19,16 +19,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sembast:
-  path_provider:
-  # Used for BLoC state management
-  flutter_bloc:
-  equatable:
   flutter_screenutil:
+
+  #flutter chart
   charts_flutter:
 
+  # The following is state management library (not from flutter community).
+  provider: ^3.0.0+1
+
+  # The following package is to access database.
+  sqflite: ^1.1.6+2
+
   # date format, money format
-  intl:
+  intl: ^0.15.8
   flutter_masked_text:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

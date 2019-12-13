@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../dao/user_account_table.dart';
 
 class UserAccount {
   int id; // auto generate & unique
@@ -10,6 +11,7 @@ class UserAccount {
   Color themeColor = Colors.amber;
 
   UserAccount({
+    this.id,
     this.name,
     this.mail,
     this.password,
@@ -20,21 +22,21 @@ class UserAccount {
   // getter
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'mail': mail,
-      'password': password,
-      'balance' : balance,
-      'themeColor' : themeColor,
+      UserAccountTable().id: id,
+      UserAccountTable().name: name,
+      UserAccountTable().mail: mail,
+      UserAccountTable().password: password,
+      UserAccountTable().balance: balance,
+      UserAccountTable().themeColor: themeColor,
     };
   }
   // setter
-  static UserAccount fromMap(Map<String, dynamic> map) {
-    return UserAccount(
-      name: map['name'],
-      mail: map['mail'],
-      password: map['password'],
-      balance: map['balance'],
-      themeColor: map['themColor'],
-    );
+  UserAccount.fromMap(Map<String, dynamic> map) {
+    id = map[UserAccountTable().id];
+    name = map[UserAccount().name];
+    mail = map[UserAccount().mail];
+    password = map[UserAccount().password];
+    balance = map[UserAccount().balance];
+    themeColor = map[UserAccount().themeColor];
   }
 }

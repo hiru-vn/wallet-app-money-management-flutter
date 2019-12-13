@@ -1,38 +1,59 @@
+import 'package:wallet_exe/data/model/Account.dart';
+import 'package:wallet_exe/data/model/Category.dart';
+import 'package:wallet_exe/utils/date_format_util.dart';
+
+import '../dao/transation_table.dart';
+
 class Transaction {
   int id; // auto generate & unique
 
-  int idAccount;
-  int idCategory;
-  int idCategoryType;
-  int money;
+  Account account;
+  Category category;
+  int amount;
   DateTime date;
+  String description;
 
   Transaction({
-    this.idAccount,
-    this.idCategory,
-    this.idCategoryType,
-    this.money,
-    this.date
+    this.id,
+    this.account,
+    this.category,
+    this.amount,
+    this.date,
+    this.description
   });
 
   // getter
   Map<String, dynamic> toMap() {
     return {
-      'idAccount' : idAccount,
-      'idCategory': idCategory,
-      'idCategoryType' : idCategoryType,
-      'money' : money,
-      'date' : date,
+      TransactionTable().id: id,
+      TransactionTable().date: convertToISO8601DateFormat(date),
+      TransactionTable().amount: amount,
+      TransactionTable().description: description,
+      TransactionTable().idCategory: category.id,
+      TransactionTable().idAccount: account.id
     };
   }
   // setter
-  static Transaction fromMap(Map<String, dynamic> map) {
-    return Transaction(
-      idAccount: map['idAccount'],
-      idCategory: map['idCategory'],
-      idCategoryType: map['idCategoryType'],
-      money: map['money'],
-      date: map['date'],
-    );
+  Transaction.fromMap(Map<String, dynamic> map) {
+    id = map[TransactionTable().id];
+    account = Account.fromMap(map);
+    date = DateTime.parse(map[TransactionTable().date]);
+    amount = map[TransactionTable().amount];
+    description = map[TransactionTable().description];
+    category = Category.fromMap(map);
+  }
+
+  void checkValidationAndThrow() {
+    if (date == null) {
+      throw Exception("No date!");
+    }
+
+    if (amount <= 0) {
+      throw Exception("No amount!");
+    }
+
+    if (category == null) {
+      throw Exception("No category!");
+    }
   }
 }

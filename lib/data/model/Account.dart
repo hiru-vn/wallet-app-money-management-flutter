@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/enums/account_type.dart';
+import '../dao/account_table.dart';
 
 class Account {
   int id; // auto generate & unique
 
-  final String name;
-  final int idAppAccount;
-  final int balance;
-  final int type;
-  final IconData icon;
+  String name;
+  //int idAppAccount;
+  int balance;
+  AccountType type;
+  IconData icon;
 
   Account({
+    this.id,
     this.name,
-    this.idAppAccount,
+    //this.idAppAccount,
     this.balance,
     this.type,
     this.icon
@@ -20,21 +23,19 @@ class Account {
   // getter
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'idAppAccount': idAppAccount,
-      'balance' : balance,
-      'type':type,
-      'icon':icon,
+      AccountTable().id: id,
+      AccountTable().name: name,
+      AccountTable().balance : balance,
+      AccountTable().type:type.value,
+      AccountTable().icon:1, //TO DO:
     };
   }
   // setter
-  static Account fromMap(Map<String, dynamic> map) {
-    return Account(
-      name : map['name'],
-      idAppAccount : map['idAppAccount'],
-      balance : map['balance'],
-      type : map['type'],
-      icon : map['icon'],
-    );
+  Account.fromMap(Map<String, dynamic> map) {
+    id = map[AccountTable().id];
+    name = map[AccountTable().name];
+    balance = map[AccountTable().balance];
+    type = map[AccountTable().type];
+    icon = Icons.check_circle_outline;
   }
 }

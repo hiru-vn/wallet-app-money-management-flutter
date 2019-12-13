@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
+import '../dao/category_table.dart';
+import '../../utils/color_util.dart';
 
 class Category {
   int id; // auto generate & unique
 
-  final String name;
-  final int idAppAccount;
-  final IconData icon;
-  final Color color;
-  final int idTypeTransaction;
+  String name;
+  IconData icon;
+  Color color;
+  TransactionType transactionType;
 
   Category({
+    this.id,
     this.name,
-    this.idAppAccount,
     this.icon,
     this.color,
-    this.idTypeTransaction
+    this.transactionType
   });
 
   // getter
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
-      'idAppAccount': idAppAccount,
-      'icon' : icon,
-      'color':color,
-      'idTypeTransaction':idTypeTransaction,
+      CategoryTable().id: id,
+      CategoryTable().color: color.value,
+      CategoryTable().name: name,
+      CategoryTable().type: transactionType.value,
+      CategoryTable().icon: 1, //TO DO:
     };
   }
   // setter
-  static Category fromMap(Map<String, dynamic> map) {
-    return Category(
-      name : map['name'],
-      idAppAccount : map['idAppAccount'],
-      icon : map['icon'],
-      color : map['color'],
-      idTypeTransaction : map['idTypeTransaction'],
-    );
+  Category.fromMap(Map<String, dynamic> map) {
+    id = map[CategoryTable().id];
+    name = map[CategoryTable().name];
+    color = valueToColor(map[CategoryTable().color]);
+    icon = Icons.account_circle; //map[CategoryTable().icon]; //TO DO:
+    transactionType = TransactionType.valueOf(map[CategoryTable().type]);
   }
 }
