@@ -24,7 +24,7 @@ class UserAccountTable {
 
   Future<int> insert(UserAccount userAccount) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Insert the Category into the correct table.
     return db.insert(tableName, userAccount.toMap());
@@ -32,7 +32,7 @@ class UserAccountTable {
 
   Future<int> update(UserAccount userAccount) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Update the correct category.
     return db.update(

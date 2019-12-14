@@ -54,23 +54,13 @@ class _HomeFragmentState extends State<HomeFragment> {
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
-                      FutureBuilder(
-                          future: AccountTable().getTotalBalance(),
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasError) {
-                              print(snapshot.error.toString());
-                              return Center(
-                                  child: Text(snapshot.error.toString()));
-                            } else if (snapshot.hasData) {
-                              return Text(
-                                snapshot.data,
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context).primaryColor),
-                              );
-                            }
-                          }),
+                      Text(
+                        '1.000.000 đ',
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).primaryColor),
+                      ),
                       Icon(
                         Icons.navigate_next,
                         size: 30,

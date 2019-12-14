@@ -40,6 +40,7 @@ class Transaction {
     date = DateTime.parse(map[TransactionTable().date]);
     amount = map[TransactionTable().amount];
     description = map[TransactionTable().description];
+    //merge table query
     category = Category.fromMap(map);
   }
 

@@ -11,14 +11,22 @@ class Account {
   AccountType type;
   IconData icon;
 
-  Account({
+  // Account({
+  //   this.id,
+  //   this.name,
+  //   //this.idAppAccount,
+  //   this.balance,
+  //   this.type,
+  //   this.icon
+  // });
+  Account(
     this.id,
     this.name,
     //this.idAppAccount,
     this.balance,
     this.type,
     this.icon
-  });
+  );
 
   // getter
   Map<String, dynamic> toMap() {

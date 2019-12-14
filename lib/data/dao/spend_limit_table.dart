@@ -12,13 +12,15 @@ class SpendLimitTable {
   void onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName('
         '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$amount TEXT NOT NULL UNIQUE,'
+        '$amount INTEGER NOT NULL UNIQUE,'
         '$type INTEGER NOT NULL)');
+
+    // db.execute('INSERT INTO spend_limit(amount, type) VALUES(1000000,0)');
   }
 
   Future<int> insert(SpendLimit spendLimit) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Insert the SpendLimit into the correct table.
     return db.insert(tableName, spendLimit.toMap());
@@ -26,7 +28,7 @@ class SpendLimitTable {
 
   Future<List<SpendLimit>> getAll() async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Query the table for all The Categories.
     final List<Map<String, dynamic>> maps = await db.query(tableName);
@@ -39,14 +41,14 @@ class SpendLimitTable {
 
   Future<int> delete(int spendLimitId) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     return db.delete(tableName, where: id + '=?', whereArgs: [spendLimitId]);
   }
 
   Future<int> update(SpendLimit spendLimit) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Update the correct SpendLimit.
     return db.update(

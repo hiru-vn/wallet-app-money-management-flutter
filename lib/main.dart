@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/pages/main_page.dart';
 
-void main() => runApp(MyApp());
+void main() async { 
+  await DatabaseHelper.instance.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

@@ -22,7 +22,7 @@ class CategoryTable {
 
   Future<int> insert(Category category) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Insert the Category into the correct table.
     return db.insert(tableName, category.toMap());
@@ -30,7 +30,7 @@ class CategoryTable {
 
   Future<List<Category>> getAll() async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Query the table for all The Categories.
     final List<Map<String, dynamic>> maps = await db.query(tableName);
@@ -43,14 +43,14 @@ class CategoryTable {
 
   Future<int> delete(int categoryId) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     return db.delete(tableName, where: id + '=?', whereArgs: [categoryId]);
   }
 
   Future<int> update(Category category) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Update the correct category.
     return db.update(

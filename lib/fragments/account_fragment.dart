@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/widgets/card_list_account.dart';
 
 class AccountFragment extends StatefulWidget {
@@ -11,6 +12,8 @@ class AccountFragment extends StatefulWidget {
 class _AccountFragmentState extends State<AccountFragment> {
   @override
   Widget build(BuildContext context) {
+    Future<String> t = AccountTable().getTotalBalance();
+    print(t);
     return Container(
       child: Column(
         children: <Widget>[

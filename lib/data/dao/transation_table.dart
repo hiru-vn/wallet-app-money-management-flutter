@@ -15,11 +15,11 @@ class TransactionTable {
   void onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName('
         '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$date TEXT,'
-        '$amount INTEGER,'
+        '$date TEXT NOT NULL,'
+        '$amount INTEGER NOT NULL,'
         '$description TEXT,'
-        '$idCategory INTEGER,'
-        '$idAccount INTEGER)');
+        '$idCategory INTEGER NOT NULL,'
+        '$idAccount INTEGER NOT NULL)');
   }
 
   Future<int> insert(trans.Transaction transaction) async {
@@ -27,7 +27,7 @@ class TransactionTable {
     transaction.checkValidationAndThrow();
 
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     // Insert the TransactionModel into the table. Also specify the 'conflictAlgorithm'.
     // In this case, if the same category is inserted multiple times, it replaces the previous data.
@@ -40,7 +40,7 @@ class TransactionTable {
 
   Future<int> delete(int transactionId) async {
     // Get a reference to the database.
-    final Database db = await DatabaseHelper().db;
+    final Database db = DatabaseHelper.instance.database;
 
     return db.delete(tableName, where: id + '=?', whereArgs: [transactionId]);
   }
