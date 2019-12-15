@@ -25,10 +25,11 @@ dependencies:
   charts_flutter:
 
   # The following is state management library (not from flutter community).
-  provider: ^3.0.0+1
+  provider: ^3.2.0
 
   # The following package is to access database.
-  sqflite: ^1.1.6+2
+  sqflite: ^1.1.8
+  path: ^1.6.2
 
   # date format, money format
   intl: ^0.15.8

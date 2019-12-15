@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
+import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
+import '../bloc/account_bloc.dart';
 import 'package:wallet_exe/widgets/card_maximum_spend.dart';
 import 'package:wallet_exe/widgets/card_spend_chart.dart';
 
@@ -25,6 +29,13 @@ class _HomeFragmentState extends State<HomeFragment> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var bloc = Provider.of<AccountBloc>(context);
+    bloc.initData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
@@ -42,33 +53,45 @@ class _HomeFragmentState extends State<HomeFragment> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Theme.of(context).accentColor,
-                        child: Icon(
-                          Icons.attach_money,
-                          size: 30,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                    padding: EdgeInsets.all(15.0),
+                    child: InkWell(
+                      onTap: () async {
+                        print('object');
+
+                        Database db = DatabaseHelper.instance.database;
+
+                        List<Map> result = await db.query('account');
+
+                        result.forEach((row) => print(row));
+
+                        print('object2');
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          CircleAvatar(
+                            backgroundColor: Theme.of(context).accentColor,
+                            child: Icon(
+                              Icons.attach_money,
+                              size: 30,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                          Text(
+                            '1.000.000 đ',
+                            style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                          Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                            color: Theme.of(context).primaryColor,
+                          )
+                        ],
                       ),
-                      Text(
-                        '1.000.000 đ',
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).primaryColor),
-                      ),
-                      Icon(
-                        Icons.navigate_next,
-                        size: 30,
-                        color: Theme.of(context).primaryColor,
-                      )
-                    ],
-                  ),
-                ),
+                    )),
               ),
             ),
           ),

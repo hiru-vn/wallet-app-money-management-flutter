@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
+import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/fragments/account_fragment.dart';
 import 'package:wallet_exe/fragments/chart_fragment.dart';
 import 'package:wallet_exe/fragments/home_fragment.dart';
@@ -121,8 +123,11 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: _getDrawerItemWidget(_selectedDrawerIndex),
+      body: Provider<AccountBloc>.value(
+        value: AccountBloc(),
+        child: SingleChildScrollView(
+          child: _getDrawerItemWidget(_selectedDrawerIndex),
+        ),
       ),
     );
   }
