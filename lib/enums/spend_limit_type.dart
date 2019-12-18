@@ -4,9 +4,9 @@ class SpendLimitType {
 
   const SpendLimitType._internal(this._value, this._name);
 
-  static const WEEKLY = const SpendLimitType._internal(1, 'Weekly');
-  static const MONTHLY = const SpendLimitType._internal(2, 'Monthly');
-  static const YEARLY = const SpendLimitType._internal(3, 'Yearly');
+  static const WEEKLY = const SpendLimitType._internal(0, 'Weekly');
+  static const MONTHLY = const SpendLimitType._internal(1, 'Monthly');
+  static const YEARLY = const SpendLimitType._internal(2, 'Yearly');
 
   int get value => _value;
 
@@ -14,11 +14,11 @@ class SpendLimitType {
 
   static SpendLimitType valueOf(int value) {
     switch (value) {
-      case 1:
+      case 0:
         return WEEKLY;
-      case 2:
+      case 1:
         return MONTHLY;
-      case 3:
+      case 2:
         return YEARLY;
       default:
         return null;

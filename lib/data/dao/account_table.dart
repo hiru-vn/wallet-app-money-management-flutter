@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 
 import '../model/Account.dart';
 import 'package:sqflite/sqflite.dart';
@@ -59,6 +60,14 @@ class AccountTable {
     return map[0].values.toString();
   }
 
+  Future<String> getUsingBalance() async {
+    final Database db = DatabaseHelper.instance.database;
+    String rawQuery = 'SELECT SUM(balance) FROM $tableName WHERE';
+
+    final List<Map<String, dynamic>> map = await db.rawQuery(rawQuery);
+    return map[0].values.toString();
+  }
+
   Future<List<Account>> getAllAccount() async {
     final Database db = DatabaseHelper.instance.database;
     final List<Map<String, dynamic>> maps = await db.query('account');
@@ -71,5 +80,11 @@ class AccountTable {
     return List.generate(maps.length, (index) {
       return Account.fromMap(maps[index]);
     });
+  }
+
+  static String getTotalByType(List<Account> list, AccountType type) {
+    List<Account> returnList = list.where((item) => (item.type == AccountType.SAVING)).toList();
+    if (returnList.length == 0) return "0";
+    return textToCurrency(returnList.map<int>((m) => m.balance).reduce((a,b )=>a+b).toString());
   }
 }

@@ -4,8 +4,8 @@ class AccountType {
 
   const AccountType._internal(this._value, this._name);
 
-  static const SPENDING = const AccountType._internal(1, 'Spending');
-  static const SAVING = const AccountType._internal(2, 'Saving');
+  static const SPENDING = const AccountType._internal(0, 'Spending');
+  static const SAVING = const AccountType._internal(1, 'Saving');
 
   int get value => _value;
 
@@ -13,9 +13,9 @@ class AccountType {
 
   static AccountType valueOf(int value) {
     switch (value) {
-      case 1:
+      case 0:
         return SPENDING;
-      case 2:
+      case 1:
         return SAVING;
       default:
         return null;

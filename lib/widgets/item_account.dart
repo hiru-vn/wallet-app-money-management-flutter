@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class ItemAccount extends StatelessWidget {
   final _imgUrl;
@@ -16,7 +17,7 @@ class ItemAccount extends StatelessWidget {
           child: Image.asset(this._imgUrl),
         ),
         title: Text(this._name, style: Theme.of(context).textTheme.subtitle),
-        subtitle: Text(this._balance),
+        subtitle: Text(textToCurrency(this._balance)),
         trailing: IconButton(
           icon: Icon(Icons.more_vert),
           onPressed: () {},

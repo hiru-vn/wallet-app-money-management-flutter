@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_list_account.dart';
+import '../bloc/account_bloc.dart';
 
 class AccountFragment extends StatefulWidget {
   AccountFragment({Key key}) : super(key: key);
@@ -12,8 +15,6 @@ class AccountFragment extends StatefulWidget {
 class _AccountFragmentState extends State<AccountFragment> {
   @override
   Widget build(BuildContext context) {
-    Future<String> t = AccountTable().getTotalBalance();
-    print(t);
     return Container(
       child: Column(
         children: <Widget>[
@@ -31,13 +32,28 @@ class _AccountFragmentState extends State<AccountFragment> {
                 ),
               ],
             ),
-            child: Text(
-              'Tổng tiền: 1.596.000 đ',
-              style: Theme.of(context).textTheme.title,
-            ),
+            child: FutureBuilder(
+                future: AccountTable().getTotalBalance(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    print(snapshot.error.toString());
+                    return Center(child: Text(snapshot.error.toString()));
+                  } else if (snapshot.hasData) {
+                    return Text(
+                      'Tổng: '+textToCurrency(snapshot.data.toString()) + 'đ',
+                      style: Theme.of(context).textTheme.title,
+                    );
+                  }
+                  return Container(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(),
+                  );
+                }),
           ),
-          SizedBox(height: 15,),
-
+          SizedBox(
+            height: 15,
+          ),
           CardListAccount(),
         ],
       ),

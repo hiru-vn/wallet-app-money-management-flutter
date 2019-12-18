@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/pages/main_page.dart';
+import './bloc/account_bloc.dart';
 
 void main() async { 
   await DatabaseHelper.instance.init();
@@ -17,7 +19,12 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.amber,
         accentColor: Colors.amber[200],
       ),
-      home: MainPage(),
+      home: MultiProvider(
+          providers: [
+            Provider<AccountBloc>.value(value: AccountBloc(),),
+          ],
+          child: MainPage(),
+        ),
     );
   }
 }

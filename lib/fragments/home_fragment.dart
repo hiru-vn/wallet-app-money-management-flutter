@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/data/model/Account.dart';
-import 'package:wallet_exe/enums/account_type.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
-import '../bloc/account_bloc.dart';
 import 'package:wallet_exe/widgets/card_maximum_spend.dart';
 import 'package:wallet_exe/widgets/card_spend_chart.dart';
 
@@ -20,7 +17,6 @@ class HomeFragment extends StatefulWidget {
 }
 
 class _HomeFragmentState extends State<HomeFragment> {
-  String _totalBalance;
   // get total balance
   int getTotalBalance(List<Account> accounts) {
     int totalBalance = 0;
@@ -32,15 +28,7 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   @override
   void initState() {
-    _totalBalance = "0";
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var bloc = Provider.of<AccountBloc>(context);
-    bloc.initData();
   }
 
   @override
