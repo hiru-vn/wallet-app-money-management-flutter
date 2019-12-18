@@ -19,6 +19,14 @@ class Category {
     this.transactionType
   });
 
+  Category.copyOf(Category copy) {
+    this.id = copy.id;
+    this.name = copy.name;
+    this.icon = copy.icon;
+    this.color = copy.color;
+    this.transactionType = copy.transactionType;
+  }
+
   // getter
   Map<String, dynamic> toMap() {
     return {

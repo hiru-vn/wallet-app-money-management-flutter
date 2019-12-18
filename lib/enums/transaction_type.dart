@@ -4,8 +4,8 @@ class TransactionType {
 
   const TransactionType._internal(this._value, this._name);
 
-  static const INCOME = const TransactionType._internal(1, 'Income');
-  static const EXPENSE = const TransactionType._internal(2, 'Expense');
+  static const INCOME = const TransactionType._internal(0, 'Income');
+  static const EXPENSE = const TransactionType._internal(1, 'Expense');
 
   int get value => _value;
 
@@ -13,9 +13,9 @@ class TransactionType {
 
   static TransactionType valueOf(int value) {
     switch (value) {
-      case 1:
+      case 0:
         return INCOME;
-      case 2:
+      case 1:
         return EXPENSE;
       default:
         return null;

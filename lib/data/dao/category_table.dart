@@ -18,6 +18,19 @@ class CategoryTable {
         '$name TEXT NOT NULL UNIQUE,'
         '$type INTEGER NOT NULL,'
         '$icon INTEGER NOT NULL)');
+
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "nhà cửa", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "con cái", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "quần áo", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "giải trí", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "du lịch", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "di chuyển", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "điện nước", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "làm đẹp", 1, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "ăn uống", 1, 1)');
+
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "lãnh lương", 0, 1)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "được cho/tặng", 0, 1)');
   }
 
   Future<int> insert(Category category) async {
