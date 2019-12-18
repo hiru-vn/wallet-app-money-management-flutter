@@ -25,7 +25,6 @@ class _CardListAccountState extends State<CardListAccount> {
   final _createListAccountTile = (List<Account> listAccount) {
     List<Widget> list = new List<Widget>();
     for (int i=0; i< listAccount.length; i++) {
-      print(listAccount[i].type);
       list.add(ItemAccount('assets/bank.png', listAccount[i].name, listAccount[i].balance.toString()));
     }
     return list;

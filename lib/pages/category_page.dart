@@ -29,7 +29,6 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     List<Widget> list = [];
     widget._categories.map((item) {
-      print(item.name);
       list.add(ItemCategory(item));
       list.add(Divider());
     });

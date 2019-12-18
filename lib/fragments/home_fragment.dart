@@ -52,15 +52,11 @@ class _HomeFragmentState extends State<HomeFragment> {
                     padding: EdgeInsets.all(15.0),
                     child: InkWell(
                       onTap: () async {
-                        print('object');
-
                         Database db = DatabaseHelper.instance.database;
 
                         List<Map> result = await db.query('account');
 
                         result.forEach((row) => print(row));
-
-                        print('object2');
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

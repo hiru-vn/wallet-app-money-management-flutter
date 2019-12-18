@@ -24,11 +24,7 @@ class AccountBloc extends BaseBloc {
     _accountListData = await _accountTable.getAllAccount();
     if (_accountListData == null) return;
 
-    
-    print("...........................................");
-    for(int i=0; i< _accountListData.length; i++) {
-      print(_accountListData[i].name+_accountListData[i].balance.toString()+_accountListData[i].type.toString());
-    }
+    print('account bloc init');
 
     _accountListStreamController.sink.add(_accountListData);
   }

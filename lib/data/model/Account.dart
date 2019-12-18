@@ -20,7 +20,6 @@ class Account {
   //   this.icon
   // });
   Account(
-      this.id,
       this.name,
       //this.idAppAccount,
       this.balance,

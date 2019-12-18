@@ -29,9 +29,8 @@ class AccountTable {
     db.execute('INSERT INTO account VALUES (1,"ATM",0,0,0)');
     db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0)');
 
-    insert(Account(
-        0, 'Ví', 0, AccountType.SPENDING, Icons.account_balance_wallet));
-    insert(Account(1, 'ATM', 0, AccountType.SPENDING, Icons.atm));
+    insert(Account('Ví', 0, AccountType.SPENDING, Icons.account_balance_wallet));
+    insert(Account('ATM', 0, AccountType.SPENDING, Icons.atm));
   }
 
   Future<int> insert(Account account) async {
