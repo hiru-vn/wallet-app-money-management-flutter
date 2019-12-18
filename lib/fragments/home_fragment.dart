@@ -6,6 +6,7 @@ import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
 import '../bloc/account_bloc.dart';
 import 'package:wallet_exe/widgets/card_maximum_spend.dart';
@@ -19,6 +20,7 @@ class HomeFragment extends StatefulWidget {
 }
 
 class _HomeFragmentState extends State<HomeFragment> {
+  String _totalBalance;
   // get total balance
   int getTotalBalance(List<Account> accounts) {
     int totalBalance = 0;
@@ -26,6 +28,12 @@ class _HomeFragmentState extends State<HomeFragment> {
       totalBalance += account.balance;
     }
     return totalBalance;
+  }
+
+  @override
+  void initState() {
+    _totalBalance = "0";
+    super.initState();
   }
 
   @override
@@ -77,13 +85,28 @@ class _HomeFragmentState extends State<HomeFragment> {
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
-                          Text(
-                            '1.000.000 đ',
-                            style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).primaryColor),
-                          ),
+                          FutureBuilder(
+                          future: AccountTable().getTotalBalance(),
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasError) {
+                              print(snapshot.error.toString());
+                              return Center(
+                                  child: Text(snapshot.error.toString()));
+                            } else if (snapshot.hasData) {
+                              return Text(
+                                textToCurrency(snapshot.data.toString()),
+                                style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context).primaryColor),
+                              );
+                            }
+                            return Container(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(),
+                            );
+                          }),
                           Icon(
                             Icons.navigate_next,
                             size: 30,

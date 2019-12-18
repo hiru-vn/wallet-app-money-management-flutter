@@ -1,7 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
-import 'package:wallet_exe/data/dao/todo_table.dart';
 
 class DatabaseHelper {
   static const DB_NAME = 'wallet.db';
@@ -13,19 +12,14 @@ class DatabaseHelper {
 
   Database get database => _database;
 
-  static const initScript = [AccountTable.CREATE_TABLE_QUERY];
-  static const migrationScript = [AccountTable.CREATE_TABLE_QUERY];
-
   init() async{
     _database = await openDatabase(
       join(await getDatabasesPath(), DB_NAME),
       onCreate: (db, version) {
-        initScript.forEach((script) async => await db.execute(script));
-        //db.execute(initScript);
+        AccountTable().onCreate(db, version);
       },
       onUpgrade: (db , oldVersion, newVersion) {
-        migrationScript.forEach((script) async => await db.execute(script));
-        //db.execute(initScript);
+        AccountTable().onCreate(db, newVersion);
       },
       version: DB_VERSION
     );

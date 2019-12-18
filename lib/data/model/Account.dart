@@ -51,7 +51,7 @@ class Account {
     id = map[AccountTable().id];
     name = map[AccountTable().name];
     balance = map[AccountTable().balance];
-    type = map[AccountTable().type];
+    type = AccountType.valueOf(map[AccountTable().type]);
     icon = Icons.check_circle_outline;
   }
 }

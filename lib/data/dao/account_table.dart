@@ -15,26 +15,18 @@ class AccountTable {
   final type = 'type';
   final icon = 'icon';
 
-  static const CREATE_TABLE_QUERY = '''
+  void onCreate(Database db, int version) {
+    db.execute('''
     CREATE TABLE account (
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL UNIQUE,
       balance INTEGER NOT NULL,
       type INTEGER NOT NULL,
-      icon INTEGER NOT NULL);
-    
-    INSERT INTO account VALUES (0,'Ví',0,0,0);
-    INSERT INTO account VALUES (1,'ATM',0,0,0);
-    INSERT INTO account VALUES (2,'MOMO',0,0,0);
-  ''';
-
-  void onCreate(Database db, int version) {
-    db.execute('CREATE TABLE $tableName('
-        '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$name TEXT NOT NULL UNIQUE,'
-        '$balance INTEGER NOT NULL,'
-        '$type INTEGER NOT NULL,'
-        '$icon INTEGER NOT NULL)');
+      icon INTEGER NOT NULL)
+    ''');
+    db.execute('INSERT INTO account VALUES (0,"Ví",1000000,0,0)');
+    db.execute('INSERT INTO account VALUES (1,"ATM",0,0,0)');
+    db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0)');
 
     insert(Account(
         0, 'Ví', 0, AccountType.SPENDING, Icons.account_balance_wallet));
