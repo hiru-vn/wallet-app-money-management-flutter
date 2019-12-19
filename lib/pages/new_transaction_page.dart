@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
@@ -149,7 +150,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                       vertical: 10,
                     ),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        
+                      },
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -221,7 +224,13 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AccountPage()),
+                        );
+                      },
                       child: Row(
                         children: <Widget>[
                           Container(

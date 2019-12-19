@@ -61,7 +61,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
           AccountType.valueFromName(this._currentOption),
           Icons.account_balance_wallet);
       _bloc.event.add(AddAccountEvent(account));
-      print(account.id);
       Navigator.pop(context);
     }
 
