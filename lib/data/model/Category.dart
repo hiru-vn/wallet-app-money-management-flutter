@@ -11,13 +11,12 @@ class Category {
   Color color;
   TransactionType transactionType;
 
-  Category({
-    this.id,
+  Category(
     this.name,
     this.icon,
     this.color,
     this.transactionType
-  });
+  );
 
   Category.copyOf(Category copy) {
     this.id = copy.id;

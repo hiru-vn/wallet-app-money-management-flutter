@@ -25,7 +25,6 @@ class CategoryBloc extends BaseBloc {
     if (_categoryListData == null) return;
 
     print('category bloc init');
-    print(_categoryListData[0].transactionType.name);
 
     _categoryListStreamController.sink.add(_categoryListData);
   }
@@ -33,6 +32,8 @@ class CategoryBloc extends BaseBloc {
   _addCategory(Category category) async {
     _categorytable.insert(category);
 
+
+    print('insert category');
     _categoryListData.add(category);
     _categoryListStreamController.sink.add(_categoryListData);
   }
