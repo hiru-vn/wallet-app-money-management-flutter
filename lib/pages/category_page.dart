@@ -1,17 +1,15 @@
+import 'package:flutter/foundation.dart' as prefix0;
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wallet_exe/pages/add_category_page.dart';
+import 'package:wallet_exe/data/model/Category.dart' as prefix1;
+import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/widgets/card_category_list.dart';
+import '../data/model/Category.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet_exe/bloc/category_bloc.dart';
+import 'package:wallet_exe/pages/add_category_page.dart';
 import 'package:wallet_exe/widgets/item_category.dart';
 
 class CategoryPage extends StatefulWidget {
-  final List<Category> _categories = [
-    Category('Ăn uông', 0),
-    Category('Con cái', 0),
-    Category('Nhà cửa', 0),
-    Category('Học tập', 0)
-  ];
-
   CategoryPage({Key key}) : super(key: key);
 
   @override
@@ -19,98 +17,120 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+  var _bloc = CategoryBloc();
+  var _filter = "";
+
   @override
   void initState() {
     super.initState();
-    //code for controller
+    _bloc.initData();
+  }
+
+  void _submit() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddCategoryPage()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> list = [];
-    widget._categories.map((item) {
-      list.add(ItemCategory(item));
-      list.add(Divider());
-    });
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Chọn hạng mục'),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => AddCategoryPage()),
-              );
-            },
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(0.0, 15.0),
-                      blurRadius: 15.0,
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Tìm tên hạng mục',
-                      border: InputBorder.none,
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.black.withOpacity(0.5),
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              CardCategoryList('TẤT CẢ', widget._categories),
-              SizedBox(
-                height: 15,
-              ),
-              CardCategoryList(
-                  'Hạng mục chi',
-                  widget._categories.where((item) {
-                    return item.type == 0;
-                  }).toList()),
-              SizedBox(
-                height: 15,
-              ),
-              CardCategoryList(
-                  'Hạng mục thu',
-                  widget._categories.where((item) {
-                    return item.type == 1;
-                  }).toList()),
-              SizedBox(
-                height: 15,
-              ),
-            ],
-          ),
+        appBar: AppBar(
+          title: Text('Chọn hạng mục'),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: _submit,
+            )
+          ],
         ),
-      ),
-    );
+        body: StreamBuilder<List<Category>>(
+          stream: _bloc.categoryListStream,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Center(
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    child: Text('Bạn chưa tạo hạng mục nào'),
+                  ),
+                );
+              case ConnectionState.none:
+
+              case ConnectionState.active:
+                return SingleChildScrollView(
+                  child: Container(
+                    width: double.infinity,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0.0, 15.0),
+                                blurRadius: 15.0,
+                              ),
+                            ],
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                hintText: 'Tìm tên hạng mục',
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.search,
+                                  color: Colors.black.withOpacity(0.5),
+                                )),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        CardCategoryList('TẤT CẢ', snapshot.data),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        CardCategoryList(
+                            'Hạng mục chi',
+                            snapshot.data.where((item)=>(item.transactionType == TransactionType.EXPENSE)).toList()),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        CardCategoryList(
+                            'Hạng mục thu',
+                            snapshot.data.where((item)=>(item.transactionType == TransactionType.INCOME)).toList()),
+                        SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              default:
+                return Center(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+            }
+          },
+        ));
   }
 }

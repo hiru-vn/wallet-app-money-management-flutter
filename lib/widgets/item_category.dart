@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-
-class Category {
-  final String name;
-  final IconData icon;
-  final int type;
-
-  Category(this.name, this.type, {this.icon = Icons.category});
-}
+import 'package:wallet_exe/data/model/Category.dart';
 
 class ItemCategory extends StatelessWidget {
   final Category _category;
