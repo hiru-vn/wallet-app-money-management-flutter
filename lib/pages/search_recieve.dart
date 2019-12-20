@@ -5,21 +5,21 @@ import 'package:money/login.dart';
 import 'package:money/models/model_url.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SearchPayment extends StatefulWidget {
-  SearchPayment({Key key}) : super(key: key);
+class SearchRecieve extends StatefulWidget {
+  SearchRecieve({Key key}) : super(key: key);
 
-  _SearchPaymentState createState() => _SearchPaymentState();
+  _SearchRecieveState createState() => _SearchRecieveState();
 }
 
-class _SearchPaymentState extends State<SearchPayment> {
+class _SearchRecieveState extends State<SearchRecieve> {
   var date_start = TextEditingController();
   var date_end = TextEditingController();
-  var type_pay = TextEditingController();
-  List listtypepay = [''];
-  var maptypepay;
-  var listpayment;
-  var sumpayment;
-  bool isloading=false;
+  var type_recieve = TextEditingController();
+  List listtyperecieve = [''];
+  var maptyperecieve;
+  var listrecieve;
+  var sumrecieve;
+  bool isloading = false;
   Dio dio = Dio();
   ModelUrl modelurl = ModelUrl();
 
@@ -38,20 +38,17 @@ class _SearchPaymentState extends State<SearchPayment> {
       prefs.setInt('time', int.parse(formatted) + 10);
     }
   }
-  
   /*==================== Load list type payment  ==================*/
-  Future loadlisttypepayment() async {
-    dio.options.connectTimeout = 12000; //5s
-    dio.options.receiveTimeout = 12000;
+  Future loadlisttyperecieve() async {
     try {
-      Response response = await dio.get('${modelurl.url}api/listtypepay');
+      Response response = await dio.get('${modelurl.url}api/listtyperecive');
       if (response.statusCode == 200) {
         for (var item in response.data) {
-          listtypepay.add('${item['name']}');
+          listtyperecieve.add('${item['name']}');
         }
         setState(() {
-          maptypepay = response.data;
-          listtypepay = listtypepay;
+          maptyperecieve = response.data;
+          listtyperecieve = listtyperecieve;
         });
       }
     } on DioError catch (e) {
@@ -140,29 +137,29 @@ class _SearchPaymentState extends State<SearchPayment> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int token = await prefs.get('token');
     var type_id;
-    for (var item in maptypepay) {
-      if (item['name'] == type_pay.text) {
+    for (var item in maptyperecieve) {
+      if (item['name'] == type_recieve.text) {
         type_id = item['id'];
       }
     }
-    dio.options.connectTimeout = 12000; //5s
-    dio.options.receiveTimeout = 12000;
     FormData formData = new FormData.from({
       'type_id': type_id,
       'date_start': date_start.text,
       'date_end':
           date_end.text, // use for create or update if id=null is create
     });
+    dio.options.connectTimeout = 12000; //5s
+    dio.options.receiveTimeout = 12000;
     try {
-      Response response = await dio.post('${modelurl.url}api/listpaymentsearch',
+      Response response = await dio.post('${modelurl.url}api/listrecievesearch',
           data: formData);
       Response responsesum = await dio
-          .post('${modelurl.url}api/countpaymentsearch', data: formData);
+          .post('${modelurl.url}api/countrecievesearch', data: formData);
       if (response.statusCode == 200) {
         setState(() {
           isloading=false;
-          listpayment = response.data;
-          sumpayment = responsesum.data['sum'];
+          listrecieve = response.data;
+          sumrecieve = responsesum.data['sum'];
         });
       }
     } on DioError catch (e) {
@@ -175,18 +172,19 @@ class _SearchPaymentState extends State<SearchPayment> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     checkloginexiped();
-    loadlisttypepayment();
+    loadlisttyperecieve();
   }
 
   bool ss = true;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ຄົ້ນ​ຫາ​ລາຍ​ຈ່າຍ'),
+        title: Text('ຄົ້ນ​ຫາ​ລາຍ​ຮັບ'),
       ),
-      body: sumpayment == null
+      body: sumrecieve == null
           ? Container(
               padding: EdgeInsets.all(10),
               child: ListView(
@@ -220,19 +218,19 @@ class _SearchPaymentState extends State<SearchPayment> {
                   SizedBox(height: 10.0),
                   InputDecorator(
                     decoration: InputDecoration(
-                      labelText: 'ເລືອກ​ປະ​ເພດ​ລາຍ​ຈ່າຍ',
+                      labelText: 'ເລືອກ​ປະ​ເພດ​ລາຍ​ຮັບ',
                     ),
-                    isEmpty: type_pay.text == null,
+                    isEmpty: type_recieve.text == null,
                     child: new DropdownButtonHideUnderline(
                       child: new DropdownButton<String>(
-                        value: type_pay.text,
+                        value: type_recieve.text,
                         isDense: true,
                         onChanged: (String newValue) {
                           setState(() {
-                            type_pay.text = newValue;
+                            type_recieve.text = newValue;
                           });
                         },
-                        items: listtypepay.map((value) {
+                        items: listtyperecieve.map((value) {
                           return new DropdownMenuItem<String>(
                             value: value,
                             child: new Text(value),
@@ -242,28 +240,31 @@ class _SearchPaymentState extends State<SearchPayment> {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  isloading?Center(child: CircularProgressIndicator(),)
-                  :RaisedButton.icon(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      'ຄົ້ນ​ຫາ',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    key: null,
-                    onPressed: () {
-                      searchpayment();
-                    },
-                    // onPressed: loginpress,
-                    color: Colors.blue,
-                  ),
+                  isloading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : RaisedButton.icon(
+                          icon: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            'ຄົ້ນ​ຫາ',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          key: null,
+                          onPressed: () {
+                            searchpayment();
+                          },
+                          // onPressed: loginpress,
+                          color: Colors.blue,
+                        ),
                 ],
               ),
             )
           : ListView.builder(
-              itemCount: listpayment != null ? listpayment.length : 0,
+              itemCount: listrecieve != null ? listrecieve.length : 0,
               itemBuilder: (BuildContext context, int index) {
                 final formatter = new NumberFormat("#,###.00");
                 // listpayment[index]['amount']
@@ -281,7 +282,7 @@ class _SearchPaymentState extends State<SearchPayment> {
                                     child: Column(
                                       children: <Widget>[
                                         Text(
-                                          'ລວມ​ລາຍ​ຈ່າຍ',
+                                          'ລວມ​ລາຍ​ຮັບ',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
@@ -301,7 +302,7 @@ class _SearchPaymentState extends State<SearchPayment> {
                                       children: <Widget>[
                                         Text(
                                           formatter.format(
-                                                  int.parse('$sumpayment')) +
+                                                  int.parse('$sumrecieve')) +
                                               ' ​ກີບ',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -321,7 +322,7 @@ class _SearchPaymentState extends State<SearchPayment> {
                           height: 60.0,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                                '${modelurl.urlimg}${listpayment[index]['user']['photo']}'),
+                                '${modelurl.urlimg}${listrecieve[index]['user']['photo']}'),
                           )),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -341,7 +342,8 @@ class _SearchPaymentState extends State<SearchPayment> {
                                           MainAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          listpayment[index]['typePay']['name'],
+                                          listrecieve[index]['tyeReceive']
+                                              ['name'],
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14.0,
@@ -349,19 +351,19 @@ class _SearchPaymentState extends State<SearchPayment> {
                                         ),
                                         Text(
                                           formatter.format(int.parse(
-                                                  listpayment[index]
+                                                  listrecieve[index]
                                                       ['amount'])) +
                                               ' ກີບ',
                                           style: TextStyle(color: Colors.red),
                                         ),
                                         Text(
-                                          listpayment[index]['description'],
+                                          listrecieve[index]['description'],
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: true,
                                           maxLines: 2,
                                         ),
                                         Text(
-                                          listpayment[index]['date'],
+                                          listrecieve[index]['date'],
                                         ),
                                       ],
                                     ),
@@ -371,7 +373,6 @@ class _SearchPaymentState extends State<SearchPayment> {
                         ],
                       ),
                     ),
-                    
                   ],
                 );
               },
