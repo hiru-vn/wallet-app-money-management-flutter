@@ -66,7 +66,7 @@ class AccountTable {
 
   Future<List<Account>> getAllAccount() async {
     final Database db = DatabaseHelper.instance.database;
-    final List<Map<String, dynamic>> maps = await db.query('account');
+    final List<Map<String, dynamic>> maps = await db.query(tableName);
 
     // List<Account> accounts = List<Account>();
     // accounts = maps.map( (f) {

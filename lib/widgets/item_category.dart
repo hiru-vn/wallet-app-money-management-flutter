@@ -15,6 +15,7 @@ class ItemCategory extends StatelessWidget {
       onTap: () {
         Navigator.pop(
           context,
+          this._category,
         );
       },
     );

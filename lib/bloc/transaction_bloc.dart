@@ -25,6 +25,7 @@ class TransactionBloc extends BaseBloc {
     if (_transactionListData == null) return;
 
     print('transaction bloc init');
+    print(_transactionListData[0].amount);
 
     _transactionListStreamController.sink.add(_transactionListData);
   }

@@ -4,7 +4,7 @@ import 'package:wallet_exe/data/model/Transaction.dart' as trans;
 import '../database_helper.dart';
 
 class TransactionTable {
-  final tableName = 'transaction';
+  final tableName = 'transaction_table';
   final id = 'id';
   final date = 'date';
   final amount = 'amount';
@@ -24,7 +24,7 @@ class TransactionTable {
 
   Future<List<trans.Transaction>> getAll() async {
     final Database db = DatabaseHelper.instance.database;
-    final List<Map<String, dynamic>> maps = await db.query('account');
+    final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
 
     return List.generate(maps.length, (index) {
       return trans.Transaction.fromMap(maps[index]);

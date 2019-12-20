@@ -2,6 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/dao/category_table.dart';
+import 'package:wallet_exe/data/dao/transaction_table.dart';
 
 class DatabaseHelper {
   static const DB_NAME = 'wallet.db';
@@ -19,10 +20,12 @@ class DatabaseHelper {
       onCreate: (db, version) {
         AccountTable().onCreate(db, version);
         CategoryTable().onCreate(db, version);
+        TransactionTable().onCreate(db, version);
       },
       onUpgrade: (db , oldVersion, newVersion) {
         AccountTable().onCreate(db, newVersion);
         CategoryTable().onCreate(db, newVersion);
+        TransactionTable().onCreate(db, newVersion);
       },
       version: DB_VERSION
     );

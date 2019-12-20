@@ -13,14 +13,13 @@ class Transaction {
   DateTime date;
   String description;
 
-  Transaction({
-    this.id,
+  Transaction(
     this.account,
     this.category,
     this.amount,
     this.date,
     this.description
-  });
+  );
 
   Transaction.copyOf(Transaction copy) {
     this.id = copy.id;
@@ -33,6 +32,12 @@ class Transaction {
 
   // getter
   Map<String, dynamic> toMap() {
+    print('object:' + id.toString());
+    print('object:' + convertToISO8601DateFormat(date));
+    print('object:' + amount.toString());
+    print('object:' + description);
+    print('object:' + category.id.toString());
+    print('object:' + account.id.toString());
     return {
       TransactionTable().id: id,
       TransactionTable().date: convertToISO8601DateFormat(date),

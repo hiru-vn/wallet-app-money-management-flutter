@@ -20,7 +20,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
   String _currentOption;
   final _formNameKey = GlobalKey<FormState>();
 
-  var _bloc = AccountBloc();
   var _nameController = TextEditingController();
   var _balanceController = TextEditingController();
   var _descriptionController = TextEditingController();
@@ -47,6 +46,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    var _bloc = AccountBloc();
+    
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
