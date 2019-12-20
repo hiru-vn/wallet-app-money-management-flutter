@@ -1,8 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/data/model/Transaction.dart';
 import 'package:wallet_exe/widgets/item_transaction.dart';
 
 class CardTransaction extends StatelessWidget {
-  const CardTransaction({Key key}) : super(key: key);  
+  List<Transaction> _list = List<Transaction>();
+  DateTime _date;
+  CardTransaction(this._list, this._date);
+
+  List<ItemTransaction> _createRenderItem() {
+    List<ItemTransaction> listItem = List<ItemTransaction>();
+    for (int i = 0; i< _list.length; i++) {
+      listItem.add(ItemTransaction(_list[i]));
+    }
+    
+    return listItem;
+  }
+
+  String _getDate() {
+    return this._date.day.toString()+"/"+this._date.month.toString()+"/"+this._date.year.toString();
+  }
+
+  bool checkEqualDate(DateTime date1, DateTime date2) {
+    if (date1.day==date2.day && date1.month==date2.month && date1.year==date2.year) return true;
+    return false;
+  }
+
+  String _getTitle() {
+    final now = DateTime.now();
+    if (checkEqualDate(_date, now)) return ("Hôm nay");
+    if (checkEqualDate(_date, now.subtract(Duration(days: 1)))) return ("Hôm qua");
+    if (checkEqualDate(_date, now.subtract(Duration(days: 2)))) return ("Hôm kia");
+    if (_date.weekday == 7) return "Chủ Nhật";
+    return "Thứ "+_date.weekday.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +55,11 @@ class CardTransaction extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text("Hôm nay",style: Theme.of(context).textTheme.title,),
-            Text("7/12/2019",style: Theme.of(context).textTheme.subtitle,),
+            Text(_getTitle(),style: Theme.of(context).textTheme.title,),
+            Text(_getDate(),style: Theme.of(context).textTheme.subtitle,),
           ],
         ),
-        children: <Widget>[
-          ItemTransaction('assets/bank.png', 'lãi tiết kiêm', 1500000),
-          ItemTransaction('assets/bank.png', 'ăn uống', -1500000),
-          ItemTransaction('assets/bank.png', 'du lịch', 1500000),
-          ItemTransaction('assets/bank.png', 'mua sắm', 1500000),
-        ],
+        children: _createRenderItem(),
       )
     );
   }

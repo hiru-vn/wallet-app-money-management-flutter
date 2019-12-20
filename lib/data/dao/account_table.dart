@@ -30,6 +30,18 @@ class AccountTable {
     db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0)');
   }
 
+  Future<List<String>> getAllAccountName() async {
+    final Database db = DatabaseHelper.instance.database;
+    final List<Map<String, dynamic>> maps = await db.query(tableName);
+
+    List<String> result = List.generate(maps.length, (index) {
+      return Account.fromMap(maps[index]).name;
+    });
+
+    result.insert(0, "Tất cả");
+    return result;
+  }
+
   Future<int> insert(Account account) async {
     // Get a reference to the database.
     final Database db = DatabaseHelper.instance.database;
