@@ -32,12 +32,6 @@ class Transaction {
 
   // getter
   Map<String, dynamic> toMap() {
-    print('object:' + id.toString());
-    print('object:' + convertToISO8601DateFormat(date));
-    print('object:' + amount.toString());
-    print('object:' + description);
-    print('object:' + category.id.toString());
-    print('object:' + account.id.toString());
     return {
       TransactionTable().id: id,
       TransactionTable().date: convertToISO8601DateFormat(date),

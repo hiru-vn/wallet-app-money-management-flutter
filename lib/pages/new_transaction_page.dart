@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/data/model/Transaction.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
+import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/event/transaction_event.dart';
 import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
@@ -46,10 +49,17 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       return now.hour.toString() + ":" + now.minute.toString();
     }
 
+    _getCurrencyColor() {
+      if (this._category == null) return Colors.red;
+      return (this._category.transactionType == TransactionType.EXPENSE)? Colors.red:Colors.green;
+    }
+
   @override
   Widget build(BuildContext context) {
     var _bloc = TransactionBloc();
+    var _bloc_account = AccountBloc();
     _bloc.initData();
+    _bloc_account.initData();
 
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
@@ -59,9 +69,15 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       if (!this._formBalanceKey.currentState.validate()) {
         return;
       }
+      if (_account == null) return;
+      if (_category == null) return;
       
       Transaction transaction = Transaction(this._account,this._category,currencyToInt(this._balanceController.text), DateTime.now() ,this._descriptionController.text);
       _bloc.event.add(AddTransactionEvent(transaction));
+      
+      this._account.balance-= currencyToInt(this._balanceController.text);
+      print(this._account.balance);
+      _bloc_account.event.add(UpdateAccountEvent(this._account));
 
       Navigator.pop(context);
     }
@@ -112,7 +128,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           textAlign: TextAlign.end,
                           inputFormatters: [CurrencyTextFormatter()],
                           style: TextStyle(
-                              color: Colors.red,
+                              color: _getCurrencyColor(),
                               fontSize: 32,
                               fontWeight: FontWeight.w900),
                           keyboardType: TextInputType.numberWithOptions(

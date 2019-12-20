@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet_exe/bloc/category_bloc.dart';
+import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/pages/main_page.dart';
 import './bloc/account_bloc.dart';
 
 void main() async { 
   await DatabaseHelper.instance.init();
+  AccountBloc().initData();
+  TransactionBloc().initData();
+  CategoryBloc().initData();
   runApp(MyApp());
 }
 

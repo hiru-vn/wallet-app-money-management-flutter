@@ -45,7 +45,7 @@ class AccountTable {
 
   Future<void> updateAccount(Account account) async {
     final Database db = DatabaseHelper.instance.database;
-    //await db.update(tableName, where: 'id = ?', whereArgs: [account.id]);
+    await db.update(tableName, account.toMap(), where: 'id = ?', whereArgs: [account.id]);
   }
 
   Future<String> getTotalBalance() async {

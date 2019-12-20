@@ -32,8 +32,6 @@ class CategoryBloc extends BaseBloc {
   _addCategory(Category category) async {
     _categorytable.insert(category);
 
-
-    print('insert category');
     _categoryListData.add(category);
     _categoryListStreamController.sink.add(_categoryListData);
   }

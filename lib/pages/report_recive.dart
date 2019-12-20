@@ -69,7 +69,7 @@ void initState() {
           ),
           body: TabBarView(
             children: [
-               TabReciveWeek(),
+              TabReciveWeek(),
               TabReciveMonth(),
               TabReciveYear(),
             ],
