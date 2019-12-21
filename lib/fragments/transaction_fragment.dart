@@ -45,17 +45,42 @@ class _TransactionFragmentState extends State<TransactionFragment> {
   }
 
   List<Widget> _createListCardTransaction(List<Transaction> list) {
+    print(list[0].account.type.name);
+    print(list[0].category.name);
     List<Widget> result = List<Widget>();
+    List<Transaction> filter = list;
+
+    if (_currentOption != "Tất cả")
+      filter =
+          list.where((item) => (item.account.name == _currentOption)).toList();
+    
+    // if user find day
+    if (this.selectedDate.day != DateTime.now().day ||
+        this.selectedDate.month != DateTime.now().month ||
+        this.selectedDate.year != DateTime.now().year) {
+      filter = filter
+          .where((item) => (item.date.year == selectedDate.year &&
+              item.date.month == selectedDate.month &&
+              item.date.day == selectedDate.day))
+          .toList();
+      result.add(CardTransaction(filter, this.selectedDate));
+      return result;
+    }
+
+    var tempFilter = filter;
     // the last 7 days
     DateTime flagDate = DateTime.now();
-
-    for(int i=0; i<7; i++) {
-      List<Transaction> filter = list.where((item)=>(item.date.year==flagDate.year&&item.date.month==flagDate.month&&item.date.day==flagDate.day)).toList();
+    for (int i = 0; i < 7; i++) {
+      filter = tempFilter
+        .where((item) => (item.date.year == flagDate.year &&
+            item.date.month == flagDate.month &&
+            item.date.day == flagDate.day))
+        .toList();
       result.add(CardTransaction(filter, flagDate));
       result.add(SizedBox(height: 15));
       flagDate = flagDate.subtract(Duration(days: 1));
     }
-    
+
     return result;
   }
 
@@ -97,16 +122,16 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                             FutureBuilder<List<String>>(
                                 future: AccountTable().getAllAccountName(),
                                 builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.hasError) {
-                                    print(snapshot.error.toString());
+                                    AsyncSnapshot snapshot2) {
+                                  if (snapshot2.hasError) {
+                                    print(snapshot2.error.toString());
                                     return Center(
-                                        child: Text(snapshot.error.toString()));
-                                  } else if (snapshot.hasData) {
+                                        child: Text(snapshot2.error.toString()));
+                                  } else if (snapshot2.hasData) {
                                     return DropdownButton<String>(
                                       value: _currentOption,
                                       items:
-                                          _getDropDownMenuItems(snapshot.data),
+                                          _getDropDownMenuItems(snapshot2.data),
                                       onChanged: changedDropDownItem,
                                     );
                                   }

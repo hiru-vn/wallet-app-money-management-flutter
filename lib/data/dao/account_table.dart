@@ -10,7 +10,7 @@ import '../database_helper.dart';
 class AccountTable {
   final tableName = 'account';
   final id = 'id';
-  final name = 'name';
+  final name = 'account_name';
   //final int idAppAccount; //TO DO
   final balance = 'balance';
   final type = 'type';
@@ -20,7 +20,7 @@ class AccountTable {
     db.execute('''
     CREATE TABLE account (
       id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL UNIQUE,
+      account_name TEXT NOT NULL UNIQUE,
       balance INTEGER NOT NULL,
       type INTEGER NOT NULL,
       icon INTEGER NOT NULL)
