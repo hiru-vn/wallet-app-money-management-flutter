@@ -31,8 +31,11 @@ dependencies:
   sqflite: ^1.1.8
   path: ^1.6.2
 
+  # Week of year, Date of year
+  jiffy: ^2.1.2
+
   # date format, money format
-  intl: ^0.15.8
+  intl: ^0.16.0
   flutter_masked_text:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -65,6 +65,7 @@ class AccountTable {
     String rawQuery = 'SELECT SUM(balance) FROM $tableName';
 
     final List<Map<String, dynamic>> map = await db.rawQuery(rawQuery);
+    print(map[0].values.toString());
     return map[0].values.toString();
   }
 

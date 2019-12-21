@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet_exe/bloc/transaction_bloc.dart';
+import 'package:wallet_exe/data/dao/transaction_table.dart';
+import 'package:wallet_exe/data/model/Transaction.dart';
+import 'package:wallet_exe/enums/duration_filter.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class Cardbalance extends StatefulWidget {
   Cardbalance({Key key}) : super(key: key);
@@ -11,16 +16,14 @@ class Cardbalance extends StatefulWidget {
 }
 
 class _CardbalanceState extends State<Cardbalance> {
-  List _option = ["Hôm nay", "Tuần này", "Tháng này", "Năm nay"];
+  List _option = DurationFilter.getAllType();
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
-  double inCome = 1000000;
-  double outCome = 2000000;
 
   @override
   void initState() {
     _dropDownMenuItems = getDropDownMenuItems();
-    _currentOption = "Tháng này";
+    _currentOption = DurationFilter.THISMONTH.name;
     super.initState();
   }
 
@@ -40,152 +43,200 @@ class _CardbalanceState extends State<Cardbalance> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.only(top: 15, left: 15, right: 15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0.0, 15.0),
-            blurRadius: 15.0,
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-              flex: 4,
-              child: Padding(
-                padding: EdgeInsets.only(top: 12),
-                child: Column(
-                  children: <Widget>[
-                    Text('Tình hình thu chi',
-                        style: Theme.of(context).textTheme.title),
-                    Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Container(
-                            height: 150,
-                            width: ScreenUtil.getInstance().setWidth(120),
-                            color: Colors.red,
-                          ),
-                          Container(
-                            height: 100,
-                            width: ScreenUtil.getInstance().setWidth(120),
-                            color: Colors.green,
-                          ),
-                        ],
-                      ),
-                    )
+    var _bloc = TransactionBloc();
+    _bloc.initData();
+    return StreamBuilder<List<Transaction>>(
+        stream: _bloc.transactionListStream,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.active:
+              if (snapshot.data.length == 0)
+                return SizedBox(
+                  height: 15,
+                );
+              final values = TransactionTable().getTotal(snapshot.data,
+                  DurationFilter.valueFromName(this._currentOption));
+              final inCome = values[0];
+              final outCome = values[1];
+              final inComeHeight = inCome / (inCome + outCome) * 150 + 5;
+              final outComeHeight = outCome / (inCome + outCome) * 150 + 5;
+              return Container(
+                width: double.infinity,
+                padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0.0, 15.0),
+                      blurRadius: 15.0,
+                    ),
                   ],
                 ),
-              )),
-          Expanded(
-            flex: 6,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                DropdownButton(
-                  value: _currentOption,
-                  items: _dropDownMenuItems,
-                  onChanged: changedDropDownItem,
-                ),
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              CircleAvatar(
-                                backgroundColor: Colors.green,
-                                radius: 5.0,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text('Thu', style: TextStyle(fontSize: 16)),
-                            ],
-                          ),
-                          Text(
-                            inCome.toString() + ' đ',
-                            style: TextStyle(color: Colors.green, fontSize: 18),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              CircleAvatar(
-                                backgroundColor: Colors.red,
-                                radius: 5.0,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text('Chi', style: TextStyle(fontSize: 16)),
-                            ],
-                          ),
-                          Text(
-                            outCome.toString() + ' đ',
-                            style: TextStyle(color: Colors.red, fontSize: 18),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Divider(),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Tích lũy', style: TextStyle(fontSize: 16)),
-                          Text(
-                            (inCome - outCome).toString() + ' đ',
-                            style: TextStyle(fontSize: 18),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          InkWell(
-                            onTap: () {},
-                            child: Text(
-                              "Xem ghi chép",
-                              style: TextStyle(
-                                color: Colors.blue,
-                              ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 12),
+                          child: Container(
+                            height: 190,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text('Tình hình thu chi',
+                                    style: Theme.of(context).textTheme.title),
+                                Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Container(
+                                        height: outComeHeight,
+                                        width: ScreenUtil.getInstance()
+                                            .setWidth(120),
+                                        color: Colors.red,
+                                      ),
+                                      Container(
+                                        height: inComeHeight,
+                                        width: ScreenUtil.getInstance()
+                                            .setWidth(120),
+                                        color: Colors.green,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                          Icon(Icons.navigate_next,color: Colors.blue,)
+                        )),
+                    Expanded(
+                      flex: 6,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          DropdownButton(
+                            value: _currentOption,
+                            items: _dropDownMenuItems,
+                            onChanged: changedDropDownItem,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        CircleAvatar(
+                                          backgroundColor: Colors.green,
+                                          radius: 5.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Thu',
+                                            style: TextStyle(fontSize: 16)),
+                                      ],
+                                    ),
+                                    Text(
+                                      textToCurrency(inCome.toString()) + ' đ',
+                                      style: TextStyle(
+                                          color: Colors.green, fontSize: 18),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Row(
+                                      children: <Widget>[
+                                        CircleAvatar(
+                                          backgroundColor: Colors.red,
+                                          radius: 5.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Chi',
+                                            style: TextStyle(fontSize: 16)),
+                                      ],
+                                    ),
+                                    Text(
+                                      textToCurrency(outCome.toString()) + ' đ',
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 18),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Divider(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text('Tích lũy',
+                                        style: TextStyle(fontSize: 16)),
+                                    Text(
+                                      textToCurrency(
+                                              (inCome - outCome).toString()) +
+                                          ' đ',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Text(
+                                        "Xem ghi chép",
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.navigate_next,
+                                      color: Colors.blue,
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                      ),
+                    ),
+                  ],
+                ),
+              );
+
+            default:
+              return Center(
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(),
+                ),
+              );
+          }
+        });
   }
 }

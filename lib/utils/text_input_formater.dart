@@ -23,8 +23,12 @@ class CurrencyTextFormatter extends TextInputFormatter {
 }
 
 String textToCurrency(String text) {
+  bool isNegative = false;
+  if (text.contains('-')) isNegative=true; 
   int number = int.parse(text.replaceAll(RegExp(r'[^\w\s]+'), '').replaceAll('[^\\d.]', ''));
-  return NumberFormat("#,###").format(number);
+  if (!isNegative)
+    return NumberFormat("#,###").format(number);
+  return "- "+NumberFormat("#,###").format(number);
 }
 
 int currencyToInt(String text) {

@@ -24,8 +24,6 @@ class AccountBloc extends BaseBloc {
     _accountListData = await _accountTable.getAllAccount();
     if (_accountListData == null) return;
 
-    print('account bloc init');
-
     _accountListStreamController.sink.add(_accountListData);
   }
 

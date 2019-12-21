@@ -1,5 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/model/Transaction.dart' as trans;
+import 'package:wallet_exe/enums/duration_filter.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
 
 import '../database_helper.dart';
 
@@ -11,7 +13,7 @@ class TransactionTable {
   final description = 'description';
   final idCategory = 'id_category';
   final idAccount = 'id_account';
- 
+
   void onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName('
         '$id INTEGER PRIMARY KEY,'
@@ -24,11 +26,32 @@ class TransactionTable {
 
   Future<List<trans.Transaction>> getAll() async {
     final Database db = DatabaseHelper.instance.database;
-    final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
 
     return List.generate(maps.length, (index) {
       return trans.Transaction.fromMap(maps[index]);
     });
+  }
+
+  //get income, outcome per duration
+  List<int> getTotal(
+    List<trans.Transaction> list, DurationFilter durationFilter) {
+    List<int> result = List<int>();
+    int income = 0;
+    int outcome = 0;
+    for (int i = 0; i < list.length; i++) {
+      if (DurationFilter.checkValidInDurationFromNow(
+          list[i].date, durationFilter)) {
+        if (list[i].category.transactionType == TransactionType.INCOME)
+          income += list[i].amount;
+        if (list[i].category.transactionType == TransactionType.EXPENSE)
+          outcome += list[i].amount;
+      }
+    }
+    result.add(income);
+    result.add(outcome);
+    return result;
   }
 
   Future<int> insert(trans.Transaction transaction) async {

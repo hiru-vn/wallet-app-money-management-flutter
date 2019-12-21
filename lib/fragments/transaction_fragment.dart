@@ -45,8 +45,6 @@ class _TransactionFragmentState extends State<TransactionFragment> {
   }
 
   List<Widget> _createListCardTransaction(List<Transaction> list) {
-    print(list[0].account.type.name);
-    print(list[0].category.name);
     List<Widget> result = List<Widget>();
     List<Transaction> filter = list;
 

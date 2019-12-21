@@ -74,8 +74,14 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       
       Transaction transaction = Transaction(this._account,this._category,currencyToInt(this._balanceController.text), DateTime.now() ,this._descriptionController.text);
       _bloc.event.add(AddTransactionEvent(transaction));
+
+      print(currencyToInt(this._balanceController.text));
       
-      this._account.balance-= currencyToInt(this._balanceController.text);
+      if (this._category.transactionType == TransactionType.EXPENSE)  
+        this._account.balance-= currencyToInt(this._balanceController.text);
+      if (this._category.transactionType == TransactionType.INCOME)
+        this._account.balance+= currencyToInt(this._balanceController.text);
+      
       print(this._account.balance);
       _bloc_account.event.add(UpdateAccountEvent(this._account));
 
