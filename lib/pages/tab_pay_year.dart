@@ -60,11 +60,6 @@ class _TabPayYearState extends State<TabPayYear> {
       alert('ມີ​ຂ​ໍ້​ຜິດ​ພາດ', 'ກວດ​ເບີ່ງ​ການ​ເຊື່ອມ​ຕໍ່​ເນັ​ດ.!');
     }
   }
-  _getTotal()
-  {
-    getTotalCount();
-    return allrecode;
-  }
 
   Future<List> getPageMonth(pageIndex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -137,13 +132,6 @@ class _TabPayYearState extends State<TabPayYear> {
             )
           : Divider(),
       ListTile(
-        leading: SizedBox(
-            width: 60.0,
-            height: 60.0,
-            child: CircleAvatar(
-              backgroundImage:
-                  NetworkImage('${modelurl.urlimg}${entry['user']['photo']}'),
-            )),
         title: Text(
           entry['typePay']['name'],
           style: TextStyle(
@@ -157,12 +145,6 @@ class _TabPayYearState extends State<TabPayYear> {
             Text(
               formatter.format(int.parse(entry['amount'])) + ' ກີບ',
               style: TextStyle(color: Colors.red),
-            ),
-            Text(
-              entry['description'],
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-              maxLines: 2,
             ),
             Text(
               entry['date'],

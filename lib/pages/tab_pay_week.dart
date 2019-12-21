@@ -95,40 +95,6 @@ class _TabPayWeekState extends State<TabPayWeek> {
               ],
             )
           : Divider(),
-      ListTile(
-        leading: SizedBox(
-            width: 60.0,
-            height: 60.0,
-            child: CircleAvatar(
-              backgroundImage:
-                  NetworkImage('${modelurl.urlimg}${entry['user']['photo']}'),
-            )),
-        title: Text(
-          entry['typePay']['name'],
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14.0, color: Colors.black),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              formatter.format(int.parse(entry['amount'])) + ' ກີບ',
-              style: TextStyle(color: Colors.red),
-            ),
-            Text(
-              entry['description'],
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-              maxLines: 2,
-            ),
-            Text(
-              entry['date'],
-            ),
-          ],
-        ),
-      ),
     ];
   }
 _getTotal()
