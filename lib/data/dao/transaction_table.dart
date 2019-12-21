@@ -4,7 +4,7 @@ import 'package:wallet_exe/data/model/Transaction.dart' as trans;
 import '../database_helper.dart';
 
 class TransactionTable {
-  final tableName = 'transaction';
+  final tableName = 'transaction_table';
   final id = 'id';
   final date = 'date';
   final amount = 'amount';
@@ -14,12 +14,21 @@ class TransactionTable {
  
   void onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName('
-        '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
+        '$id INTEGER PRIMARY KEY,'
         '$date TEXT NOT NULL,'
         '$amount INTEGER NOT NULL,'
         '$description TEXT,'
         '$idCategory INTEGER NOT NULL,'
         '$idAccount INTEGER NOT NULL)');
+  }
+
+  Future<List<trans.Transaction>> getAll() async {
+    final Database db = DatabaseHelper.instance.database;
+    final List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
+
+    return List.generate(maps.length, (index) {
+      return trans.Transaction.fromMap(maps[index]);
+    });
   }
 
   Future<int> insert(trans.Transaction transaction) async {
@@ -43,5 +52,10 @@ class TransactionTable {
     final Database db = DatabaseHelper.instance.database;
 
     return db.delete(tableName, where: id + '=?', whereArgs: [transactionId]);
+  }
+
+  Future<void> update(trans.Transaction transaction) async {
+    final Database db = DatabaseHelper.instance.database;
+    //await db.update(tableName, where: 'id = ?', whereArgs: [transaction.id]);
   }
 }

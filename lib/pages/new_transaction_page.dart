@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wallet_exe/bloc/account_bloc.dart';
+import 'package:wallet_exe/bloc/transaction_bloc.dart';
+import 'package:wallet_exe/data/model/Account.dart';
+import 'package:wallet_exe/data/model/Category.dart';
+import 'package:wallet_exe/data/model/Transaction.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
+import 'package:wallet_exe/event/account_event.dart';
+import 'package:wallet_exe/event/transaction_event.dart';
+import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
@@ -11,14 +20,65 @@ class NewTransactionPage extends StatefulWidget {
 }
 
 class _NewTransactionPageState extends State<NewTransactionPage> {
+  var _balanceController = TextEditingController();
+  var _descriptionController = TextEditingController();
+  var _formBalanceKey = GlobalKey<FormState>();
+  Category _category;
+  Account _account;
+
+  @override
+  void initState() { 
+    super.initState();
+    
+  }
+
+  _getCurrentDate() {
+      DateTime now = DateTime.now();
+      String wd =
+          now.weekday == 7 ? "Chủ Nhật" : "Thứ " + (now.weekday + 1).toString();
+      String date = now.day.toString() +
+          "/" +
+          now.month.toString() +
+          "/" +
+          now.year.toString();
+      return wd + " - " + date;
+    }
+
+    _getCurrentTime() {
+      DateTime now = DateTime.now();
+      return now.hour.toString() + ":" + now.minute.toString();
+    }
+
+    _getCurrencyColor() {
+      if (this._category == null) return Colors.red;
+      return (this._category.transactionType == TransactionType.EXPENSE)? Colors.red:Colors.green;
+    }
+
   @override
   Widget build(BuildContext context) {
+    var _bloc = TransactionBloc();
+    var _bloc_account = AccountBloc();
+    _bloc.initData();
+    _bloc_account.initData();
+
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
-    _submit() {
-      //save data
+    void _submit() {
+      if (!this._formBalanceKey.currentState.validate()) {
+        return;
+      }
+      if (_account == null) return;
+      if (_category == null) return;
+      
+      Transaction transaction = Transaction(this._account,this._category,currencyToInt(this._balanceController.text), DateTime.now() ,this._descriptionController.text);
+      _bloc.event.add(AddTransactionEvent(transaction));
+      
+      this._account.balance-= currencyToInt(this._balanceController.text);
+      print(this._account.balance);
+      _bloc_account.event.add(UpdateAccountEvent(this._account));
+
       Navigator.pop(context);
     }
 
@@ -55,17 +115,28 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                     children: <Widget>[
                       Expanded(
                         flex: 1,
-                        child: TextField(
+                        child: Form(
+                          key: _formBalanceKey,
+                          child: TextFormField(
+                          validator: (String value) {
+                            if (value.trim()=="") return 'Số tiền phải lớn hơn 0';
+                            return currencyToInt(value) <= 0
+                                ? 'Số tiền phải lớn hơn 0'
+                                : null;
+                          },
+                          controller: _balanceController,
                           textAlign: TextAlign.end,
                           inputFormatters: [CurrencyTextFormatter()],
                           style: TextStyle(
-                              color: Colors.red,
+                              color: _getCurrencyColor(),
                               fontSize: 32,
                               fontWeight: FontWeight.w900),
                           keyboardType: TextInputType.numberWithOptions(
                               signed: true, decimal: true),
                           autofocus: true,
                           decoration: InputDecoration(
+                            suffixText: 'đ',
+                            suffixStyle: Theme.of(context).textTheme.headline,
                             prefix: Icon(
                               Icons.monetization_on,
                               color: Theme.of(context).accentColor,
@@ -77,14 +148,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'đ',
-                        style: Theme.of(context).textTheme.headline,
+                        ),),
                       ),
                     ],
                   ),
@@ -113,8 +177,8 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: InkWell(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        _category = await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryPage()),
@@ -132,7 +196,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              'Chọn hạng mục',
+                              _category==null? 'Chọn hạng mục':_category.name,
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.grey,
@@ -162,6 +226,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: TextField(
+                              controller: this._descriptionController,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -198,7 +263,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                             child: InkWell(
                               onTap: () {},
                               child: Text(
-                                'Thứ 6 - 14/11/2019',
+                                _getCurrentDate(),
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.black,
@@ -208,7 +273,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                         InkWell(
                           onTap: () {},
                           child: Text(
-                            '12:48',
+                            _getCurrentTime(),
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -221,7 +286,13 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () async {
+                        _account = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AccountPage()),
+                        );
+                      },
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -234,7 +305,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              'ATM',
+                              _account==null?'Chọn tài khoản':_account.name,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,

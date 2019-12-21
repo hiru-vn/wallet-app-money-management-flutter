@@ -13,7 +13,7 @@ class CategoryTable {
 
   void onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName('
-        '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
+        '$id INTEGER PRIMARY KEY,'
         '$color INTEGER NOT NULL,'
         '$name TEXT NOT NULL UNIQUE,'
         '$type INTEGER NOT NULL,'

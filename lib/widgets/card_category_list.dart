@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/widgets/item_category.dart';
 
 class CardCategoryList extends StatelessWidget {
@@ -10,7 +11,7 @@ class CardCategoryList extends StatelessWidget {
   List<Widget> createListCategory() {
     List<Widget> list = [];
     list.add(Divider());
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < _categories.length; i++) {
       list.add(ItemCategory(_categories[i]));
       list.add(Divider());
     }

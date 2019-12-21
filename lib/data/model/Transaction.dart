@@ -2,7 +2,7 @@ import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/utils/date_format_util.dart';
 
-import '../dao/transation_table.dart';
+import '../dao/transaction_table.dart';
 
 class Transaction {
   int id; // auto generate & unique
@@ -13,14 +13,22 @@ class Transaction {
   DateTime date;
   String description;
 
-  Transaction({
-    this.id,
+  Transaction(
     this.account,
     this.category,
     this.amount,
     this.date,
     this.description
-  });
+  );
+
+  Transaction.copyOf(Transaction copy) {
+    this.id = copy.id;
+    this.account = copy.account;
+    this.category = copy.category;
+    this.amount = copy.amount;
+    this.date = copy.date;
+    this.description = copy.description;
+  }
 
   // getter
   Map<String, dynamic> toMap() {

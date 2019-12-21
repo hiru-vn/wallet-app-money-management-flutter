@@ -26,3 +26,7 @@ String textToCurrency(String text) {
   int number = int.parse(text.replaceAll(RegExp(r'[^\w\s]+'), '').replaceAll('[^\\d.]', ''));
   return NumberFormat("#,###").format(number);
 }
+
+int currencyToInt(String text) {
+  return int.parse(text.replaceAll(RegExp(r'[^\w\s]+'), '').replaceAll('[^\\d.]', ''));
+}
