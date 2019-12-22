@@ -20,27 +20,40 @@ class _TabPayWeekState extends State<TabPayWeek> {
   int allrecode = 10;
   int sum_w = 0;
   /* ==================== alert ==============*/
-  void alert(var title, var detail) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: Center(
-              child: new Text("${title}",
-                  style: TextStyle(fontSize: 20.0, color: Colors.red))),
-          content: new Text("${detail}"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("ປິດ"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+
+  Future getTotalCount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int token = await prefs.get('token');
+    try {
+      Response response =
+          await dio.get('${modelurl.url}api/countpayweekrecode');
+      if (response.statusCode == 200) {
+        setState(() {
+          allrecode = int.parse(response.data['count']);
+          sum_w = int.parse(response.data['sum']);
+        });
+      }
+    } on DioError catch (e) {
+      alert(e.message);
+    }
+  }
+
+  Future<List> getPageWeek(pageIndex) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int token = await prefs.get('token');
+    try {
+      Response response = await dio.get(
+          '${modelurl.url}api/listpaymentweekpage&pageoffset=$pageOffSet&pagesize=$pageSize');
+      if (response.statusCode == 200) {
+        setState(() {
+          pageOffSet = pageOffSet + 10;
+        });
+        // print(response.data);
+        return response.data;
+      }
+    } on DioError catch (e) {
+      alert(e);
+    }
   }
 
   int i = 0;
@@ -59,17 +72,7 @@ class _TabPayWeekState extends State<TabPayWeek> {
                     height: 30.0,
                     child: Container(
                       padding: EdgeInsets.only(top: 5.0),
-                      color: Colors.yellow,
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'ລວມ​ລາຍ​ຈ່າຍ​ທິດນີ້',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
+                      color: Colors.yellow
                     ),
                   ),
                 ),
@@ -95,6 +98,40 @@ class _TabPayWeekState extends State<TabPayWeek> {
               ],
             )
           : Divider(),
+      ListTile(
+        leading: SizedBox(
+            width: 60.0,
+            height: 60.0,
+            child: CircleAvatar(
+              backgroundImage:
+                  NetworkImage('${modelurl.urlimg}${entry['user']['photo']}'),
+            )),
+        title: Text(
+          entry['typePay']['name'],
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 14.0, color: Colors.black),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              formatter.format(int.parse(entry['amount'])) + ' ກີບ',
+              style: TextStyle(color: Colors.red),
+            ),
+            Text(
+              entry['description'],
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
+              maxLines: 2,
+            ),
+            Text(
+              entry['date'],
+            ),
+          ],
+        ),
+      ),
     ];
   }
 _getTotal()
