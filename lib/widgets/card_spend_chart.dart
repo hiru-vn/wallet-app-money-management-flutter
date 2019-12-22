@@ -166,14 +166,14 @@ class _CardSpendChartState extends State<CardSpendChart> {
     for (int i=0; i<list.length; i++) {
       if (list[i].date.year == DateTime.now().year && list[i].category.transactionType == TransactionType.EXPENSE) {
         while (flagMonth<list[i].date.month) {
-          totalByMonth.add(totalMonth);
+          totalByMonth.add((totalMonth/1000).round());
           totalMonth=0;
           flagMonth++;
         }
         // flagmonth == list[i].date.month
         totalMonth+=list[i].amount;
         if (i>0) {
-          if (i==list.length-1) totalByMonth.add(totalMonth);
+          if (i==list.length-1) totalByMonth.add((totalMonth/1000).round());
         }
       }
     }

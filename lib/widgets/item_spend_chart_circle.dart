@@ -38,7 +38,7 @@ class SpendChartCircle extends StatelessWidget {
 
 class CategorySpend {
   final String category;
-  final int money;
+  int money;
   Color color;
 
   CategorySpend(this.category, this.money, {this.color = Colors.blueAccent});
