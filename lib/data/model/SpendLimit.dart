@@ -8,12 +8,18 @@ class SpendLimit {
   int amount;
   SpendLimitType type;
 
-  SpendLimit({
+  SpendLimit(
     //this.idUserAccount,
     this.id,
     this.amount,
     this.type
-  });
+  );
+
+  SpendLimit.copyOf(SpendLimit copy) {
+    this.id = copy.id;
+    this.amount = copy.amount;
+    this.type = copy.type;
+  }
 
   // getter
   Map<String, dynamic> toMap() {
