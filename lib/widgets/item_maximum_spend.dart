@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_exe/custom_toolbox/message_label.dart';
 import 'package:wallet_exe/data/dao/transaction_table.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
+import 'package:wallet_exe/pages/spend_limit_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class MaximunSpendItem extends StatelessWidget {
@@ -35,15 +36,11 @@ class MaximunSpendItem extends StatelessWidget {
     final lastDay = (now.month < 12)
         ? new DateTime(now.year, now.month + 1, 0)
         : new DateTime(now.year + 1, 1, 0);
-    double scale = (now.day - lastDay.day / 2 -0.5) / lastDay.day;
-    print('containerWidth:' + containerWidth.toString());
-    print('scale:' + scale.toString());
-    print(scale * containerWidth);
+    double scale = (now.day - lastDay.day / 2 - 0.5) / lastDay.day;
     if (scale >= 0) {
-      return EdgeInsets.only(left: (scale*containerWidth*1.9).abs()-20);
-    }
-    else if (scale < 0) {
-      return EdgeInsets.only(right: (scale*containerWidth*1.9).abs()-20);
+      return EdgeInsets.only(left: (scale * containerWidth * 1.9).abs() - 20);
+    } else if (scale < 0) {
+      return EdgeInsets.only(right: (scale * containerWidth * 1.9).abs() - 20);
     }
     return EdgeInsets.only(left: 190);
   }
@@ -53,10 +50,8 @@ class MaximunSpendItem extends StatelessWidget {
     final lastDay = (now.month < 12)
         ? new DateTime(now.year, now.month + 1, 0)
         : new DateTime(now.year + 1, 1, 0);
-    // if (now.day == 23)
-    //   return EdgeInsets.only(left: 10);
-    // if (now.day == lastDay.day)
-    //   return EdgeInsets.only(right: 10);
+    if (now.day == 1) return EdgeInsets.only(left: 10);
+    if (now.day == lastDay.day) return EdgeInsets.only(right: 10);
     return EdgeInsets.all(0);
   }
 
@@ -64,9 +59,18 @@ class MaximunSpendItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width - 30;
 
+    void _nav() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SpendLimitPage()),
+    );
+  }
+
     return Column(
       children: <Widget>[
-        Row(
+        InkWell(
+          onTap: _nav,
+          child: Row(
           children: <Widget>[
             Expanded(
               flex: 2,
@@ -100,6 +104,7 @@ class MaximunSpendItem extends StatelessWidget {
             )
           ],
         ),
+        ),
         SizedBox(
           height: 20,
         ),
@@ -109,7 +114,7 @@ class MaximunSpendItem extends StatelessWidget {
             children: <Widget>[
               Container(
                 margin: _prevent2Lines(),
-                padding: const EdgeInsets.all( 3.0),
+                padding: const EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).accentColor,
                   borderRadius: BorderRadius.all(new Radius.circular(5.0)),
