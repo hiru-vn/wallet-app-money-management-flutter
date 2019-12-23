@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/model/Transaction.dart' as trans;
 import 'package:wallet_exe/enums/duration_filter.dart';
+import 'package:wallet_exe/enums/spend_limit_type.dart';
 import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/widgets/item_spend_chart_circle.dart';
 
@@ -91,5 +92,26 @@ class TransactionTable {
     return List.generate(maps.length, (index) {
       return CategorySpend(maps[index]['name'], maps[index]['sum']);
     });
+  }
+
+  // return the amount that would reach to spend limit
+  Future<int> getMoneySpendByDuration(SpendLimitType type) async {
+    int result=0;
+    final Database db = DatabaseHelper.instance.database;
+    List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
+    List<trans.Transaction> list = List.generate(maps.length, (index) {
+      return trans.Transaction.fromMap(maps[index]);
+    });
+    list=list.where((item) => item.category.transactionType == TransactionType.EXPENSE).toList();
+
+    if (type == SpendLimitType.MONTHLY) {
+      for (int i =0; i< list.length; i++) {
+        if (list[i].date.month == DateTime.now().month){
+          result+=list[i].amount;
+        }
+      }
+    }
+
+    return result;
   }
 }

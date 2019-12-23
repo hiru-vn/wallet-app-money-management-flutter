@@ -1,16 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_exe/custom_toolbox/message_label.dart';
+import 'package:wallet_exe/data/dao/transaction_table.dart';
+import 'package:wallet_exe/data/model/SpendLimit.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 
-class CardMaximunSpendItem extends StatefulWidget {
-  CardMaximunSpendItem({Key key}) : super(key: key);
+class MaximunSpendItem extends StatelessWidget {
+  final SpendLimit _spendLimit;
+  const MaximunSpendItem(this._spendLimit);
 
-  @override
-  _CardMaximunSpendItemState createState() => _CardMaximunSpendItemState();
-}
+  String _getThisMonthString() {
+    final now = DateTime.now();
+    final lastDay = (now.month < 12)
+        ? new DateTime(now.year, now.month + 1, 0)
+        : new DateTime(now.year + 1, 1, 0);
 
-class _CardMaximunSpendItemState extends State<CardMaximunSpendItem> {
+    return '1/' +
+        now.month.toString() +
+        ' - ' +
+        lastDay.day.toString() +
+        '/' +
+        now.month.toString();
+  }
+
+  String _getDaysLeft() {
+    final now = DateTime.now();
+    final lastDay = (now.month < 12)
+        ? new DateTime(now.year, now.month + 1, 0)
+        : new DateTime(now.year + 1, 1, 0);
+    return (lastDay.day - now.day + 1).toString();
+  }
+
+  EdgeInsets _getMarginBubble(double containerWidth) {
+    final now = DateTime.now();
+    final lastDay = (now.month < 12)
+        ? new DateTime(now.year, now.month + 1, 0)
+        : new DateTime(now.year + 1, 1, 0);
+    double scale = (now.day - lastDay.day / 2 -0.5) / lastDay.day;
+    print('containerWidth:' + containerWidth.toString());
+    print('scale:' + scale.toString());
+    print(scale * containerWidth);
+    if (scale >= 0) {
+      return EdgeInsets.only(left: (scale*containerWidth*1.9).abs()-20);
+    }
+    else if (scale < 0) {
+      return EdgeInsets.only(right: (scale*containerWidth*1.9).abs()-20);
+    }
+    return EdgeInsets.only(left: 190);
+  }
+
+  EdgeInsets _prevent2Lines() {
+    final now = DateTime.now();
+    final lastDay = (now.month < 12)
+        ? new DateTime(now.year, now.month + 1, 0)
+        : new DateTime(now.year + 1, 1, 0);
+    // if (now.day == 23)
+    //   return EdgeInsets.only(left: 10);
+    // if (now.day == lastDay.day)
+    //   return EdgeInsets.only(right: 10);
+    return EdgeInsets.all(0);
+  }
+
   @override
   Widget build(BuildContext context) {
+    double containerWidth = MediaQuery.of(context).size.width - 30;
+
     return Column(
       children: <Widget>[
         Row(
@@ -26,9 +79,11 @@ class _CardMaximunSpendItemState extends State<CardMaximunSpendItem> {
             Expanded(
               flex: 5,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Hàng tháng', style: Theme.of(context).textTheme.title),
-                  Text('19/11 - 18/12'),
+                  Text(this._spendLimit.type.name,
+                      style: Theme.of(context).textTheme.title),
+                  Text(_getThisMonthString()),
                 ],
               ),
             ),
@@ -38,7 +93,8 @@ class _CardMaximunSpendItemState extends State<CardMaximunSpendItem> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Text('3.200.000 đ', style: Theme.of(context).textTheme.title),
+                  Text(textToCurrency(_spendLimit.amount.toString()) + ' đ',
+                      style: Theme.of(context).textTheme.title),
                 ],
               ),
             )
@@ -48,29 +104,39 @@ class _CardMaximunSpendItemState extends State<CardMaximunSpendItem> {
           height: 20,
         ),
         Container(
-          padding: const EdgeInsets.all(3.0),
-          decoration:
-              BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.all(new Radius.circular(5.0)),
+          margin: _getMarginBubble(containerWidth),
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: _prevent2Lines(),
+                padding: const EdgeInsets.all( 3.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.all(new Radius.circular(5.0)),
+                ),
+                child: Text("Hôm nay", maxLines: 1),
               ),
-          child: Text("Hôm nay"),
-        ),
-        Container(
-          child: CustomPaint(
-            painter: TrianglePainter(
-              strokeColor: Theme.of(context).accentColor,
-              strokeWidth: 10,
-              paintingStyle: PaintingStyle.fill,
-            ),
-            child: Container(
-              height: 8,
-              width: 8,
-            ),
+              Container(
+                child: CustomPaint(
+                  painter: TrianglePainter(
+                    strokeColor: Theme.of(context).accentColor,
+                    strokeWidth: 10,
+                    paintingStyle: PaintingStyle.fill,
+                  ),
+                  child: Container(
+                    height: 7,
+                    width: 7,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        LinearProgressIndicator(
-          value: 0.5,
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: LinearProgressIndicator(
+            value: 0.5,
+          ),
         ),
         SizedBox(
           height: 15,
@@ -78,8 +144,25 @@ class _CardMaximunSpendItemState extends State<CardMaximunSpendItem> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('Còn 12 ngày'),
-            Text('3.180.000 đ'),
+            Text('Còn ' + _getDaysLeft() + ' ngày'),
+            FutureBuilder(
+              future:
+                  TransactionTable().getMoneySpendByDuration(_spendLimit.type),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error.toString());
+                  return Center(child: Text(snapshot.error.toString()));
+                } else if (snapshot.hasData) {
+                  return Text(textToCurrency(
+                      (this._spendLimit.amount - snapshot.data).toString()));
+                }
+                return Container(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(),
+                );
+              },
+            )
           ],
         ),
       ],

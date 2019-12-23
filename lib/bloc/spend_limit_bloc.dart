@@ -24,6 +24,8 @@ class SpendLimitBloc extends BaseBloc {
     if (_spendLimitListData == null) return;
 
     _spendLimitListStreamController.sink.add(_spendLimitListData);
+
+    print(_spendLimitListData[0].amount);
   }
 
   _addSpendLimit(SpendLimit spendLimit) async {
