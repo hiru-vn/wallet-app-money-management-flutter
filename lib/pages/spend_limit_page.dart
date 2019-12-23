@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
+import 'package:wallet_exe/data/model/SpendLimit.dart';
+import 'package:wallet_exe/enums/spend_limit_type.dart';
+import 'package:wallet_exe/event/spend_limit_event.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class SpendLimitPage extends StatefulWidget {
-  SpendLimitPage({Key key}) : super(key: key);
+  int _spendLimitId;
+  SpendLimitPage(this._spendLimitId);
 
   @override
   _SpendLimitPageState createState() => _SpendLimitPageState();
@@ -13,16 +18,25 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
   var _nameController = TextEditingController();
   var _formspendLimitKey = GlobalKey<FormState>();
 
-  _submit() {
+  @override
+  Widget build(BuildContext context) {
+    var _bloc = SpendLimitBloc();
+    _bloc.initData();
+    
+    _submit() {
     if (!this._formspendLimitKey.currentState.validate()) {
       return;
     }
 
+    SpendLimit item = SpendLimit(currencyToInt(_spendLimitController.text), SpendLimitType.MONTHLY);
+    item.id = widget._spendLimitId;
+    print(widget._spendLimitId);
+    _bloc.event.add(UpdateSpendLimitEvent(item));
+
     Navigator.pop(context);
   }
 
-  @override
-  Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Sửa hạn mức'),

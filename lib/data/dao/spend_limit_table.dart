@@ -12,7 +12,7 @@ class SpendLimitTable {
   void onCreate(Database db, int version) {
     db.execute('CREATE TABLE $tableName('
         '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$amount INTEGER NOT NULL UNIQUE,'
+        '$amount INTEGER NOT NULL,'
         '$type INTEGER NOT NULL)');
 
     db.execute('INSERT INTO spend_limit(amount, type) VALUES(1000000,0)');

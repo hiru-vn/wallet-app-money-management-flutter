@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Wallet exe',
         theme: ThemeData(
-          primaryColor: Colors.blue,
-          accentColor: Colors.blue[200],
+          primaryColor: Colors.amber,
+          accentColor: Colors.amber[200],
         ),
         home: MainPage(),
       ),

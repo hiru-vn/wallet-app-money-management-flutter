@@ -10,7 +10,6 @@ class SpendLimit {
 
   SpendLimit(
     //this.idUserAccount,
-    this.id,
     this.amount,
     this.type
   );
@@ -27,7 +26,7 @@ class SpendLimit {
       //'idUserAccount': idUserAccount,
       SpendLimitTable().id: id,
       SpendLimitTable().amount : amount,
-      SpendLimitTable().type : type,
+      SpendLimitTable().type : type.value,
     };
   }
   // setter
