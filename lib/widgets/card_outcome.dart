@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:wallet_exe/data/dao/transaction_table.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/widgets/item_spend_chart_circle.dart';
 
 class CardOutcomeChart extends StatefulWidget {
@@ -51,42 +53,50 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
           ),
         ],
       ),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text('Biểu đồ chi', style: Theme.of(context).textTheme.title),
-              DropdownButton(
-                value: _currentOption,
-                items: _dropDownMenuItems,
-                onChanged: changedDropDownItem,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 320,
-            width: double.infinity,
-            child: SpendChartCircle(_createSampleData()),
-          ),
-          Text('Đơn vị: nghìn'),
-          // Expanded(
-          //   flex: 1,
-          //   child: Column(
-          //     children: <Widget>[
-
-          //     ],
-          //   ),
-          // )
-        ],
+      child: FutureBuilder(
+        future: TransactionTable().getAmountSpendPerCategory(TransactionType.EXPENSE),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error.toString());
+            return Center(child: Text(snapshot.error.toString()));
+          } else if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Biểu đồ chi',
+                        style: Theme.of(context).textTheme.title),
+                    DropdownButton(
+                      value: _currentOption,
+                      items: _dropDownMenuItems,
+                      onChanged: changedDropDownItem,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 320,
+                  width: double.infinity,
+                  child: SpendChartCircle(_createData(snapshot.data)),
+                ),
+                Text('Đơn vị: nghìn'),
+              ],
+            );
+          }
+          return Container(
+            width: 50,
+            height: 50,
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
 
-  static List<charts.Series<CategorySpend, String>> _createSampleData() {
+  static List<charts.Series<CategorySpend, String>> _createData(List<CategorySpend> list) {
     final List<Color> colors = [
       // Color(0x7adfeeee),
       // Color(0xffffd54f),
@@ -104,18 +114,19 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
       Colors.black54,
     ];
 
-    final data = [
-      CategorySpend('Ăn uống', 5),
-      CategorySpend('Đi lại', 25),
-      CategorySpend('Du lịch', 100),
-      CategorySpend('Học phí', 75),
-      CategorySpend('Người yêu', 75),
-      CategorySpend('Con cái', 175),
-      CategorySpend('khác', 5),
-    ];
-
-    for (int i = 0; i < 7; i++) {
-      data[i].color = colors[i];
+    List<CategorySpend> data = List<CategorySpend>();
+    CategorySpend last = CategorySpend("khác", 0);
+    for (int i = 0; i < list.length; i++) {
+      if (data.length<6){
+        data.add(list[i]);
+        data[i].color = colors[i];
+      }
+      else if (data.length == 6) {
+        last.money+=list[i].money;
+        if (i == list.length-1) {
+          data.add(last);
+        }
+      }
     }
 
     return [

@@ -2,6 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/model/Transaction.dart' as trans;
 import 'package:wallet_exe/enums/duration_filter.dart';
 import 'package:wallet_exe/enums/transaction_type.dart';
+import 'package:wallet_exe/widgets/item_spend_chart_circle.dart';
 
 import '../database_helper.dart';
 
@@ -80,5 +81,15 @@ class TransactionTable {
   Future<void> update(trans.Transaction transaction) async {
     final Database db = DatabaseHelper.instance.database;
     //await db.update(tableName, where: 'id = ?', whereArgs: [transaction.id]);
+  }
+
+  Future<List<CategorySpend>> getAmountSpendPerCategory(TransactionType type) async {
+    final Database db = DatabaseHelper.instance.database;
+    int typeid = type.value;
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        'select category.name as name, sum(amount) as sum from category, transaction_table where category.id = transaction_table.id_category and category.type = $typeid GROUP by category.id ORDER by sum DESC');
+    return List.generate(maps.length, (index) {
+      return CategorySpend(maps[index]['name'], maps[index]['sum']);
+    });
   }
 }

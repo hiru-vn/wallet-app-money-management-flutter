@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/bloc/transaction_bloc.dart';
+import 'package:wallet_exe/data/model/Transaction.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
+import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/item_spend_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -28,43 +32,50 @@ class _CardSpendChartState extends State<CardSpendChart> {
 
   @override
   Widget build(BuildContext context) {
-    Widget detailContent = Padding(
-      padding: EdgeInsets.only(right: 20, left: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Trung bình tháng:',
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text('378.000 đ')
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Tổng chi:',
-                style: Theme.of(context).textTheme.body2,
-              ),
-              Text('6.278.000 đ'),
-            ],
-          ),
-          SizedBox(
-            height: 60,
-          )
-        ],
-      ),
-    );
+    var _bloc = TransactionBloc();
+    _bloc.initData();
+
+    Widget _detailContent(int totalYear) {
+      return Padding(
+        padding: EdgeInsets.only(right: 20, left: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Trung bình tháng:',
+                  style: Theme.of(context).textTheme.body2,
+                ),
+                Text(textToCurrency(
+                        (totalYear / DateTime.now().month).round().toString()) +
+                    ' đ'),
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Tổng chi:',
+                  style: Theme.of(context).textTheme.body2,
+                ),
+                Text(textToCurrency(totalYear.toString()) + ' đ'),
+              ],
+            ),
+            SizedBox(
+              height: 60,
+            )
+          ],
+        ),
+      );
+    }
 
     return Container(
         width: double.infinity,
@@ -80,61 +91,96 @@ class _CardSpendChartState extends State<CardSpendChart> {
             ),
           ],
         ),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('Chi tiêu năm nay',
-                      style: Theme.of(context).textTheme.title),
-                  RaisedButton(
-                    onPressed: () => _selectDate(context),
-                    child: Row(
-                      children: <Widget>[
-                        Text('Chọn năm'),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Icon(Icons.create, size: 20),
-                      ],
-                    ),
-                    color: Theme.of(context).accentColor,
+        child: StreamBuilder(
+          stream: _bloc.transactionListStream,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.active:
+                return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Chi tiêu năm nay',
+                              style: Theme.of(context).textTheme.title),
+                          RaisedButton(
+                            onPressed: () => _selectDate(context),
+                            child: Row(
+                              children: <Widget>[
+                                Text('Chọn năm'),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(Icons.create, size: 20),
+                              ],
+                            ),
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('(Đơn vị: Nghìn)'),
+                      Container(
+                        height: 200,
+                        width: double.infinity,
+                        child: SpendChart(_getData(snapshot.data)),
+                      ),
+                      widget.showDetail
+                          ? _detailContent(_getTotal(snapshot.data))
+                          : SizedBox(
+                              height: 10,
+                            )
+                    ]);
+              default:
+                return Center(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text('(Đơn vị: Nghìn)'),
-              Container(
-                height: 200,
-                width: double.infinity,
-                child: SpendChart(_createSampleData()),
-              ),
-              widget.showDetail
-                  ? detailContent
-                  : SizedBox(
-                      height: 10,
-                    )
-            ]));
+                );
+            }
+          },
+        ));
   }
 
-  static List<charts.Series<MoneySpend, String>> _createSampleData() {
-    final data = [
-      MoneySpend(1, 5),
-      MoneySpend(2, 25),
-      MoneySpend(3, 100),
-      MoneySpend(4, 75),
-      MoneySpend(5, 75),
-      MoneySpend(6, 75),
-      MoneySpend(7, 75),
-      MoneySpend(8, 75),
-      MoneySpend(9, 75),
-      MoneySpend(10, 75),
-      MoneySpend(11, 75),
-      MoneySpend(12, 175),
-    ];
+  int _getTotal(List<Transaction> list) {
+    var now = DateTime.now();
+    int total = 0;
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].date.year == now.year && list[i].category.transactionType == TransactionType.EXPENSE) {
+        total += list[i].amount;
+      }
+    }
+    return total;
+  }
+
+  static List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
+    List<int> totalByMonth = List<int>();
+    // the date are sorted already, only need 1 loop
+    int totalMonth = 0;
+    int flagMonth = 1;
+    for (int i=0; i<list.length; i++) {
+      if (list[i].date.year == DateTime.now().year && list[i].category.transactionType == TransactionType.EXPENSE) {
+        while (flagMonth<list[i].date.month) {
+          totalByMonth.add((totalMonth/1000).round());
+          totalMonth=0;
+          flagMonth++;
+        }
+        // flagmonth == list[i].date.month
+        totalMonth+=list[i].amount;
+        if (i>0) {
+          if (i==list.length-1) totalByMonth.add((totalMonth/1000).round());
+        }
+      }
+    }
+
+    final data = List.generate(totalByMonth.length, (index) {
+      return MoneySpend(index + 1, totalByMonth[index]);
+    });
 
     return [
       new charts.Series<MoneySpend, String>(

@@ -58,8 +58,11 @@ class _CardbalanceState extends State<Cardbalance> {
                   DurationFilter.valueFromName(this._currentOption));
               final inCome = values[0];
               final outCome = values[1];
-              final inComeHeight = inCome / (inCome + outCome) * 150 + 5;
-              final outComeHeight = outCome / (inCome + outCome) * 150 + 5;
+              var sum = inCome + outCome;
+              if (sum == 0) sum=1;
+              var inComeHeight = inCome / sum * 150 + 5;
+              var outComeHeight = outCome / sum * 150 + 5;
+
               return Container(
                 width: double.infinity,
                 padding: EdgeInsets.only(top: 15, left: 15, right: 15),

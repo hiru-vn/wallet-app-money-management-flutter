@@ -15,7 +15,9 @@ class SpendLimitTable {
         '$amount INTEGER NOT NULL UNIQUE,'
         '$type INTEGER NOT NULL)');
 
-    // db.execute('INSERT INTO spend_limit(amount, type) VALUES(1000000,0)');
+    db.execute('INSERT INTO spend_limit(amount, type) VALUES(1000000,0)');
+    db.execute('INSERT INTO spend_limit(amount, type) VALUES(4000000,1)');
+    db.execute('INSERT INTO spend_limit(amount, type) VALUES(48000000,2)');
   }
 
   Future<int> insert(SpendLimit spendLimit) async {
