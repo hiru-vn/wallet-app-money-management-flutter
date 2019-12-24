@@ -21,8 +21,125 @@ class _ListReciveState extends State<ListRecive> {
   var listrecive;
   bool isloading = true;
 
+/*========== Login expired ================*/
+  Future<Null> checkloginexiped() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyyMMddhm');
+    String formatted = formatter.format(now);
+    if (int.parse(formatted) >= prefs.getInt('time')) {
+      prefs.remove('token');
+      prefs.remove('time');
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
+    } else {
+      prefs.setInt('time', int.parse(formatted) + 10);
+    }
+  }
+
+  void alert(var title, var detail) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Center(
+              child: new Text("${title}",
+                  style: TextStyle(fontSize: 20.0, color: Colors.red))),
+          content: new Text("${detail}"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("ປິດ"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future loadlistrecive() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int token = await prefs.get('token');
+    setState(() {
+      userID = token;
+    });
+
+    dio.options.connectTimeout = 12000; //5s
+    dio.options.receiveTimeout = 12000;
+    try {
+      Response response = await dio.get('${modelurl.url}api/listrecive');
+      if (response.statusCode == 200) {
+        //  print(response.data);
+        setState(() {
+          listrecive = response.data;
+          isloading = false;
+        });
+      }
+    } on DioError catch (e) {
+      setState(() {
+        isloading = false;
+      });
+      alert('ມີ​ຂ​ໍ້​ຜິດ​ພາດ', 'ກວດ​ເບີ່ງ​ການ​ເຊື່ອມ​ຕໍ່​ເນັ​ດ.!');
+    }
+  }
+
+/*====================Cormfirt delete ====================*/
+  void delcomfirm(var title, var detail, var id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Center(
+              child: new Text("${title}",
+                  style: TextStyle(fontSize: 20.0, color: Colors.red))),
+          content: new Text("${detail}"),
+          actions: <Widget>[
+            FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                delete(id);
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+/*================= delete ===================*/
+  Future delete(var id) async {
+    dio.options.connectTimeout = 12000; //5s
+    dio.options.receiveTimeout = 12000;
+    try {
+      Response response =
+          await dio.get('${modelurl.url}api/recivedelete', data: {'id': id});
+      if (response.statusCode == 200) {
+        //print(response.data);
+        setState(() {
+          listrecive = response.data;
+        });
+        isloading = false;
+      }
+    } on DioError catch (e) {
+      isloading = false;
+      alert('ມີ​ຂ​ໍ້​ຜິດ​ພາດ', 'ກວດ​ເບີ່ງ​ການ​ເຊື່ອມ​ຕໍ່​ເນັ​ດ.!');
+    }
+  } 
+
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     checkloginexiped();
     loadlistrecive();
@@ -32,7 +149,7 @@ class _ListReciveState extends State<ListRecive> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Receive'),
+        title: Text('ລາຍ​ການ​ລາຍຮັບ​ທັງ​ໝົດ'),
         leading: new IconButton(
             icon: new Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
@@ -149,6 +266,13 @@ class _ListReciveState extends State<ListRecive> {
                                                             .remove_circle_outline,
                                                         color: Colors.red,
                                                       ),
+                                                      onPressed: () {
+                                                        delcomfirm(
+                                                            'ແຈ້ງ​ເຕືອນ',
+                                                            'ທ່ານ​ຕ້ອງ​ການ​ລຶບ​ລາຍ​ການນີ້​ແມ​່ນ​ບໍ.?',
+                                                            listrecive[index]
+                                                                ['id']);
+                                                      },
                                                     ),
                                                   ],
                                                 ),
