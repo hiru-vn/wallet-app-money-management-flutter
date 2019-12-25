@@ -28,7 +28,7 @@ class MaximunSpendItem extends StatelessWidget {
     final lastDay = (now.month < 12)
         ? new DateTime(now.year, now.month + 1, 0)
         : new DateTime(now.year + 1, 1, 0);
-    return (lastDay.day - now.day + 1).toString();
+    return (lastDay.day - now.day).toString();
   }
 
   EdgeInsets _getMarginBubble(double containerWidth) {

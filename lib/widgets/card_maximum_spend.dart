@@ -16,6 +16,7 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
   int _currentIndex = 1;
 
   _chooseSpendLimit() async {
+    print(_currentIndex);
     int temp = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -38,8 +39,7 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
     var bloc = SpendLimitBloc();
     bloc.initData();
 
-    return Consumer<SpendLimitBloc>(
-      builder: (context, bloc, child) => StreamBuilder<List<SpendLimit>>(
+    return StreamBuilder<List<SpendLimit>>(
         stream: bloc.spendLimitListStream,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -98,7 +98,6 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
               );
           }
         },
-      ),
     );
   }
 }

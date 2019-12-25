@@ -17,7 +17,8 @@ class SpendLimitTable {
 
     db.execute('INSERT INTO spend_limit(amount, type) VALUES(1000000,0)');
     db.execute('INSERT INTO spend_limit(amount, type) VALUES(4000000,1)');
-    db.execute('INSERT INTO spend_limit(amount, type) VALUES(48000000,2)');
+    db.execute('INSERT INTO spend_limit(amount, type) VALUES(12000000,2)');
+    db.execute('INSERT INTO spend_limit(amount, type) VALUES(48000000,3)');
   }
 
   Future<int> insert(SpendLimit spendLimit) async {

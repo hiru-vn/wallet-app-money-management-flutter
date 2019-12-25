@@ -39,7 +39,7 @@ class _ChooseSpendLimitPageState extends State<ChooseSpendLimitPage> {
           onTap: () => _submit(context, i),
           leading: Icon(Icons.timelapse),
           title: Text(items[i].type.name),
-          trailing: items[i].id == widget._currentIndex
+          trailing: i == widget._currentIndex
               ? Icon(Icons.check_circle)
               : null,
         ));
