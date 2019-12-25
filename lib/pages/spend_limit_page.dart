@@ -120,9 +120,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+                
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -153,25 +151,8 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                   Icons.subject,
                                   size: 28,
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: TextField(
-                                  controller: this._nameController,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    hintText: 'Tên hạn mức',
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
                               )
+                              
                             ],
                           ),
                         ),
