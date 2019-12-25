@@ -63,7 +63,7 @@ class MaximunSpendItem extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SpendLimitPage(this._spendLimit.id)),
+            builder: (context) => SpendLimitPage(this._spendLimit)),
       );
     }
 
@@ -152,7 +152,7 @@ class MaximunSpendItem extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: LinearProgressIndicator(
                   value: snapshot.data>this._spendLimit.amount? 1: 
-                        (this._spendLimit.amount - snapshot.data)/ this._spendLimit.amount,
+                         snapshot.data/ this._spendLimit.amount,
                 ),
               ),
               SizedBox(
