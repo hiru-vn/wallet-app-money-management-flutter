@@ -37,6 +37,14 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
     });
   }
 
+  List<CategorySpend> _applyfilter(List<CategorySpend> list) {
+    List<CategorySpend> result = List<CategorySpend>();
+    for (int i=0;i<list.length;i++) {
+      //if (list[i].)
+    }
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

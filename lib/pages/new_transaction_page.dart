@@ -25,34 +25,60 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
   var _formBalanceKey = GlobalKey<FormState>();
   Category _category;
   Account _account;
+  DateTime _selectedDate = DateTime.now();
+  TimeOfDay _selectedTime = TimeOfDay.now();
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    
   }
 
-  _getCurrentDate() {
-      DateTime now = DateTime.now();
-      String wd =
-          now.weekday == 7 ? "Chủ Nhật" : "Thứ " + (now.weekday + 1).toString();
-      String date = now.day.toString() +
-          "/" +
-          now.month.toString() +
-          "/" +
-          now.year.toString();
-      return wd + " - " + date;
-    }
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: _selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != _selectedDate)
+      setState(() {
+        _selectedDate = picked;
+      });
+  }
 
-    _getCurrentTime() {
-      DateTime now = DateTime.now();
-      return now.hour.toString() + ":" + now.minute.toString();
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay time =
+        await showTimePicker(context: context, initialTime: _selectedTime);
+    if (time != null && time != _selectedTime) {
+      setState(() {
+        _selectedTime = time;
+      });
     }
+  }
 
-    _getCurrencyColor() {
-      if (this._category == null) return Colors.red;
-      return (this._category.transactionType == TransactionType.EXPENSE)? Colors.red:Colors.green;
-    }
+  _getDate() {
+    DateTime date = _selectedDate;
+    String wd =
+        date.weekday == 7 ? "Chủ Nhật" : "Thứ " + (date.weekday + 1).toString();
+    String datePart = date.day.toString() +
+        "/" +
+        date.month.toString() +
+        "/" +
+        date.year.toString();
+    return wd + " - " + datePart;
+  }
+
+  _getTime() {
+    TimeOfDay time = _selectedTime;
+    String formatTime = time.minute<10?'0':'';
+    return time.hour.toString() + ":" + formatTime + time.minute.toString();
+  }
+
+  _getCurrencyColor() {
+    if (this._category == null) return Colors.red;
+    return (this._category.transactionType == TransactionType.EXPENSE)
+        ? Colors.red
+        : Colors.green;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +97,24 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       }
       if (_account == null) return;
       if (_category == null) return;
-      
-      Transaction transaction = Transaction(this._account,this._category,currencyToInt(this._balanceController.text), DateTime.now() ,this._descriptionController.text);
+
+      DateTime saveTime = DateTime(_selectedDate.year, _selectedDate.month,
+          _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
+      Transaction transaction = Transaction(
+          this._account,
+          this._category,
+          currencyToInt(this._balanceController.text),
+          saveTime,
+          this._descriptionController.text);
       _bloc.event.add(AddTransactionEvent(transaction));
 
       print(currencyToInt(this._balanceController.text));
-      
-      if (this._category.transactionType == TransactionType.EXPENSE)  
-        this._account.balance-= currencyToInt(this._balanceController.text);
+
+      if (this._category.transactionType == TransactionType.EXPENSE)
+        this._account.balance -= currencyToInt(this._balanceController.text);
       if (this._category.transactionType == TransactionType.INCOME)
-        this._account.balance+= currencyToInt(this._balanceController.text);
-      
+        this._account.balance += currencyToInt(this._balanceController.text);
+
       print(this._account.balance);
       _bloc_account.event.add(UpdateAccountEvent(this._account));
 
@@ -124,37 +157,39 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                         child: Form(
                           key: _formBalanceKey,
                           child: TextFormField(
-                          validator: (String value) {
-                            if (value.trim()=="") return 'Số tiền phải lớn hơn 0';
-                            return currencyToInt(value) <= 0
-                                ? 'Số tiền phải lớn hơn 0'
-                                : null;
-                          },
-                          controller: _balanceController,
-                          textAlign: TextAlign.end,
-                          inputFormatters: [CurrencyTextFormatter()],
-                          style: TextStyle(
-                              color: _getCurrencyColor(),
-                              fontSize: 32,
-                              fontWeight: FontWeight.w900),
-                          keyboardType: TextInputType.numberWithOptions(
-                              signed: true, decimal: true),
-                          autofocus: true,
-                          decoration: InputDecoration(
-                            suffixText: 'đ',
-                            suffixStyle: Theme.of(context).textTheme.headline,
-                            prefix: Icon(
-                              Icons.monetization_on,
-                              color: Theme.of(context).accentColor,
-                              size: 26,
-                            ),
-                            hintText: '0',
-                            hintStyle: TextStyle(
-                                color: Colors.red,
+                            validator: (String value) {
+                              if (value.trim() == "")
+                                return 'Số tiền phải lớn hơn 0';
+                              return currencyToInt(value) <= 0
+                                  ? 'Số tiền phải lớn hơn 0'
+                                  : null;
+                            },
+                            controller: _balanceController,
+                            textAlign: TextAlign.end,
+                            inputFormatters: [CurrencyTextFormatter()],
+                            style: TextStyle(
+                                color: _getCurrencyColor(),
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900),
+                            keyboardType: TextInputType.numberWithOptions(
+                                signed: true, decimal: true),
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              suffixText: 'đ',
+                              suffixStyle: Theme.of(context).textTheme.headline,
+                              prefix: Icon(
+                                Icons.monetization_on,
+                                color: Theme.of(context).accentColor,
+                                size: 26,
+                              ),
+                              hintText: '0',
+                              hintStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w900),
+                            ),
                           ),
-                        ),),
+                        ),
                       ),
                     ],
                   ),
@@ -202,7 +237,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              _category==null? 'Chọn hạng mục':_category.name,
+                              _category == null
+                                  ? 'Chọn hạng mục'
+                                  : _category.name,
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.grey,
@@ -265,21 +302,22 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           ),
                         ),
                         Expanded(
-                            flex: 3,
-                            child: InkWell(
-                              onTap: () {},
-                              child: Text(
-                                _getCurrentDate(),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                ),
+                          flex: 3,
+                          child: InkWell(
+                            onTap: () => _selectDate(context),
+                            child: Text(
+                              _getDate(),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () => _selectTime(context),
                           child: Text(
-                            _getCurrentTime(),
+                            _getTime(),
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -311,7 +349,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              _account==null?'Chọn tài khoản':_account.name,
+                              _account == null
+                                  ? 'Chọn tài khoản'
+                                  : _account.name,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,

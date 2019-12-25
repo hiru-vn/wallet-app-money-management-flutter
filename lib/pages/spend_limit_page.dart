@@ -3,17 +3,19 @@ import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
 import 'package:wallet_exe/enums/spend_limit_type.dart';
 import 'package:wallet_exe/event/spend_limit_event.dart';
+import 'package:wallet_exe/pages/spend_limit_type_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class SpendLimitPage extends StatefulWidget {
-  int _spendLimitId;
-  SpendLimitPage(this._spendLimitId);
+  SpendLimit _spendLimit;
+  SpendLimitPage(this._spendLimit);
 
   @override
   _SpendLimitPageState createState() => _SpendLimitPageState();
 }
 
 class _SpendLimitPageState extends State<SpendLimitPage> {
+  //SpendLimitType _spendLimitType;
   var _spendLimitController = TextEditingController();
   var _nameController = TextEditingController();
   var _formspendLimitKey = GlobalKey<FormState>();
@@ -22,20 +24,43 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
   Widget build(BuildContext context) {
     var _bloc = SpendLimitBloc();
     _bloc.initData();
-    
+
     _submit() {
-    if (!this._formspendLimitKey.currentState.validate()) {
-      return;
+      if (!this._formspendLimitKey.currentState.validate()) {
+        return;
+      }
+
+      SpendLimit item = SpendLimit(
+          currencyToInt(_spendLimitController.text), widget._spendLimit.type);
+      item.id = widget._spendLimit.id;
+      _bloc.event.add(UpdateSpendLimitEvent(item));
+
+      Navigator.pop(context);
     }
 
-    SpendLimit item = SpendLimit(currencyToInt(_spendLimitController.text), SpendLimitType.MONTHLY);
-    item.id = widget._spendLimitId;
-    print(widget._spendLimitId);
-    _bloc.event.add(UpdateSpendLimitEvent(item));
+    _delete() {
+      if (!this._formspendLimitKey.currentState.validate()) {
+        return;
+      }
 
-    Navigator.pop(context);
-  }
+      SpendLimit item = SpendLimit(
+          currencyToInt(_spendLimitController.text), widget._spendLimit.type);
+      item.id = widget._spendLimit.id;
+      _bloc.event.add(DeleteSpendLimitEvent(item));
 
+      Navigator.pop(context);
+    }
+
+    _chooseType() async {
+      var temp = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SpendLimitTypePage(widget._spendLimit.type)),
+      );
+
+      // prevent null
+      if (temp!= null) widget._spendLimit.type = temp;
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -160,13 +185,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: InkWell(
-                          onTap: () async {
-                            // _account = await Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => AccountPage()),
-                            // );
-                          },
                           child: Row(
                             children: <Widget>[
                               Container(
@@ -179,7 +197,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  'Hàng tháng',
+                                  widget._spendLimit.type.name,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -189,6 +207,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               Icon(Icons.keyboard_arrow_right),
                             ],
                           ),
+                          onTap: _chooseType,
                         ),
                       ),
                       SizedBox(
@@ -256,7 +275,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                       ],
                                     ),
                                   ),
-                                  onPressed: _submit,
+                                  onPressed: _delete,
                                 ),
                               ),
                             )
@@ -273,5 +292,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
             ),
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }

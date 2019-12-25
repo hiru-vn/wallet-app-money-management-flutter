@@ -28,7 +28,7 @@ class MaximunSpendItem extends StatelessWidget {
     final lastDay = (now.month < 12)
         ? new DateTime(now.year, now.month + 1, 0)
         : new DateTime(now.year + 1, 1, 0);
-    return (lastDay.day - now.day + 1).toString();
+    return (lastDay.day - now.day).toString();
   }
 
   EdgeInsets _getMarginBubble(double containerWidth) {
@@ -63,7 +63,7 @@ class MaximunSpendItem extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SpendLimitPage(this._spendLimit.id)),
+            builder: (context) => SpendLimitPage(this._spendLimit)),
       );
     }
 
@@ -152,7 +152,7 @@ class MaximunSpendItem extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: LinearProgressIndicator(
                   value: snapshot.data>this._spendLimit.amount? 1: 
-                        (this._spendLimit.amount - snapshot.data)/ this._spendLimit.amount,
+                         snapshot.data/ this._spendLimit.amount,
                 ),
               ),
               SizedBox(
