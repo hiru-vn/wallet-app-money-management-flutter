@@ -52,12 +52,14 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
     }
 
     _chooseType() async {
-      widget._spendLimit.type = await Navigator.push(
+      var temp = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => SpendLimitTypePage(widget._spendLimit.type)),
       );
-      //print(_spendLimitType.name);
+
+      // prevent null
+      if (temp!= null) widget._spendLimit.type = temp;
     }
 
     return Scaffold(
@@ -309,5 +311,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
             ),
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }

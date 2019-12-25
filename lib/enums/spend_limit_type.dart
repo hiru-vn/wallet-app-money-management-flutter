@@ -31,4 +31,19 @@ class SpendLimitType {
   static getAllType() {
     return [WEEKLY,MONTHLY,QUATERLY,YEARLY];
   }
+
+  static SpendLimitType valueFromName(String name) {
+    switch (name) {
+      case 'Hàng tuần':
+        return WEEKLY;
+      case 'Hàng tháng':
+        return MONTHLY;
+      case 'Hàng tháng':
+        return QUATERLY;
+      case 'Hàng năm':
+        return YEARLY;
+      default:
+        return null;
+    }
+  }
 }
