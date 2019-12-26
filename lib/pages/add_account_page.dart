@@ -19,6 +19,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
   final _formNameKey = GlobalKey<FormState>();
+  final _formBalanceKey = GlobalKey<FormState>();
 
   var _nameController = TextEditingController();
   var _balanceController = TextEditingController();
@@ -47,7 +48,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
   @override
   Widget build(BuildContext context) {
     var _bloc = AccountBloc();
-    
+
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
@@ -56,9 +57,12 @@ class _AddAccountPageState extends State<AddAccountPage> {
       if (!this._formNameKey.currentState.validate()) {
         return;
       }
+      if (!this._formBalanceKey.currentState.validate()) {
+        return;
+      }
       Account account = Account(
           _nameController.text,
-          int.parse(_balanceController.text),
+          currencyToInt(_balanceController.text),
           AccountType.valueFromName(this._currentOption),
           Icons.account_balance_wallet);
       _bloc.event.add(AddAccountEvent(account));
@@ -109,25 +113,34 @@ class _AddAccountPageState extends State<AddAccountPage> {
                       ),
                     )),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  width: double.infinity,
-                  child: TextFormField(
-                    controller: _balanceController,
-                    keyboardType: TextInputType.number,
-                    //inputFormatters: [CurrencyTextFormatter()], TODO:
-                    autofocus: true,
-                    style: TextStyle(fontSize: 20),
-                    decoration: InputDecoration(
-                        suffixText: 'đ',
-                        hintText: 'Số dư ban đầu',
-                        hintStyle: TextStyle(fontSize: 20),
-                        icon: Icon(
-                          Icons.attach_money,
-                          size: 30,
-                          color: Theme.of(context).primaryColor,
-                        )),
-                  ),
-                ),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    width: double.infinity,
+                    child: Form(
+                      key: _formBalanceKey,
+                      child: TextFormField(
+                        validator: (String value) {
+                          if (value.trim() == "")
+                            return 'Số dư không được để trống';
+                          return currencyToInt(value) <= 0
+                              ? 'Số tiền phải lớn hơn 0'
+                              : null;
+                        },
+                        controller: _balanceController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [CurrencyTextFormatter()],
+                        autofocus: true,
+                        style: TextStyle(fontSize: 20),
+                        decoration: InputDecoration(
+                            suffixText: 'đ',
+                            hintText: 'Số dư ban đầu',
+                            hintStyle: TextStyle(fontSize: 20),
+                            icon: Icon(
+                              Icons.attach_money,
+                              size: 30,
+                              color: Theme.of(context).primaryColor,
+                            )),
+                      ),
+                    )),
                 Container(
                   padding: EdgeInsets.only(left: 15, right: 15, top: 10),
                   width: double.infinity,

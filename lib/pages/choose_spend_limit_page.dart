@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
 import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
-import 'package:wallet_exe/enums/spend_limit_type.dart';
 
 class ChooseSpendLimitPage extends StatefulWidget {
   final int _currentIndex;
