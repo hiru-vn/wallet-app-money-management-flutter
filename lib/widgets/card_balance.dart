@@ -4,6 +4,7 @@ import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/dao/transaction_table.dart';
 import 'package:wallet_exe/data/model/Transaction.dart';
 import 'package:wallet_exe/enums/duration_filter.dart';
+import 'package:wallet_exe/pages/records_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class Cardbalance extends StatefulWidget {
@@ -39,6 +40,13 @@ class _CardbalanceState extends State<Cardbalance> {
     setState(() {
       _currentOption = selectedOption;
     });
+  }
+
+  void _navToRecords() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RecordsPage()),
+    );
   }
 
   @override
@@ -207,7 +215,7 @@ class _CardbalanceState extends State<Cardbalance> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: _navToRecords,
                                       child: Text(
                                         "Xem ghi chép",
                                         style: TextStyle(

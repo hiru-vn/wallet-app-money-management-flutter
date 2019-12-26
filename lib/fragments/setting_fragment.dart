@@ -10,8 +10,15 @@ class SettingFragment extends StatefulWidget {
 class _SettingFragmentState extends State<SettingFragment> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Text('setting'),
+    return SafeArea(
+      child: Container(
+        alignment: Alignment.center,
+        color: Colors.white24,
+        child: Text(
+          'Settings',
+          style: Theme.of(context).textTheme.display1,
+        ),
+      ),
     );
   }
 }
