@@ -4,7 +4,6 @@ import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
-import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/item_account.dart';
 
 class CardListAccount extends StatefulWidget {
@@ -15,25 +14,30 @@ class CardListAccount extends StatefulWidget {
 }
 
 class _CardListAccountState extends State<CardListAccount> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var bloc = Provider.of<AccountBloc>(context);
-    bloc.initData();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   var bloc = Provider.of<AccountBloc>(context);
+  //   bloc.initData();
+  // }
 
-  final _createListAccountTile = (List<Account> listAccount) {
+  _createListAccountTile(List<Account> listAccount) {
     List<Widget> list = new List<Widget>();
     for (int i=0; i< listAccount.length; i++) {
-      list.add(ItemAccount('assets/bank.png', listAccount[i].name, listAccount[i].balance.toString()));
+      list.add(ItemAccount(listAccount[i]));
     }
     return list;
-  };
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AccountBloc>(
-      builder: (context, bloc, child) => StreamBuilder<List<Account>>(
+    AccountBloc bloc = AccountBloc();
+    bloc.initData();
+
+    return 
+    // Consumer<AccountBloc>(
+    //   builder: (context, bloc, child) => 
+      StreamBuilder<List<Account>>(
           stream: bloc.accountListStream,
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
@@ -98,7 +102,8 @@ class _CardListAccountState extends State<CardListAccount> {
                   ),
                 );
             }
-          }),
-    );
+          });
+    //       ,
+    // );
   }
 }

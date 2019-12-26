@@ -44,6 +44,7 @@ class AccountBloc extends BaseBloc {
   _updateAccount(Account account) async {
     _accountTable.updateAccount(account);
     int index =_accountListData.indexWhere((item) {return item.id == account.id;});
+    
     _accountListData[index] = account;
     _accountListStreamController.sink.add(_accountListData);
   }
