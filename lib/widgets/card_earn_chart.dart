@@ -78,7 +78,9 @@ class _CardEarnChartState extends State<CardEarnChart> {
         width: double.infinity,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.blueGrey
+              : Colors.white,
           borderRadius: BorderRadius.circular(8.0),
           boxShadow: [
             BoxShadow(
@@ -156,37 +158,38 @@ class _CardEarnChartState extends State<CardEarnChart> {
     return total;
   }
 
-  static List<charts.Series<MoneySpend, String>> _getData(
-      List<Transaction> list) {
+  List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
     List<int> totalByMonth = List<int>();
     int totalMonth = 0;
     int flagMonth = 1;
     list.sort((a, b) {
       return a.date.compareTo(b.date);
     });
+    list = list
+        .where((item) =>
+            (item.category.transactionType == TransactionType.INCOME &&
+                item.date.year == DateTime.now().year))
+        .toList();
     for (int i = 0; i < list.length; i++) {
-      if (list[i].date.year == DateTime.now().year &&
-          list[i].category.transactionType == TransactionType.INCOME) {
-        while (flagMonth < list[i].date.month) {
+      while (flagMonth < list[i].date.month) {
+        totalByMonth.add((totalMonth / 1000).round());
+        totalMonth = 0;
+        flagMonth++;
+      }
+      if (flagMonth == list[i].date.month) {
+        totalMonth += list[i].amount;
+      }
+      if (flagMonth > list[i].date.month) {
+        totalByMonth.add((totalMonth / 1000).round());
+      }
+      if (i > 0) {
+        if (i == list.length - 1) {
           totalByMonth.add((totalMonth / 1000).round());
-          totalMonth = 0;
-          flagMonth++;
-        }
-        if (flagMonth == list[i].date.month) {
-          totalMonth += list[i].amount;
-        }
-        if (flagMonth > list[i].date.month) {
-          totalByMonth.add((totalMonth / 1000).round());
-        }
-        // flagmonth == list[i].date.month
-        if (i > 0) {
-          if (i == list.length - 1)
-            totalByMonth.add((totalMonth / 1000).round());
         }
       }
     }
 
-    final data = List.generate(totalByMonth.length, (index) {
+    var data = List.generate(totalByMonth.length, (index) {
       return MoneySpend(index + 1, totalByMonth[index]);
     });
 

@@ -33,7 +33,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                       ),
                       SizedBox(width: 15,),
                       DropdownButton<AppTheme>(
-                        hint: Text("Select a theme:"),
+                        hint: Text("Amber"),
                         value: snapshot.data,
                         items: myThemes.map((AppTheme appTheme) {
                           return DropdownMenuItem<AppTheme>(
