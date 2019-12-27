@@ -68,8 +68,8 @@ class _CardbalanceState extends State<Cardbalance> {
               final outCome = values[1];
               var sum = inCome + outCome;
               if (sum == 0) sum=1;
-              var inComeHeight = inCome / sum * 150 + 5;
-              var outComeHeight = outCome / sum * 150 + 5;
+              var inComeHeight = inCome / sum * 120 + 5;
+              var outComeHeight = outCome / sum * 120 + 5;
 
               return Container(
                 width: double.infinity,
@@ -89,7 +89,7 @@ class _CardbalanceState extends State<Cardbalance> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                        flex: 4,
+                        flex: 41,
                         child: Padding(
                           padding: EdgeInsets.only(top: 12),
                           child: Container(
@@ -126,7 +126,7 @@ class _CardbalanceState extends State<Cardbalance> {
                           ),
                         )),
                     Expanded(
-                      flex: 6,
+                      flex: 60,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
