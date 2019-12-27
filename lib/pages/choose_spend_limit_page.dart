@@ -52,12 +52,6 @@ class _ChooseSpendLimitPageState extends State<ChooseSpendLimitPage> {
         appBar: AppBar(
           title: Text('Chọn hạn mức'),
           centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _addSpendLimit(context),
-            )
-          ],
         ),
         body: StreamBuilder<List<SpendLimit>>(
             stream: bloc.spendLimitListStream,

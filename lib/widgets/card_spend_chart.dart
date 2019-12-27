@@ -151,29 +151,40 @@ class _CardSpendChartState extends State<CardSpendChart> {
     var now = DateTime.now();
     int total = 0;
     for (int i = 0; i < list.length; i++) {
-      if (list[i].date.year == now.year && list[i].category.transactionType == TransactionType.EXPENSE) {
+      if (list[i].date.year == now.year &&
+          list[i].category.transactionType == TransactionType.EXPENSE) {
         total += list[i].amount;
       }
     }
     return total;
   }
 
-  static List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
+  static List<charts.Series<MoneySpend, String>> _getData(
+      List<Transaction> list) {
     List<int> totalByMonth = List<int>();
-    // the date are sorted already, only need 1 loop
     int totalMonth = 0;
     int flagMonth = 1;
-    for (int i=0; i<list.length; i++) {
-      if (list[i].date.year == DateTime.now().year && list[i].category.transactionType == TransactionType.EXPENSE) {
-        while (flagMonth<list[i].date.month) {
-          totalByMonth.add((totalMonth/1000).round());
-          totalMonth=0;
+    list.sort((a, b) {
+      return a.date.compareTo(b.date);
+    });
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].date.year == DateTime.now().year &&
+          list[i].category.transactionType == TransactionType.EXPENSE) {
+        while (flagMonth < list[i].date.month) {
+          totalByMonth.add((totalMonth / 1000).round());
+          totalMonth = 0;
           flagMonth++;
         }
+        if (flagMonth == list[i].date.month) {
+          totalMonth += list[i].amount;
+        }
+        if (flagMonth > list[i].date.month) {
+          totalByMonth.add((totalMonth / 1000).round());
+        }
         // flagmonth == list[i].date.month
-        totalMonth+=list[i].amount;
-        if (i>0) {
-          if (i==list.length-1) totalByMonth.add((totalMonth/1000).round());
+        if (i > 0) {
+          if (i == list.length - 1)
+            totalByMonth.add((totalMonth / 1000).round());
         }
       }
     }
