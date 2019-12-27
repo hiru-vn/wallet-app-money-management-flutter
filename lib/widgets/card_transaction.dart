@@ -31,7 +31,7 @@ class CardTransaction extends StatelessWidget {
     if (checkEqualDate(_date, now.subtract(Duration(days: 1)))) return ("Hôm qua");
     if (checkEqualDate(_date, now.subtract(Duration(days: 2)))) return ("Hôm kia");
     if (_date.weekday == 7) return "Chủ Nhật";
-    return "Thứ "+_date.weekday.toString();
+    return "Thứ " + (_date.weekday + 1).toString();
   }
 
   @override
