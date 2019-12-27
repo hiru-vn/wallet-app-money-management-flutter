@@ -30,6 +30,11 @@ class _CardSpendChartState extends State<CardSpendChart> {
       });
   }
 
+  _getTitle() {
+    String end = (this.selectedDate.year==DateTime.now().year)?'nay':this.selectedDate.year.toString();
+    return 'Chi tiêu năm '+ end;
+  }
+
   @override
   Widget build(BuildContext context) {
     var _bloc = TransactionBloc();
@@ -101,7 +106,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Chi tiêu năm nay',
+                          Text(_getTitle(),
                               style: Theme.of(context).textTheme.title),
                           RaisedButton(
                             onPressed: () => _selectDate(context),
@@ -168,7 +173,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
     list = list
         .where((item) =>
             (item.category.transactionType == TransactionType.EXPENSE &&
-                item.date.year == DateTime.now().year))
+                item.date.year == selectedDate.year))
         .toList();
     for (int i = 0; i < list.length; i++) {
       while (flagMonth < list[i].date.month) {

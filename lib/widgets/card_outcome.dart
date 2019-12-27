@@ -151,9 +151,9 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
   }
 }
 
-class categoryItem extends StatelessWidget {
+class CategoryItem extends StatelessWidget {
   final CategorySpend _item;
-  const categoryItem(this._item);
+  const CategoryItem(this._item);
 
   @override
   Widget build(BuildContext context) {

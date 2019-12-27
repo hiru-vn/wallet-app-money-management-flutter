@@ -20,7 +20,7 @@ class ItemTransaction extends StatelessWidget {
       },
       leading: Padding(
         padding: EdgeInsets.all(10),
-        child: Icon(Icons.account_balance),
+        child: Icon(Icons.category),
       ),
       title:
           Text(this._transaction.category.name, style: TextStyle(fontSize: 18)),

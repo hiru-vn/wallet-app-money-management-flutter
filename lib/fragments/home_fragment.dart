@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/data/model/Account.dart';
+import 'package:wallet_exe/pages/balance_detail_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
 import 'package:wallet_exe/widgets/card_earn_chart.dart';
@@ -32,6 +33,13 @@ class _HomeFragmentState extends State<HomeFragment> {
     super.initState();
   }
 
+  _balaceDetailNav() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BalanceDetailPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,13 +60,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 child: Padding(
                     padding: EdgeInsets.all(15.0),
                     child: InkWell(
-                      onTap: () async {
-                        Database db = DatabaseHelper.instance.database;
-
-                        List<Map> result = await db.query('account');
-
-                        result.forEach((row) => print(row));
-                      },
+                      onTap: _balaceDetailNav,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
