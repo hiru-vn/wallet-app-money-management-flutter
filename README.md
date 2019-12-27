@@ -31,8 +31,10 @@ flutter run # make sure your mobile device is connected
 
 # Support 
 
- - [x] Lưu chi tiêu
- - [x] Tạo nhiều loại tài khoản
+ - [x] Thêm/xóa/sửa giao dịch chi tiêu
+ - [x] Thêm/xóa/sửa hạn mức chi
+ - [x] Thêm/xóa/sửa tài khoản
+ - [x] Thêm/xóa/sửa danh mục thu/chi
  - [x] Thống kê bằng biểu đồ
  - [ ] Chức năng đăng nhập
  - [ ] Liên kết với tài khoản ngân hàng
