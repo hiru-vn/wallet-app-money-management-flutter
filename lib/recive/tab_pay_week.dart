@@ -26,7 +26,6 @@ class _TransactionFragmentState extends State<TransactionFragment> {
       setState(() {
         selectedDate = picked;
       });
-    print(selectedDate);
   }
 
   @override

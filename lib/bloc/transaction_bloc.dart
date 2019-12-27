@@ -24,8 +24,6 @@ class TransactionBloc extends BaseBloc {
     _transactionListData = await _transactionTable.getAll();
     if (_transactionListData == null) return;
 
-    print(_transactionListData[0].account.name);
-
     print('transaction bloc init');
     _transactionListStreamController.sink.add(_transactionListData);
   }

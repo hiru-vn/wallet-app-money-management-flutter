@@ -24,6 +24,8 @@ class TransactionTable {
         '$description TEXT,'
         '$idCategory INTEGER NOT NULL,'
         '$idAccount INTEGER NOT NULL)');
+    
+    db.execute('INSERT INTO $tableName VALUES(null,"2007-01-01 10:00:00",0,"",1,1)');
   }
 
   Future<List<trans.Transaction>> getAll() async {
@@ -81,7 +83,8 @@ class TransactionTable {
 
   Future<void> update(trans.Transaction transaction) async {
     final Database db = DatabaseHelper.instance.database;
-    //await db.update(tableName, where: 'id = ?', whereArgs: [transaction.id]);
+    print("db"+transaction.id.toString());
+    await db.update(tableName, transaction.toMap() , where: 'id = ?', whereArgs: [transaction.id]);
   }
 
   Future<List<CategorySpend>> getAmountSpendPerCategory(TransactionType type) async {

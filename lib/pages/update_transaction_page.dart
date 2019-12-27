@@ -12,14 +12,16 @@ import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
-class NewTransactionPage extends StatefulWidget {
-  NewTransactionPage({Key key}) : super(key: key);
+class UpdateTransactionPage extends StatefulWidget {
+  final Transaction _transaction;
+  UpdateTransactionPage(this._transaction);
 
   @override
-  _NewTransactionPageState createState() => _NewTransactionPageState();
+  _UpdateTransactionPageState createState() => _UpdateTransactionPageState();
 }
 
-class _NewTransactionPageState extends State<NewTransactionPage> {
+class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
+  Transaction _transaction;
   var _balanceController = TextEditingController();
   var _descriptionController = TextEditingController();
   var _formBalanceKey = GlobalKey<FormState>();
@@ -30,6 +32,12 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
 
   @override
   void initState() {
+    _transaction = widget._transaction;
+    _balanceController.text = textToCurrency(_transaction.amount.toString());
+    _descriptionController.text = _transaction.description;
+    _category = _transaction.category;
+    _account = _transaction.account;
+
     super.initState();
   }
 
@@ -69,7 +77,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
 
   _getTime() {
     TimeOfDay time = _selectedTime;
-    String formatTime = time.minute<10?'0':'';
+    String formatTime = time.minute < 10 ? '0' : '';
     return time.hour.toString() + ":" + formatTime + time.minute.toString();
   }
 
@@ -106,12 +114,28 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
           currencyToInt(this._balanceController.text),
           saveTime,
           this._descriptionController.text);
-      _bloc.event.add(AddTransactionEvent(transaction));
+      transaction.id = _transaction.id;
+      _bloc.event.add(UpdateTransactionEvent(transaction));
 
       if (this._category.transactionType == TransactionType.EXPENSE)
-        this._account.balance -= currencyToInt(this._balanceController.text);
+      {
+        if (this._transaction.category.transactionType == TransactionType.EXPENSE) {
+          print(currencyToInt(this._balanceController.text) - this._transaction.amount);
+          this._account.balance -= (currencyToInt(this._balanceController.text) - this._transaction.amount);
+        }
+        else if (this._transaction.category.transactionType == TransactionType.INCOME) {
+          this._account.balance -= (currencyToInt(this._balanceController.text) + this._transaction.amount);
+        }
+      }
       if (this._category.transactionType == TransactionType.INCOME)
-        this._account.balance += currencyToInt(this._balanceController.text);
+      {
+        if (this._transaction.category.transactionType == TransactionType.EXPENSE) {
+          this._account.balance += (currencyToInt(this._balanceController.text) + this._transaction.amount);
+        }
+        else if (this._transaction.category.transactionType == TransactionType.INCOME) {
+          this._account.balance += (currencyToInt(this._balanceController.text) - this._transaction.amount);
+        }
+      }
 
       _bloc_account.event.add(UpdateAccountEvent(this._account));
 
@@ -120,7 +144,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Giao dịch mới'),
+        title: Text('Chi tiết giao dịch'),
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -130,7 +154,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.blueGrey
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -199,7 +225,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.blueGrey
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -368,28 +396,67 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: RaisedButton(
-                color: Theme.of(context).primaryColor,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.save,
-                        size: 28,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: RaisedButton(
+                        color: Theme.of(context).buttonColor,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.delete,
+                                size: 28,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Xóa',
+                                style: Theme.of(context).textTheme.title,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onPressed: _submit,
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Ghi',
-                        style: Theme.of(context).textTheme.title,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                onPressed: _submit,
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColor,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.save,
+                                size: 28,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Lưu',
+                                style: Theme.of(context).textTheme.title,
+                              ),
+                            ],
+                          ),
+                        ),
+                        onPressed: _submit,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(

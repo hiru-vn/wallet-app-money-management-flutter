@@ -16,7 +16,6 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
   int _currentIndex = 1;
 
   _chooseSpendLimit() async {
-    print(_currentIndex);
     int temp = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -25,7 +24,6 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
 
     // prevent null
     if (temp != null) _currentIndex = temp;
-    print(_currentIndex);
   }
 
   // @override

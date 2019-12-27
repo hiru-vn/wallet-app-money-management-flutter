@@ -171,8 +171,6 @@ class _CardSpendChartState extends State<CardSpendChart> {
                 item.date.year == DateTime.now().year))
         .toList();
     for (int i = 0; i < list.length; i++) {
-      print(i);
-      print(list.length);
       while (flagMonth < list[i].date.month) {
         totalByMonth.add((totalMonth / 1000).round());
         totalMonth = 0;
