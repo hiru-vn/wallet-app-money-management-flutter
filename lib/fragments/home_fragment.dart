@@ -46,7 +46,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: double.infinity,
                 height: ScreenUtil.getInstance().setHeight(170),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Padding(

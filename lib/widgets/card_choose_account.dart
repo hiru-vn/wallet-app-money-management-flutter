@@ -51,7 +51,7 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
                 return Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(

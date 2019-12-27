@@ -76,7 +76,7 @@ class _CategoryPageState extends State<CategoryPage> {
                               vertical: 10, horizontal: 15),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).brightness == Brightness.dark? Colors.black45: Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
                             boxShadow: [
                               BoxShadow(

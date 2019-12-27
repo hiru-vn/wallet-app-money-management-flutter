@@ -34,6 +34,9 @@ dependencies:
   # Week of year, Date of year
   jiffy: ^2.1.2
 
+  # Change theme
+  rxdart: ^0.22.0
+
   # date format, money format
   intl: ^0.16.0
   flutter_masked_text:

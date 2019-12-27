@@ -306,7 +306,7 @@ class _FormReciveState extends State<FormRecive> {
                           ),
                           icon: Icon(
                             Icons.save,
-                            color: Colors.white,
+                            color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
                           ),
                           onPressed: () {
                             save();

@@ -235,7 +235,7 @@ class _SearchRecieveState extends State<SearchRecieve> {
                       : RaisedButton.icon(
                           icon: Icon(
                             Icons.search,
-                            color: Colors.white,
+                            color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
                           ),
                           label: Text(
                             'ຄົ້ນ​ຫາ',

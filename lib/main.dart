@@ -5,6 +5,8 @@ import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/pages/main_page.dart';
+import 'package:wallet_exe/themes/theme.dart';
+import 'package:wallet_exe/themes/theme_bloc.dart';
 import './bloc/account_bloc.dart';
 
 void main() async {
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
     var transactionBloc = TransactionBloc();
     var categoryBloc = CategoryBloc();
     var spendLimitBloc = SpendLimitBloc();
+    var themeBloc = ThemeBloc();
     accountBloc.initData();
     transactionBloc.initData();
     categoryBloc.initData();
@@ -38,16 +41,34 @@ class MyApp extends StatelessWidget {
         ),
         Provider<SpendLimitBloc>.value(
           value: spendLimitBloc,
+        ),
+        Provider<ThemeBloc>.value(
+          value: themeBloc,
         )
       ],
-      child: MaterialApp(
-        title: 'Wallet exe',
-        theme: ThemeData(
-          primaryColor: Colors.amber,
-          accentColor: Colors.amber[200],
-        ),
-        home: MainPage(),
-      ),
+      child: StreamBuilder(
+          initialData: myThemes[0],
+          stream: themeBloc.outTheme,
+          builder: (context, AsyncSnapshot<AppTheme> snapshot) {
+            if (snapshot.hasData) {
+              print(snapshot.data);
+            }
+            return MaterialApp(
+              title: 'Wallet exe',
+              theme: snapshot.hasData
+                  ? _buildThemeData(snapshot.data)
+                  : ThemeData(),
+              home: MainPage(),
+            );
+          }),
+    );
+  }
+
+  _buildThemeData(AppTheme appTheme) {
+    return ThemeData(
+      brightness: appTheme.theme.brightness,
+      primarySwatch: appTheme.theme.primarySwatch,
+      accentColor: appTheme.theme.accentColor,
     );
   }
 }

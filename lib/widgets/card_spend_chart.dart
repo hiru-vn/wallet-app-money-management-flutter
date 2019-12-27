@@ -78,7 +78,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
         width: double.infinity,
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
           boxShadow: [
             BoxShadow(

@@ -75,7 +75,7 @@ class _CardbalanceState extends State<Cardbalance> {
                 width: double.infinity,
                 padding: EdgeInsets.only(top: 15, left: 15, right: 15),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
                   boxShadow: [
                     BoxShadow(
