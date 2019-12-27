@@ -6,6 +6,7 @@ import 'package:wallet_exe/data/database_helper.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
+import 'package:wallet_exe/widgets/card_earn_chart.dart';
 import 'package:wallet_exe/widgets/card_maximum_spend.dart';
 import 'package:wallet_exe/widgets/card_spend_chart.dart';
 

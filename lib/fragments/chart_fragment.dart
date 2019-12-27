@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/widgets/card_earn_chart.dart';
 import 'package:wallet_exe/widgets/card_maximum_spend.dart';
 import 'package:wallet_exe/widgets/card_outcome.dart';
 import 'package:wallet_exe/widgets/card_spend_chart.dart';
@@ -25,6 +26,13 @@ class _ChartFragmentState extends State<ChartFragment> {
           height: 15,
         ),
         CardSpendChart(showDetail: true,),
+        SizedBox(
+          height: 15,
+        ),
+        CardEarnChart(showDetail: true,),
+        SizedBox(
+          height: 60,
+        ),
       ],
     ));
   }

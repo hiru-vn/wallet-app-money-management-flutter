@@ -6,16 +6,16 @@ import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/item_spend_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class CardSpendChart extends StatefulWidget {
+class CardEarnChart extends StatefulWidget {
   final showDetail;
 
-  CardSpendChart({this.showDetail = false});
+  CardEarnChart({this.showDetail = false});
 
   @override
-  _CardSpendChartState createState() => _CardSpendChartState();
+  _CardEarnChartState createState() => _CardEarnChartState();
 }
 
-class _CardSpendChartState extends State<CardSpendChart> {
+class _CardEarnChartState extends State<CardEarnChart> {
   DateTime selectedDate = DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -63,7 +63,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Tổng chi:',
+                  'Tổng thu nhập:',
                   style: Theme.of(context).textTheme.body2,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
@@ -99,7 +99,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Chi tiêu năm nay',
+                          Text('Thu nhập năm nay',
                               style: Theme.of(context).textTheme.title),
                           RaisedButton(
                             onPressed: () => _selectDate(context),
@@ -149,7 +149,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
     int total = 0;
     for (int i = 0; i < list.length; i++) {
       if (list[i].date.year == now.year &&
-          list[i].category.transactionType == TransactionType.EXPENSE) {
+          list[i].category.transactionType == TransactionType.INCOME) {
         total += list[i].amount;
       }
     }
@@ -166,7 +166,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
     });
     for (int i = 0; i < list.length; i++) {
       if (list[i].date.year == DateTime.now().year &&
-          list[i].category.transactionType == TransactionType.EXPENSE) {
+          list[i].category.transactionType == TransactionType.INCOME) {
         while (flagMonth < list[i].date.month) {
           totalByMonth.add((totalMonth / 1000).round());
           totalMonth = 0;
@@ -193,7 +193,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
     return [
       new charts.Series<MoneySpend, String>(
         id: 'MoneySpend',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (MoneySpend spend, _) => spend.month.toString(),
         measureFn: (MoneySpend spend, _) => spend.money,
         data: data,
