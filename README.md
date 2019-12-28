@@ -1,4 +1,4 @@
-# Money Management - Flutter - SE114 UIT
+# Money Management - Flutter - SE346 UIT
 
 * __Built by: Hei Dun Luv__ - __`Hate and Love`__ 
   
