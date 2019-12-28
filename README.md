@@ -10,6 +10,14 @@
 <p align="center"> Ứng dụng quản lý chi tiêu - hãy chi tiêu thông minh </p>
 
 
+# Technology
+
+- [flutter](https://flutter.dev/)
+- [provider](https://pub.dev/packages/provider)
+- [bloc](https://pub.dev/packages/bloc)
+- [sqflite](https://pub.dev/packages/sqflite)
+
+
 # Installation
 
 - Download [Flutter](https://flutter.dev/docs/get-started/install)
