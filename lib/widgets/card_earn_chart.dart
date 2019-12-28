@@ -168,7 +168,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
     list = list
         .where((item) =>
             (item.category.transactionType == TransactionType.INCOME &&
-                item.date.year == DateTime.now().year))
+                item.date.year == selectedDate.year))
         .toList();
     for (int i = 0; i < list.length; i++) {
       while (flagMonth < list[i].date.month) {
