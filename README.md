@@ -1,14 +1,15 @@
-# Money Management - Flutter - SE114 UIT
+# Money Management - Flutter - SE346 UIT
 
 * __Built by: Hei Dun Luv__ - __`Hate and Love`__ 
   
     * 17520583 - Nguyễn Quang Huy
     * 17520372 - Đào Mạnh Dũng
     * 17520702 - Nguyễn Huỳnh Lợi  
----
+
 <p align="center"> <img src ="./assets/logo.png" /> </p>
 <p align="center"> Ứng dụng quản lý chi tiêu - hãy chi tiêu thông minh </p>
 
+---
 
 # Technology
 
@@ -19,6 +20,10 @@
 
 
 # Installation
+
+- Download [release apk](https://github.com/huynguyen1999kh/wallet-app-money-management-flutter/releases/tag/v1.0)
+
+or manually download the project:
 
 - Download [Flutter](https://flutter.dev/docs/get-started/install)
 - Install this repository
