@@ -26,7 +26,7 @@ class AccountBloc extends BaseBloc {
 
     _accountListStreamController.sink.add(_accountListData);
   }
-
+  
   _addAccount(Account account) async {
     _accountTable.insert(account);
 

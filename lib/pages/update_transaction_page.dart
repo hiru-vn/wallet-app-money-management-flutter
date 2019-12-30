@@ -91,9 +91,9 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
   @override
   Widget build(BuildContext context) {
     var _bloc = TransactionBloc();
-    var _bloc_account = AccountBloc();
+    var _blocAccount = AccountBloc();
     _bloc.initData();
-    _bloc_account.initData();
+    _blocAccount.initData();
 
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
@@ -114,30 +114,38 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
           currencyToInt(this._balanceController.text),
           saveTime,
           this._descriptionController.text);
-      transaction.id = _transaction.id;
+      transaction.id = this._transaction.id;
       _bloc.event.add(UpdateTransactionEvent(transaction));
 
-      if (this._category.transactionType == TransactionType.EXPENSE)
-      {
-        if (this._transaction.category.transactionType == TransactionType.EXPENSE) {
-          print(currencyToInt(this._balanceController.text) - this._transaction.amount);
-          this._account.balance -= (currencyToInt(this._balanceController.text) - this._transaction.amount);
-        }
-        else if (this._transaction.category.transactionType == TransactionType.INCOME) {
-          this._account.balance -= (currencyToInt(this._balanceController.text) + this._transaction.amount);
+      if (this._category.transactionType == TransactionType.EXPENSE) {
+        if (this._transaction.category.transactionType ==
+            TransactionType.EXPENSE) {
+          this._account.balance -=
+              (currencyToInt(this._balanceController.text) -
+                  this._transaction.amount);
+        } else if (this._transaction.category.transactionType ==
+            TransactionType.INCOME) {
+          this._account.balance -=
+              (currencyToInt(this._balanceController.text) +
+                  this._transaction.amount);
         }
       }
-      if (this._category.transactionType == TransactionType.INCOME)
-      {
-        if (this._transaction.category.transactionType == TransactionType.EXPENSE) {
-          this._account.balance += (currencyToInt(this._balanceController.text) + this._transaction.amount);
-        }
-        else if (this._transaction.category.transactionType == TransactionType.INCOME) {
-          this._account.balance += (currencyToInt(this._balanceController.text) - this._transaction.amount);
+      if (this._category.transactionType == TransactionType.INCOME) {
+        if (this._transaction.category.transactionType ==
+            TransactionType.EXPENSE) {
+          this._account.balance +=
+              (currencyToInt(this._balanceController.text) +
+                  this._transaction.amount);
+        } else if (this._transaction.category.transactionType ==
+            TransactionType.INCOME)
+             {
+          this._account.balance +=
+              (currencyToInt(this._balanceController.text) -
+                  this._transaction.amount);
         }
       }
 
-      _bloc_account.event.add(UpdateAccountEvent(this._account));
+      _blocAccount.event.add(UpdateAccountEvent(this._account));
 
       Navigator.pop(context);
     }

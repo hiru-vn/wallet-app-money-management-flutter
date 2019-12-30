@@ -9,7 +9,7 @@ import '../database_helper.dart';
 
 class TransactionTable {
   final tableName = 'transaction_table';
-  final id = 'id';
+  final id = 'id_transaction';
   final date = 'date';
   final amount = 'amount';
   final description = 'description';
@@ -30,8 +30,8 @@ class TransactionTable {
 
   Future<List<trans.Transaction>> getAll() async {
     final Database db = DatabaseHelper.instance.database;
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-        'SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
+    final List<Map<String, dynamic>> maps = await db.rawQuery( // watch out!! this could be buggy, more than one column name id
+        'SELECT * from transaction_table, account , category where transaction_table.id_account = account.id_account and category.id = transaction_table.id_category');
 
     return List.generate(maps.length, (index) {
       return trans.Transaction.fromMap(maps[index]);
@@ -83,8 +83,7 @@ class TransactionTable {
 
   Future<void> update(trans.Transaction transaction) async {
     final Database db = DatabaseHelper.instance.database;
-    print("db"+transaction.id.toString());
-    await db.update(tableName, transaction.toMap() , where: 'id = ?', whereArgs: [transaction.id]);
+    await db.update(tableName, transaction.toMap() , where: '$id = ?', whereArgs: [transaction.id]);
   }
 
   Future<List<CategorySpend>> getAmountSpendPerCategory(TransactionType type) async {
@@ -101,7 +100,7 @@ class TransactionTable {
   Future<int> getMoneySpendByDuration(SpendLimitType type) async {
     int result=0;
     final Database db = DatabaseHelper.instance.database;
-    List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id and category.id = transaction_table.id_category');
+    List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id_account and category.id = transaction_table.id_category');
     List<trans.Transaction> list = List.generate(maps.length, (index) {
       return trans.Transaction.fromMap(maps[index]);
     });
@@ -114,7 +113,6 @@ class TransactionTable {
         }
       }
     }
-
     return result;
   }
 }

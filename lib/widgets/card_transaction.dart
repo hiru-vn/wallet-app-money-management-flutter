@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_exe/data/model/Transaction.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/widgets/item_transaction.dart';
 
 class CardTransaction extends StatelessWidget {
@@ -12,7 +13,12 @@ class CardTransaction extends StatelessWidget {
     List<Widget> listItem = List<Widget>();
     for (int i = 0; i < _list.length; i++) {
       listItem.add(ItemTransaction(_list[i]));
-      totalDay += _list[i].amount;
+      if (_list[i].category.transactionType == TransactionType.INCOME) {
+        totalDay += _list[i].amount;
+      }
+      if (_list[i].category.transactionType == TransactionType.EXPENSE) {
+        totalDay -= _list[i].amount;
+      }
     }
 
     listItem.add(Divider(thickness: 2.0, indent: 15, endIndent: 15,));
@@ -60,7 +66,7 @@ class CardTransaction extends StatelessWidget {
           child: ListTile(
             title: Text("Tổng:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            trailing: Text(totalDay.toString(),
+            trailing: Text(totalDay.abs().toString(),
                 style: TextStyle(
                     color: totalDay > 0 ? Colors.green : Colors.red,
                     fontSize: 18)),

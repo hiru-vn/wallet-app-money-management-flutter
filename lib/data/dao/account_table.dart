@@ -9,7 +9,7 @@ import '../database_helper.dart';
 
 class AccountTable {
   final tableName = 'account';
-  final id = 'id';
+  final id = 'id_account';
   final name = 'account_name';
   //final int idAppAccount; //TO DO
   final balance = 'balance';
@@ -19,7 +19,7 @@ class AccountTable {
   void onCreate(Database db, int version) {
     db.execute('''
     CREATE TABLE account (
-      id INTEGER PRIMARY KEY,
+      id_account INTEGER PRIMARY KEY,
       account_name TEXT NOT NULL UNIQUE,
       balance INTEGER NOT NULL,
       type INTEGER NOT NULL,
@@ -52,12 +52,12 @@ class AccountTable {
 
   Future<void> deleteAccount(Account account) async {
     final Database db = DatabaseHelper.instance.database;
-    await db.delete(tableName, where: 'id = ?', whereArgs: [account.id]);
+    await db.delete(tableName, where: '$id = ?', whereArgs: [account.id]);
   }
 
   Future<void> updateAccount(Account account) async {
     final Database db = DatabaseHelper.instance.database;
-    await db.update(tableName, account.toMap(), where: 'id = ?', whereArgs: [account.id]);
+    await db.update(tableName, account.toMap(), where: '$id = ?', whereArgs: [account.id]);
   }
 
   Future<String> getTotalBalance() async {
