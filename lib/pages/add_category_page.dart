@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/category_bloc.dart';
 import 'package:wallet_exe/data/model/Category.dart';
@@ -13,6 +14,7 @@ class AddCategoryPage extends StatefulWidget {
 }
 
 class _AddCategoryPageState extends State<AddCategoryPage> {
+  IconData _iconData;
   List<TransactionType> _option = TransactionType.getAllType();
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
@@ -25,7 +27,26 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   void initState() {
     _dropDownMenuItems = getDropDownMenuItems();
     _currentOption = "Hạng mục chi";
+    _iconData = Icons.category;
     super.initState();
+  }
+
+  _pickIcon() async {
+    IconData icon = await FlutterIconPicker.showIconPicker(context,
+        iconSize: 40,
+        iconPickerShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text('Chọn icon', style: TextStyle(fontWeight: FontWeight.bold)),
+        closeChild: Text(
+          'Đóng',
+          textScaleFactor: 1.25,
+        ),
+        searchHintText: 'Tìm icon...',
+        noResultsText: 'Không tìm thấy:');
+
+    setState(() {
+      _iconData = icon;
+    });
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -49,9 +70,10 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
     //add data
     Category category = Category(
         _nameController.text,
-        Icons.ac_unit,
+        _iconData,
         Colors.blueAccent,
-        TransactionType.valueFromName(this._currentOption));
+        TransactionType.valueFromName(this._currentOption),
+        _descriptionController.text); //TO DO
     _bloc.event.add(AddCategoryEvent(category));
     Navigator.pop(context);
   }
@@ -127,19 +149,45 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   width: double.infinity,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        'Loại hạng mục',
-                        style: TextStyle(
-                            fontSize: 18, color: Colors.black.withOpacity(0.5)),
+                      Row(
+                        children: <Widget>[
+                          AnimatedSwitcher(
+                              duration: Duration(milliseconds: 300),
+                              child: _iconData != null
+                                  ? Icon(
+                                      _iconData,
+                                      size: 30,
+                                    )
+                                  : Container()),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          RaisedButton(
+                            color: Theme.of(context).accentColor,
+                            onPressed: _pickIcon,
+                            child: Text('Chọn icon',
+                                style: Theme.of(context).textTheme.subtitle),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 15),
-                      DropdownButton(
-                        value: _currentOption,
-                        items: _dropDownMenuItems,
-                        onChanged: changedDropDownItem,
-                      ),
+                      Row(
+                        children: <Widget>[
+                          // Text(
+                          //   'Loại:',
+                          //   style: TextStyle(
+                          //       fontSize: 18,
+                          //       color: Colors.black.withOpacity(0.5)),
+                          // ),
+                          // SizedBox(width: 10),
+                          DropdownButton(
+                            value: _currentOption,
+                            items: _dropDownMenuItems,
+                            onChanged: changedDropDownItem,
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -169,7 +217,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                         ],
                       ),
                     ),
-                    onPressed:() => _submit(_bloc),
+                    onPressed: () => _submit(_bloc),
                   ),
                 ),
               ],

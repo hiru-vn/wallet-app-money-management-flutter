@@ -10,12 +10,14 @@ class Category {
   IconData icon;
   Color color;
   TransactionType transactionType;
+  String description;
 
   Category(
     this.name,
     this.icon,
     this.color,
-    this.transactionType
+    this.transactionType,
+    this.description,
   );
 
   Category.copyOf(Category copy) {
@@ -24,6 +26,7 @@ class Category {
     this.icon = copy.icon;
     this.color = copy.color;
     this.transactionType = copy.transactionType;
+    this.description = copy.description;
   }
 
   // getter
@@ -33,7 +36,8 @@ class Category {
       CategoryTable().color: color.value,
       CategoryTable().name: name,
       CategoryTable().type: transactionType.value,
-      CategoryTable().icon: 1, //TO DO:
+      CategoryTable().icon: icon.codePoint.toString(),
+      CategoryTable().description : description,
     };
   }
   // setter
@@ -41,7 +45,8 @@ class Category {
     id = map[CategoryTable().id];
     name = map[CategoryTable().name];
     color = valueToColor(map[CategoryTable().color]);
-    icon = Icons.account_circle; //map[CategoryTable().icon]; //TO DO:
+    icon = IconData(map[CategoryTable().icon], fontFamily: 'MaterialIcons');
     transactionType = TransactionType.valueOf(map[CategoryTable().type]);
+    description = map[CategoryTable().description];
   }
 }

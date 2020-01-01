@@ -21,7 +21,10 @@ dependencies:
     sdk: flutter
   flutter_screenutil:
 
-  #flutter chart
+  # icon picker
+  flutter_iconpicker: ^0.1.2
+
+  # flutter chart
   charts_flutter:
 
   # The following is state management library (not from flutter community).
@@ -37,6 +40,9 @@ dependencies:
   # Change theme
   rxdart: ^0.22.0
 
+  # change icon
+  flutter_launcher_icons: ^0.7.4
+
   # date format, money format
   intl: ^0.16.0
   flutter_masked_text:
@@ -47,11 +53,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-# flutter_icons:
-#   image_path: "assets/logo.png" 
-#   android: true
-#   ios: true
+  
+flutter_icons:
+  image_path: "assets/logo.png" 
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

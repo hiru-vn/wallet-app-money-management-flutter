@@ -55,7 +55,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
         _nameController.text,
         Icons.ac_unit,
         Colors.blueAccent,
-        TransactionType.valueFromName(this._currentOption));
+        TransactionType.valueFromName(this._currentOption), ''); //TO DO
     category.id = this._category.id;
     _bloc.event.add(UpdateCategoryEvent(category));
     Navigator.pop(context);
