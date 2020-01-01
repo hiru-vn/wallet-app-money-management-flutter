@@ -15,7 +15,7 @@ class RecordsPage extends StatelessWidget {
     List<Widget> list = List<Widget>();
     for (int i = 0; i < items.length; i++) {
       list.add(ListTile(
-        leading: Icon(Icons.category),
+        leading: Icon(items[i].category.icon),
         title: Text(items[i].category.name),
         subtitle: Text(items[i].date.day.toString() +
             '/' +

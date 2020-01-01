@@ -31,8 +31,10 @@ class _CardSpendChartState extends State<CardSpendChart> {
   }
 
   _getTitle() {
-    String end = (this.selectedDate.year==DateTime.now().year)?'nay':this.selectedDate.year.toString();
-    return 'Chi tiêu năm '+ end;
+    String end = (this.selectedDate.year == DateTime.now().year)
+        ? 'nay'
+        : this.selectedDate.year.toString();
+    return 'Chi tiêu năm ' + end;
   }
 
   @override
@@ -192,6 +194,11 @@ class _CardSpendChartState extends State<CardSpendChart> {
           totalByMonth.add((totalMonth / 1000).round());
         }
       }
+    }
+
+    while (flagMonth < 12) {
+      totalByMonth.add(0);
+      flagMonth++;
     }
 
     var data = List.generate(totalByMonth.length, (index) {

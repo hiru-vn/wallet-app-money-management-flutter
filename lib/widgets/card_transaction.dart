@@ -6,7 +6,7 @@ import 'package:wallet_exe/widgets/item_transaction.dart';
 class CardTransaction extends StatelessWidget {
   List<Transaction> _list = List<Transaction>();
   DateTime _date;
-  int totalDay = 0;
+  int _totalDay = 0;
   CardTransaction(this._list, this._date);
 
   List<Widget> _createRenderItem() {
@@ -14,15 +14,15 @@ class CardTransaction extends StatelessWidget {
     for (int i = 0; i < _list.length; i++) {
       listItem.add(ItemTransaction(_list[i]));
       if (_list[i].category.transactionType == TransactionType.INCOME) {
-        totalDay += _list[i].amount;
+        _totalDay += _list[i].amount;
       }
       if (_list[i].category.transactionType == TransactionType.EXPENSE) {
-        totalDay -= _list[i].amount;
+        _totalDay -= _list[i].amount;
       }
     }
 
     listItem.add(Divider(thickness: 2.0, indent: 15, endIndent: 15,));
-    listItem.add(_createTotalTile(totalDay));
+    listItem.add(_createTotalTile(_totalDay));
 
     return listItem;
   }
@@ -66,9 +66,9 @@ class CardTransaction extends StatelessWidget {
           child: ListTile(
             title: Text("Tổng:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            trailing: Text(totalDay.abs().toString(),
+            trailing: Text(_totalDay.abs().toString(),
                 style: TextStyle(
-                    color: totalDay > 0 ? Colors.green : Colors.red,
+                    color: _totalDay > 0 ? Colors.green : Colors.red,
                     fontSize: 18)),
           ),
         )
