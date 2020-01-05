@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
-import 'package:wallet_exe/enums/spend_limit_type.dart';
 import 'package:wallet_exe/event/spend_limit_event.dart';
 import 'package:wallet_exe/pages/spend_limit_type_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class SpendLimitPage extends StatefulWidget {
-  SpendLimit _spendLimit;
+  final SpendLimit _spendLimit;
   SpendLimitPage(this._spendLimit);
 
   @override
@@ -15,9 +14,7 @@ class SpendLimitPage extends StatefulWidget {
 }
 
 class _SpendLimitPageState extends State<SpendLimitPage> {
-  //SpendLimitType _spendLimitType;
   var _spendLimitController = TextEditingController();
-  var _nameController = TextEditingController();
   var _formspendLimitKey = GlobalKey<FormState>();
 
   @override

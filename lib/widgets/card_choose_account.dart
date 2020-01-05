@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
-import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/item_account_choose.dart';
 
 class CardChooseAccount extends StatefulWidget {

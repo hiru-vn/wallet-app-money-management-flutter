@@ -44,9 +44,11 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         searchHintText: 'Tìm icon...',
         noResultsText: 'Không tìm thấy:');
 
-    setState(() {
-      _iconData = icon;
-    });
+    if (icon != null) {
+      setState(() {
+        _iconData = icon;
+      });
+    }
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {

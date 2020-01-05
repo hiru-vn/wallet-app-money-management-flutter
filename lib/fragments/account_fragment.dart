@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_list_account.dart';
-import '../bloc/account_bloc.dart';
 
 class AccountFragment extends StatefulWidget {
   AccountFragment({Key key}) : super(key: key);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
 import 'package:wallet_exe/pages/choose_spend_limit_page.dart';

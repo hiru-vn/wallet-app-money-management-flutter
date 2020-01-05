@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
 import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
+import 'package:wallet_exe/widgets/circle_image_picker.dart';
 
 class AddAccountPage extends StatefulWidget {
   AddAccountPage({Key key}) : super(key: key);
@@ -15,6 +15,7 @@ class AddAccountPage extends StatefulWidget {
 }
 
 class _AddAccountPageState extends State<AddAccountPage> {
+  String _imgUrl = 'assets/bank.png';
   List<AccountType> _option = AccountType.getAllType();
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
@@ -29,6 +30,27 @@ class _AddAccountPageState extends State<AddAccountPage> {
     _dropDownMenuItems = getDropDownMenuItems();
     _currentOption = "Tài khoản tiêu dùng";
     super.initState();
+  }
+
+  _pickIcon() async {
+    String url = await FlutterCircleImagePicker.showCircleImagePicker(context,
+        imageSize: 40,
+        imagePickerShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text('Chọn ảnh tài khoản',
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        closeChild: Text(
+          'Đóng',
+          textScaleFactor: 1.25,
+        ),
+        searchHintText: 'Tìm ảnh...',
+        noResultsText: 'Không tìm thấy:');
+
+    if (url != null) {
+      setState(() {
+        _imgUrl = url;
+      });
+    }
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -82,7 +104,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            width: double.infinity,
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -141,23 +162,45 @@ class _AddAccountPageState extends State<AddAccountPage> {
                             )),
                       ),
                     )),
-                Container(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                  width: double.infinity,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        'Loại hạng mục',
-                        style: TextStyle(
-                            fontSize: 18, color: Colors.black.withOpacity(0.5)),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            child: SizedBox(
+                              height: 36,
+                              width: 36,
+                              child: Image.asset(this._imgUrl),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.mode_edit),
+                            onPressed: _pickIcon,
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 15),
-                      DropdownButton(
-                        value: _currentOption,
-                        items: _dropDownMenuItems,
-                        onChanged: changedDropDownItem,
-                      ),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'Loại:',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black.withOpacity(0.5)),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          DropdownButton(
+                            value: _currentOption,
+                            items: _dropDownMenuItems,
+                            onChanged: changedDropDownItem,
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),

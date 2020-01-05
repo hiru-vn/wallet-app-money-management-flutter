@@ -83,9 +83,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
   @override
   Widget build(BuildContext context) {
     var _bloc = TransactionBloc();
-    var _bloc_account = AccountBloc();
+    var _blocAccount = AccountBloc();
     _bloc.initData();
-    _bloc_account.initData();
+    _blocAccount.initData();
 
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
@@ -113,7 +113,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
       if (this._category.transactionType == TransactionType.INCOME)
         this._account.balance += currencyToInt(this._balanceController.text);
 
-      _bloc_account.event.add(UpdateAccountEvent(this._account));
+      _blocAccount.event.add(UpdateAccountEvent(this._account));
 
       Navigator.pop(context);
     }
