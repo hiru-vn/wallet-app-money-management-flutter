@@ -69,7 +69,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
 
   _getTime() {
     TimeOfDay time = _selectedTime;
-    String formatTime = time.minute<10?'0':'';
+    String formatTime = time.minute < 10 ? '0' : '';
     return time.hour.toString() + ":" + formatTime + time.minute.toString();
   }
 
@@ -130,7 +130,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.blueGrey
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -199,7 +201,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             Container(
               padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.blueGrey
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -227,7 +231,9 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Container(
                             width: 50,
                             child: Icon(
-                              Icons.category,
+                              _category == null
+                              ? Icons.category
+                              : _category.icon,
                               size: 28,
                             ),
                           ),
@@ -338,10 +344,15 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                         children: <Widget>[
                           Container(
                             width: 50,
-                            child: Icon(
-                              Icons.account_balance,
-                              size: 28,
-                            ),
+                            child: _account == null
+                                ? Icon(
+                                    Icons.account_balance_wallet,
+                                    size: 28,
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Image.asset(_account.img),
+                                  ),
                           ),
                           Expanded(
                             flex: 1,

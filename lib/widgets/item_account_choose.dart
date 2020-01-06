@@ -14,7 +14,7 @@ class ItemAccountChoose extends StatelessWidget {
         child: ListTile(
           leading: Padding(
             padding: EdgeInsets.all(5),
-            child: Icon(Icons.account_balance),
+            child: Image.asset(_account.img),
           ),
           title: Text(this._account.name, style: Theme.of(context).textTheme.subtitle),
           subtitle: Text(textToCurrency(this._account.balance.toString())),

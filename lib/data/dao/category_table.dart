@@ -21,17 +21,17 @@ class CategoryTable {
         '$description STRING,'
         '$icon INT NOT NULL)');
 
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "nhà cửa", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "con cái", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "quần áo", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "giải trí", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "du lịch", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "di chuyển", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "điện nước", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "làm đẹp", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "ăn uống", 1, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "lãnh lương", 0, 0xe072)');
-    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "được cho/tặng", 0, 0xe072)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "nhà cửa", 1, 59530)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "con cái", 1, 60225)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "quần áo", 1, 58164)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "giải trí", 1, 58162)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "du lịch", 1, 57749)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "di chuyển", 1, 58673)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "điện nước", 1, 58940)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "làm đẹp", 1, 59516)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "ăn uống", 1, 58746)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "lãnh lương", 0, 57895)');
+    db.execute('INSERT INTO category(color, name, type, icon) VALUES (1, "được cho/tặng", 0, 59638)');
   }
 
   Future<int> insert(Category category) async {

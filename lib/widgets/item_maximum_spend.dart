@@ -231,6 +231,7 @@ class MaximunSpendItem extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: LinearProgressIndicator(
+                  backgroundColor: Colors.black38,
                   value: snapshot.data > this._spendLimit.amount
                       ? 1
                       : snapshot.data / this._spendLimit.amount,

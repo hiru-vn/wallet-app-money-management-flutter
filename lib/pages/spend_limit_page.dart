@@ -187,7 +187,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               Container(
                                 width: 50,
                                 child: Icon(
-                                  Icons.account_balance,
+                                  Icons.timelapse,
                                   size: 28,
                                 ),
                               ),
