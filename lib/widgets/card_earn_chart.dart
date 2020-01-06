@@ -189,6 +189,11 @@ class _CardEarnChartState extends State<CardEarnChart> {
       }
     }
 
+    while (flagMonth < 12) {
+      totalByMonth.add(0);
+      flagMonth++;
+    }
+
     var data = List.generate(totalByMonth.length, (index) {
       return MoneySpend(index + 1, totalByMonth[index]);
     });
