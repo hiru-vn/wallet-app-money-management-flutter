@@ -4,6 +4,7 @@ import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
 import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
+import 'package:wallet_exe/widgets/circle_image_picker.dart';
 
 class UpdateAccountPage extends StatefulWidget {
   Account _account;
@@ -18,6 +19,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
   List<AccountType> _option = AccountType.getAllType();
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
+  String _imgUrl;
   final _formNameKey = GlobalKey<FormState>();
   final _formBalanceKey = GlobalKey<FormState>();
 
@@ -30,11 +32,33 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
     _currentOption = widget._account.type.name;
     _account = widget._account;
     _nameController.text = widget._account.name;
+    _imgUrl = widget._account.img;
     _balanceController.text =
         textToCurrency(widget._account.balance.toString());
     // _descriptionController.text = widget._account.description;
     print(_account);
     super.initState();
+  }
+
+  _pickIcon() async {
+    String url = await FlutterCircleImagePicker.showCircleImagePicker(context,
+        imageSize: 60,
+        imagePickerShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text('Chọn ảnh tài khoản',
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        closeChild: Text(
+          'Đóng',
+          textScaleFactor: 1.25,
+        ),
+        searchHintText: 'Tìm ảnh...',
+        noResultsText: 'Không tìm thấy:');
+
+    if (url != null) {
+      setState(() {
+        _imgUrl = url;
+      });
+    }
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -57,21 +81,22 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
     bloc.initData();
 
     _submit() {
-    if (!this._formNameKey.currentState.validate()) {
-      return;
+      if (!this._formNameKey.currentState.validate()) {
+        return;
+      }
+      if (!this._formBalanceKey.currentState.validate()) {
+        return;
+      }
+      Account account = Account(
+          _nameController.text,
+          currencyToInt(_balanceController.text),
+          AccountType.valueFromName(this._currentOption),
+          Icons.account_balance_wallet,
+          _imgUrl);
+      account.id = this._account.id;
+      bloc.event.add(UpdateAccountEvent(account));
+      Navigator.pop(context);
     }
-    if (!this._formBalanceKey.currentState.validate()) {
-      return;
-    }
-    Account account = Account(
-        _nameController.text,
-        currencyToInt(_balanceController.text),
-        AccountType.valueFromName(this._currentOption),
-        Icons.account_balance_wallet);
-    account.id = this._account.id;
-    bloc.event.add(UpdateAccountEvent(account));
-    Navigator.pop(context);
-  }
 
     return Scaffold(
       appBar: AppBar(
@@ -86,9 +111,8 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
               SizedBox(
                 height: 15,
               ),
-              Container(
+              Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  width: double.infinity,
                   child: Form(
                     key: _formNameKey,
                     child: TextFormField(
@@ -110,9 +134,8 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                           )),
                     ),
                   )),
-              Container(
+              Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  width: double.infinity,
                   child: Form(
                     key: _formBalanceKey,
                     child: TextFormField(
@@ -139,29 +162,50 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                           )),
                     ),
                   )),
-              Container(
-                padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                width: double.infinity,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      'Loại hạng mục',
-                      style: TextStyle(
-                          fontSize: 18, color: Colors.black.withOpacity(0.5)),
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          child: SizedBox(
+                            height: 38,
+                            width: 38,
+                            child: Image.asset(this._imgUrl),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.mode_edit),
+                          onPressed: _pickIcon,
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 15),
-                    DropdownButton(
-                      value: _currentOption,
-                      items: _dropDownMenuItems,
-                      onChanged: changedDropDownItem,
-                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Loại:',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black.withOpacity(0.5)),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        DropdownButton(
+                          value: _currentOption,
+                          items: _dropDownMenuItems,
+                          onChanged: changedDropDownItem,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
-              Container(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                width: double.infinity,
                 child: TextFormField(
                   controller: _descriptionController,
                   autofocus: true,

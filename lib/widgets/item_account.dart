@@ -58,7 +58,7 @@ class ItemAccount extends StatelessWidget {
                 child: ListTile(
               leading: Padding(
                 padding: EdgeInsets.all(5),
-                child: Image.asset('assets/bank.png'),
+                child: Image.asset(this._account.img),
               ),
               title: Text(this._account.name,
                   style: Theme.of(context).textTheme.subtitle),

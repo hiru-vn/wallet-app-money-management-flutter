@@ -74,6 +74,14 @@ flutter:
   assets:
    - assets/logo.png
    - assets/bank.png
+   - assets/dollar.png
+   - assets/jp-yen.png
+   - assets/bitcoin.png
+   - assets/e-wallet.png
+   - assets/bank-card.png
+   - assets/credit.png
+   - assets/phone-wallet.png
+   - assets/saving-pig.png
   # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

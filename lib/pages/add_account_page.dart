@@ -34,7 +34,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
 
   _pickIcon() async {
     String url = await FlutterCircleImagePicker.showCircleImagePicker(context,
-        imageSize: 40,
+        imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         title: Text('Chọn ảnh tài khoản',
@@ -86,7 +86,9 @@ class _AddAccountPageState extends State<AddAccountPage> {
           _nameController.text,
           currencyToInt(_balanceController.text),
           AccountType.valueFromName(this._currentOption),
-          Icons.account_balance_wallet);
+          Icons.account_balance_wallet,
+          this._imgUrl
+          );
       _bloc.event.add(AddAccountEvent(account));
       Navigator.pop(context);
     }
@@ -109,9 +111,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 SizedBox(
                   height: 15,
                 ),
-                Container(
+                Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    width: double.infinity,
                     child: Form(
                       key: _formNameKey,
                       child: TextFormField(
@@ -133,9 +134,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
                             )),
                       ),
                     )),
-                Container(
+                Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    width: double.infinity,
                     child: Form(
                       key: _formBalanceKey,
                       child: TextFormField(
@@ -172,8 +172,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 5),
                             child: SizedBox(
-                              height: 36,
-                              width: 36,
+                              height: 38,
+                              width: 38,
                               child: Image.asset(this._imgUrl),
                             ),
                           ),
@@ -204,9 +204,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
                     ],
                   ),
                 ),
-                Container(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  width: double.infinity,
                   child: TextFormField(
                     controller: _descriptionController,
                     autofocus: true,

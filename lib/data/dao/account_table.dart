@@ -15,6 +15,7 @@ class AccountTable {
   final balance = 'balance';
   final type = 'type';
   final icon = 'icon';
+  final img = 'img';
 
   void onCreate(Database db, int version) {
     db.execute('''
@@ -23,11 +24,12 @@ class AccountTable {
       account_name TEXT NOT NULL UNIQUE,
       balance INTEGER NOT NULL,
       type INTEGER NOT NULL,
-      icon INTEGER NOT NULL)
+      icon INTEGER NOT NULL,
+      img TEXT NOT NULL)
     ''');
-    db.execute('INSERT INTO account VALUES (0,"Ví",1000000,0,0)');
-    db.execute('INSERT INTO account VALUES (1,"ATM",0,0,0)');
-    db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0)');
+    db.execute('INSERT INTO account VALUES (0,"Ví",1000000,0,0,"assets/logo.png")');
+    db.execute('INSERT INTO account VALUES (1,"ATM",0,0,0,"assets/credit.png")');
+    db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0,"assets/e-wallet.png")');
   }
 
   Future<List<String>> getAllAccountName() async {
