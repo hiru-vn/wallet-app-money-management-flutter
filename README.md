@@ -13,7 +13,7 @@
 
 # Technology
 
-- [flutter](https://flutter.dev/)
+- [flutter](https://flutter.dev/) (develope version: 1.9.1)
 - [provider](https://pub.dev/packages/provider)
 - [bloc](https://pub.dev/packages/bloc)
 - [sqflite](https://pub.dev/packages/sqflite)
@@ -27,6 +27,7 @@ or manually download the project:
 
 - Download [Flutter](https://flutter.dev/docs/get-started/install)
 - Install this repository
+- The project should run on flutter version 1.9.1
 ```
 git clone https://github.com/huynguyen1999kh/wallet-app-money-management-flutter.git 
 flutter packages get
@@ -40,6 +41,8 @@ flutter run # make sure your mobile device is connected
 |:---:|:---:|:---:|
 |![drawer]<br>Các màn hình|![tong-quan]<br>Trang chủ|![tao-giao-dich]<br>Tạo giao dịch|
 |![lich-su-giao-dich]<br>Truy vấn giao dịch|![tai-khoan]<br>Danh sách tài khoản|![bieu-do]<br>Thống kê bằng biểu đồ|
+
+for more detail information, check out [Document](https://github.com/huynguyen1999kh/wallet-app-money-management-flutter/blob/master/document.docx) (written in Vietnamese)
 
 
 # Support 
