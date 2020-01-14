@@ -34,7 +34,7 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
     return Consumer<AccountBloc>(
       builder: (context, bloc, child) => StreamBuilder<List<Account>>(
           stream: bloc.accountListStream,
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
                 return Center(

@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil:
+  flutter_screenutil: ^0.7.0
 
   # icon picker
   flutter_iconpicker: ^0.1.2
