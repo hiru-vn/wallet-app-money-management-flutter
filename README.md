@@ -2,9 +2,7 @@
 
 * __Built by: Hei Dun Luv__ - __`Hate and Love`__ 
   
-    * 17520583 - Nguyễn Quang Huy
-    * 17520372 - Đào Mạnh Dũng
-    * 17520702 - Nguyễn Huỳnh Lợi  
+    * 17520583 - Nguyễn Quang Huy  
 
 <p align="center"> <img src ="./assets/logo.png" /> </p>
 <p align="center"> Ứng dụng quản lý chi tiêu - hãy chi tiêu thông minh </p>
