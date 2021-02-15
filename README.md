@@ -11,7 +11,7 @@
 
 # Technology
 
-- [flutter](https://flutter.dev/) (develope version: 1.9.1)
+- [flutter](https://flutter.dev/) (develope version: 1.9.1, last config version: 1.22.6)
 - [provider](https://pub.dev/packages/provider)
 - [bloc](https://pub.dev/packages/bloc)
 - [sqflite](https://pub.dev/packages/sqflite)
