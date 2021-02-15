@@ -59,8 +59,13 @@ class MaximunSpendItem extends StatelessWidget {
             lastDay = DateTime(DateTime.now().year, 12, 31);
             break;
         }
-        return firstDay.day.toString() + '/' + firstDay.month.toString() + ' - ' 
-              +lastDay.day.toString() + '/' + lastDay.month.toString();
+        return firstDay.day.toString() +
+            '/' +
+            firstDay.month.toString() +
+            ' - ' +
+            lastDay.day.toString() +
+            '/' +
+            lastDay.month.toString();
       case SpendLimitType.YEARLY:
         return '1/1 - 31/12';
     }
@@ -101,28 +106,48 @@ class MaximunSpendItem extends StatelessWidget {
   }
 
   EdgeInsets _getMarginBubble(double containerWidth) {
-    if (_spendLimit.type == SpendLimitType.WEEKLY) {
-      //return (7 - DateTime.now().weekday).toString();
-      double scale = (DateTime.now().weekday - 3.5) / 7;
-      if (scale >= 0) {
-        return EdgeInsets.only(left: (scale * containerWidth * 1.9).abs() - 20);
-      } else {
-        return EdgeInsets.only(
-            right: (scale * containerWidth * 1.9).abs() - 20);
+    try {
+      if (_spendLimit.type == SpendLimitType.WEEKLY) {
+        //return (7 - DateTime.now().weekday).toString();
+        double scale = (DateTime.now().weekday - 3.5) / 7;
+        if (scale >= 0) {
+          if ((scale * containerWidth * 1.9).abs() > 20) {
+            return EdgeInsets.only(
+                left: (scale * containerWidth * 1.9).abs() - 20);
+          } else
+            return EdgeInsets.zero;
+        } else {
+          if ((scale * containerWidth * 1.9).abs() > 20) {
+            return EdgeInsets.only(
+                right: (scale * containerWidth * 1.9).abs() - 20);
+          } else {
+            return EdgeInsets.zero;
+          }
+        }
       }
+      // to do
+      final now = DateTime.now();
+      final lastDay = (now.month < 12)
+          ? new DateTime(now.year, now.month + 1, 0)
+          : new DateTime(now.year + 1, 1, 0);
+      double scale = (now.day - lastDay.day / 2 - 0.5) / lastDay.day;
+      if (scale >= 0) {
+        if ((scale * containerWidth * 1.9).abs() > 20) {
+          return EdgeInsets.only(
+              left: (scale * containerWidth * 1.9).abs() - 20);
+        } else
+          return EdgeInsets.zero;
+      } else if (scale < 0) {
+        if ((scale * containerWidth * 1.9).abs() > 20) {
+          return EdgeInsets.only(
+              right: (scale * containerWidth * 1.9).abs() - 20);
+        } else
+          return EdgeInsets.zero;
+      }
+      return EdgeInsets.only(left: 190);
+    } catch (e) {
+      return EdgeInsets.zero;
     }
-    // to do
-    final now = DateTime.now();
-    final lastDay = (now.month < 12)
-        ? new DateTime(now.year, now.month + 1, 0)
-        : new DateTime(now.year + 1, 1, 0);
-    double scale = (now.day - lastDay.day / 2 - 0.5) / lastDay.day;
-    if (scale >= 0) {
-      return EdgeInsets.only(left: (scale * containerWidth * 1.9).abs() - 20);
-    } else if (scale < 0) {
-      return EdgeInsets.only(right: (scale * containerWidth * 1.9).abs() - 20);
-    }
-    return EdgeInsets.only(left: 190);
   }
 
   EdgeInsets _prevent2Lines() {
@@ -199,7 +224,7 @@ class MaximunSpendItem extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                margin: _getMarginBubble(containerWidth),
+                margin: _getMarginBubble(containerWidth) ?? EdgeInsets.zero,
                 child: Column(
                   children: <Widget>[
                     Container(

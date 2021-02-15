@@ -10,7 +10,7 @@ import 'package:wallet_exe/themes/theme_bloc.dart';
 import './bloc/account_bloc.dart';
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.init();
   runApp(MyApp());
 }
