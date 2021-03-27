@@ -25,7 +25,7 @@ or manually download the project:
 
 - Download [Flutter](https://flutter.dev/docs/get-started/install)
 - Install this repository
-- The project should run on flutter version 1.9.1
+- The project should run on flutter version 1.22.6
 ```
 git clone https://github.com/huynguyen1999kh/wallet-app-money-management-flutter.git 
 flutter packages get
