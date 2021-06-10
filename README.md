@@ -2,7 +2,7 @@
 
 * __Built by: Hei Dun Luv__ - __`Hate and Love`__ 
   
-    * 17520583 - Nguyễn Quang Huy  
+    * 102160259 - Nguyễn Văn Quý
 
 <p align="center"> <img src ="./assets/logo.png" /> </p>
 <p align="center"> Ứng dụng quản lý chi tiêu - hãy chi tiêu thông minh </p>
@@ -19,15 +19,10 @@
 
 # Installation
 
-- Download [release apk](https://github.com/huynguyen1999kh/wallet-app-money-management-flutter/releases/tag/v1.0)
-
-or manually download the project:
-
 - Download [Flutter](https://flutter.dev/docs/get-started/install)
 - Install this repository
 - The project should run on flutter version 1.22.6
 ```
-git clone https://github.com/huynguyen1999kh/wallet-app-money-management-flutter.git 
 flutter packages get
 flutter run # make sure your mobile device is connected
 ```
@@ -39,8 +34,6 @@ flutter run # make sure your mobile device is connected
 |:---:|:---:|:---:|
 |![drawer]<br>Các màn hình|![tong-quan]<br>Trang chủ|![tao-giao-dich]<br>Tạo giao dịch|
 |![lich-su-giao-dich]<br>Truy vấn giao dịch|![tai-khoan]<br>Danh sách tài khoản|![bieu-do]<br>Thống kê bằng biểu đồ|
-
-for more detail information, check out [Document](https://github.com/huynguyen1999kh/wallet-app-money-management-flutter/blob/master/document.docx) (written in Vietnamese)
 
 
 # Support 

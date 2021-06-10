@@ -173,13 +173,13 @@ class _CardSpendChartState extends State<CardSpendChart> {
       return a.date.compareTo(b.date);
     });
     list = list
-        .where((item) =>
-            (item.category.transactionType == TransactionType.EXPENSE &&
-                item.date.year == selectedDate.year))
+        .where((item) => (item.category.transactionType.name ==
+                TransactionType.EXPENSE.name &&
+            item.date.year == selectedDate.year))
         .toList();
     for (int i = 0; i < list.length; i++) {
       while (flagMonth < list[i].date.month) {
-        totalByMonth.add((totalMonth / 1000).round());
+        totalByMonth.add((totalMonth / 1000.0).round());
         totalMonth = 0;
         flagMonth++;
       }
@@ -187,11 +187,11 @@ class _CardSpendChartState extends State<CardSpendChart> {
         totalMonth += list[i].amount;
       }
       if (flagMonth > list[i].date.month) {
-        totalByMonth.add((totalMonth / 1000).round());
+        totalByMonth.add((totalMonth / 1000.0).round());
       }
       if (i > 0) {
         if (i == list.length - 1) {
-          totalByMonth.add((totalMonth / 1000).round());
+          totalByMonth.add((totalMonth / 1000.0).round());
         }
       }
     }

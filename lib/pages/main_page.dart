@@ -112,12 +112,12 @@ class _MainPageState extends State<MainPage> {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.brown,
                 child: Text(
-                  'H',
+                  'Q',
                   style: TextStyle(fontSize: 25),
                 ),
               ),
-              accountName: Text('Nguyễn Quang Huy'),
-              accountEmail: Text('quanghuy1998kh@gmail.com'),
+              accountName: Text('Nguyễn Văn Quý'),
+              accountEmail: Text('nvqquy98@gmail.com'),
             ),
             Column(children: drawerOptions)
           ],

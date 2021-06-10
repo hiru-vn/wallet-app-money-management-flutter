@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
               print(snapshot.data);
             }
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'Wallet exe',
               theme: snapshot.hasData
                   ? _buildThemeData(snapshot.data)
