@@ -27,7 +27,7 @@ class AccountTable {
       icon INTEGER NOT NULL,
       img TEXT NOT NULL)
     ''');
-    db.execute('INSERT INTO account VALUES (0,"Ví",1000000,0,0,"assets/logo.png")');
+    db.execute('INSERT INTO account VALUES (0,"Ví",0,0,0,"assets/logo.png")');
     db.execute('INSERT INTO account VALUES (1,"ATM",0,0,0,"assets/credit.png")');
     db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0,"assets/e-wallet.png")');
   }
