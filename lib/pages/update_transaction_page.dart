@@ -179,7 +179,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   Row(
                     children: <Widget>[
@@ -207,7 +207,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                             autofocus: true,
                             decoration: InputDecoration(
                               suffixText: 'đ',
-                              suffixStyle: Theme.of(context).textTheme.headline,
+                              suffixStyle: Theme.of(context).textTheme.headline5,
                               prefix: Icon(
                                 Icons.monetization_on,
                                 color: Theme.of(context).accentColor,
@@ -426,7 +426,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Xóa',
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),
@@ -455,7 +455,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Lưu',
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.headline6,
                               ),
                             ],
                           ),

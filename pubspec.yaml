@@ -53,9 +53,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+
 flutter_icons:
-  image_path: "assets/logo.png" 
+  image_path: "assets/logo.png"
   android: true
   ios: true
 
@@ -110,4 +110,3 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-  

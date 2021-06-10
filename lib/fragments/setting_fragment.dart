@@ -100,7 +100,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Đồng bộ dữ liệu',
-                              style: Theme.of(context).textTheme.title,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                           onPressed: _submit,
@@ -123,7 +123,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Xóa toàn bộ dữ liệu',
-                              style: Theme.of(context).textTheme.title,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                           onPressed: _submit,

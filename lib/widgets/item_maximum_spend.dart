@@ -199,7 +199,7 @@ class MaximunSpendItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(this._spendLimit.type.name,
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.headline6),
                           Text(_getTimelineString()),
                         ],
                       ),
@@ -213,7 +213,7 @@ class MaximunSpendItem extends StatelessWidget {
                           Text(
                               textToCurrency(_spendLimit.amount.toString()) +
                                   ' đ',
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.headline6),
                         ],
                       ),
                     )

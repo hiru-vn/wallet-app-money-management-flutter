@@ -22,7 +22,7 @@ class SpendLimitTypePage extends StatelessWidget {
           title: Text(items[i].name),
           trailing: Icon(Icons.keyboard_arrow_right),
         ));
-        if (i!=items.length-1) {
+        if (i != items.length - 1) {
           list.add(Divider());
         }
       }

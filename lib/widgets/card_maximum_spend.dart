@@ -77,7 +77,7 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text('Hạn mức chi',
-                            style: Theme.of(context).textTheme.title),
+                            style: Theme.of(context).textTheme.headline6),
                         IconButton(
                           icon: Icon(Icons.settings),
                           onPressed: this._chooseSpendLimit,

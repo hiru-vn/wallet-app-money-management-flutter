@@ -56,7 +56,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Trung bình tháng:',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Text(textToCurrency(
                         (totalYear / DateTime.now().month).round().toString()) +
@@ -71,7 +71,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Tổng chi:',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -109,7 +109,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(_getTitle(),
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.headline6),
                           RaisedButton(
                             onPressed: () => _selectDate(context),
                             child: Row(

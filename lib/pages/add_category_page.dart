@@ -170,7 +170,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             color: Theme.of(context).accentColor,
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
-                                style: Theme.of(context).textTheme.subtitle),
+                                style: Theme.of(context).textTheme.subtitle2),
                           ),
                         ],
                       ),
@@ -214,7 +214,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
                       ),

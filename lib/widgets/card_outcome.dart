@@ -74,7 +74,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Biểu đồ chi',
-                        style: Theme.of(context).textTheme.title),
+                        style: Theme.of(context).textTheme.headline6),
                     DropdownButton(
                       value: _currentOption,
                       items: _dropDownMenuItems,

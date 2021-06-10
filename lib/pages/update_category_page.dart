@@ -159,7 +159,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
                       ),

@@ -241,7 +241,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
                       ),

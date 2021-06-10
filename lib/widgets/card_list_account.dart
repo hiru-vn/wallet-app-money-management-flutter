@@ -71,7 +71,7 @@ class _CardListAccountState extends State<CardListAccount> {
                         child: ExpansionTile(
                           title: Text(
                             "Đang sử dụng ("+ AccountTable.getTotalByType(snapshot.data, AccountType.SAVING) +" đ)",
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.subtitle1,
                           ),
                           initiallyExpanded: true,
                           children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SPENDING)).toList()),
@@ -82,7 +82,7 @@ class _CardListAccountState extends State<CardListAccount> {
                         child: ExpansionTile(
                           title: Text(
                             "Tài khoản tiết kiệm ("+ AccountTable.getTotalByType(snapshot.data, AccountType.SAVING) +" đ)",
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.subtitle1,
                           ),
                           initiallyExpanded: false,
                           children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SAVING)).toList()),

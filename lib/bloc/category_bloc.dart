@@ -6,14 +6,14 @@ import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/event/category_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
-
 class CategoryBloc extends BaseBloc {
   CategoryTable _categorytable = CategoryTable();
 
-  StreamController<List<Category>> _categoryListStreamController = 
-    StreamController<List<Category>>();
+  StreamController<List<Category>> _categoryListStreamController =
+      StreamController<List<Category>>();
 
-  Stream<List<Category>> get categoryListStream => _categoryListStreamController.stream;
+  Stream<List<Category>> get categoryListStream =>
+      _categoryListStreamController.stream;
 
   List<Category> _categoryListData = List<Category>();
 
@@ -46,12 +46,14 @@ class CategoryBloc extends BaseBloc {
   _updateCategory(Category category) async {
     _categorytable.update(category);
 
-    int index =_categoryListData.indexWhere((item) {return item.id == category.id;});
+    int index = _categoryListData.indexWhere((item) {
+      return item.id == category.id;
+    });
     _categoryListData[index] = category;
     _categoryListStreamController.sink.add(_categoryListData);
   }
 
-  void dispatchEvent(BaseEvent event) { 
+  void dispatchEvent(BaseEvent event) {
     if (event is AddCategoryEvent) {
       Category category = Category.copyOf(event.category);
       _addCategory(category);
@@ -67,6 +69,7 @@ class CategoryBloc extends BaseBloc {
   @override
   void dispose() {
     // TODO: implement dispose
+    _categoryListStreamController.close();
     super.dispose();
   }
 }

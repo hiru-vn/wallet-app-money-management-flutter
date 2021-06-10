@@ -40,7 +40,7 @@ class BalanceDetailPage extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 15,),
                   Text('Các tài khoản',
-                      style: Theme.of(context).textTheme.title),
+                      style: Theme.of(context).textTheme.headline6),
                   SizedBox(
                     height: 15,
                   ),

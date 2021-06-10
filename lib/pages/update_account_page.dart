@@ -241,7 +241,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                         ),
                         Text(
                           'Lưu',
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ],
                     ),

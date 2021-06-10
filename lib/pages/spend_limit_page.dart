@@ -7,6 +7,7 @@ import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class SpendLimitPage extends StatefulWidget {
   final SpendLimit _spendLimit;
+
   SpendLimitPage(this._spendLimit);
 
   @override
@@ -55,8 +56,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
             builder: (context) => SpendLimitTypePage(widget._spendLimit.type)),
       );
 
-      // prevent null
-      if (temp!= null) widget._spendLimit.type = temp;
+      setState(() {
+        if (temp != null) widget._spendLimit.type = temp;
+      });
     }
 
     return Scaffold(
@@ -78,7 +80,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -93,7 +97,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     children: <Widget>[
                       Text(
                         'Hạn mức',
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context).textTheme.headline6,
                       ),
                       Row(
                         children: <Widget>[
@@ -122,7 +126,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 decoration: InputDecoration(
                                   suffixText: 'đ',
                                   suffixStyle:
-                                      Theme.of(context).textTheme.headline,
+                                      Theme.of(context).textTheme.headline5,
                                   prefix: Icon(
                                     Icons.monetization_on,
                                     color: Theme.of(context).accentColor,
@@ -142,11 +146,12 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     ],
                   ),
                 ),
-                
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -174,7 +179,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                   size: 28,
                                 ),
                               )
-                              
                             ],
                           ),
                         ),
@@ -237,7 +241,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                             'Lưu',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .title,
+                                                .headline6,
                                           ),
                                         ],
                                       ),
@@ -266,8 +270,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                         ),
                                         Text(
                                           'Xóa',
-                                          style:
-                                              Theme.of(context).textTheme.title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
                                         ),
                                       ],
                                     ),

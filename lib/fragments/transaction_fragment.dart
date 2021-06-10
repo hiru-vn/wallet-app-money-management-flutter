@@ -112,7 +112,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                           children: <Widget>[
                             Text(
                               'Tài khoản:',
-                              style: Theme.of(context).textTheme.subhead,
+                              style: Theme.of(context).textTheme.subtitle1,
                             ),
                             SizedBox(
                               width: 10,

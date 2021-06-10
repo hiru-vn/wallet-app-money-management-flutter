@@ -100,7 +100,7 @@ class _CardbalanceState extends State<Cardbalance> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text('Tình hình thu chi',
-                                    style: Theme.of(context).textTheme.title),
+                                    style: Theme.of(context).textTheme.headline6),
                                 Padding(
                                   padding: EdgeInsets.all(20.0),
                                   child: Row(
