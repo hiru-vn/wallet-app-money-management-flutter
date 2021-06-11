@@ -10,7 +10,7 @@ class SpendLimitBloc extends BaseBloc {
   SpendLimitTable _spendLimitTable = SpendLimitTable();
 
   StreamController<List<SpendLimit>> _spendLimitListStreamController =
-      StreamController<List<SpendLimit>>();
+  StreamController<List<SpendLimit>>();
 
   Stream<List<SpendLimit>> get spendLimitListStream =>
       _spendLimitListStreamController.stream;
@@ -35,17 +35,20 @@ class SpendLimitBloc extends BaseBloc {
   }
 
   _deleteSpendLimit(SpendLimit spendLimit) async {
-    _spendLimitTable.delete(spendLimit.id);
-
-    _spendLimitListData.remove(spendLimit);
+    final index = _spendLimitListData.indexWhere((item) {
+      return item.type.name == spendLimit.type.name;
+    });
+    _spendLimitTable.delete(_spendLimitListData[index].id);
+    _spendLimitListData.removeAt(index);
     _spendLimitListStreamController.sink.add(_spendLimitListData);
   }
 
   _updateSpendLimit(SpendLimit spendLimit) async {
-    _spendLimitTable.update(spendLimit);
     int index = _spendLimitListData.indexWhere((item) {
-      return item.id == spendLimit.id;
+      return item.type.name == spendLimit.type.name;
     });
+    spendLimit.id = _spendLimitListData[index].id;
+    _spendLimitTable.update(spendLimit);
     _spendLimitListData[index] = spendLimit;
     _spendLimitListStreamController.sink.add(_spendLimitListData);
   }

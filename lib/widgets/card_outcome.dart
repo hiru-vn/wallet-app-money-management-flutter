@@ -12,7 +12,7 @@ class CardOutcomeChart extends StatefulWidget {
 }
 
 class _CardOutcomeChartState extends State<CardOutcomeChart> {
-  List _option = ["Hôm nay", "Tuần này", "Tháng này", "Năm nay"];
+  List _option = ["Hôm nay", "Tuần này", "Tháng này", "Năm nay", "All"];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
 
@@ -39,10 +39,64 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
 
   List<CategorySpend> _applyfilter(List<CategorySpend> list) {
     List<CategorySpend> result = List<CategorySpend>();
-    for (int i=0;i<list.length;i++) {
-      //if (list[i].)
+    final dateTimeCurrent = DateTime.now();
+    for (int i = 0; i < list.length; i++) {
+      final categorySpendDate = list[i].date;
+      switch (_currentOption) {
+        case "Hôm nay":
+          {
+            if (categorySpendDate.year == dateTimeCurrent.year &&
+                categorySpendDate.month == dateTimeCurrent.month &&
+                categorySpendDate.day == dateTimeCurrent.day) {
+              result.add(list[i]);
+            }
+            break;
+          }
+        case "Tuần này":
+          {
+            if (dateTimeCurrent
+                .subtract(new Duration(days: 7))
+                .isBefore(categorySpendDate)) {
+              result.add(list[i]);
+            }
+            break;
+          }
+        case "Tháng này":
+          {
+            if (categorySpendDate.year == dateTimeCurrent.year &&
+                categorySpendDate.month == dateTimeCurrent.month) {
+              result.add(list[i]);
+            }
+            break;
+          }
+        case "Năm nay":
+          {
+            if (categorySpendDate.year == dateTimeCurrent.year) {
+              result.add(list[i]);
+            }
+            break;
+          }
+        default:
+          {
+            result.add(list[i]);
+            break;
+          }
+      }
     }
-    return result;
+    final categoryNames = Set();
+    final data = List<CategorySpend>();
+    List.generate(
+        result.length, (index) => categoryNames.add(result[index].category));
+    categoryNames.forEach((name) {
+      int sum = 0;
+      result.forEach((item) {
+        if (item.category == name) {
+          sum += item.money;
+        }
+      });
+      data.add(CategorySpend(name, (sum/1000).round(), DateTime.now()));
+    });
+    return data;
   }
 
   @override
@@ -51,7 +105,9 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
       width: double.infinity,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.blueGrey
+            : Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
           BoxShadow(
@@ -62,7 +118,8 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
         ],
       ),
       child: FutureBuilder(
-        future: TransactionTable().getAmountSpendPerCategory(TransactionType.EXPENSE),
+        future: TransactionTable()
+            .getAmountSpendPerCategory(TransactionType.EXPENSE),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error.toString());
@@ -88,7 +145,8 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                 Container(
                   height: 320,
                   width: double.infinity,
-                  child: SpendChartCircle(_createData(snapshot.data)),
+                  child: SpendChartCircle(
+                      _createData(_applyfilter(snapshot.data))),
                 ),
                 Text('Đơn vị: nghìn'),
               ],
@@ -104,7 +162,8 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
     );
   }
 
-  static List<charts.Series<CategorySpend, String>> _createData(List<CategorySpend> list) {
+  static List<charts.Series<CategorySpend, String>> _createData(
+      List<CategorySpend> list) {
     final List<Color> colors = [
       // Color(0x7adfeeee),
       // Color(0xffffd54f),
@@ -119,19 +178,20 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
       Colors.green,
       Colors.purpleAccent,
       Colors.amberAccent,
+      Colors.teal.shade500,
+      Colors.teal.shade200,
       Colors.black54,
     ];
 
     List<CategorySpend> data = List<CategorySpend>();
-    CategorySpend last = CategorySpend("khác", 0);
+    CategorySpend last = CategorySpend("khác", 0, DateTime.now());
     for (int i = 0; i < list.length; i++) {
-      if (data.length<6){
+      if (data.length < 8) {
         data.add(list[i]);
         data[i].color = colors[i];
-      }
-      else if (data.length == 6) {
-        last.money+=list[i].money;
-        if (i == list.length-1) {
+      } else if (data.length == 8) {
+        last.money += list[i].money;
+        if (i == list.length - 1) {
           data.add(last);
         }
       }
@@ -153,6 +213,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
 
 class CategoryItem extends StatelessWidget {
   final CategorySpend _item;
+
   const CategoryItem(this._item);
 
   @override

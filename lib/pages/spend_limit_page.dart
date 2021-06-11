@@ -30,7 +30,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
 
       SpendLimit item = SpendLimit(
           currencyToInt(_spendLimitController.text), widget._spendLimit.type);
-      item.id = widget._spendLimit.id;
       _bloc.event.add(UpdateSpendLimitEvent(item));
 
       Navigator.pop(context);
@@ -43,7 +42,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
 
       SpendLimit item = SpendLimit(
           currencyToInt(_spendLimitController.text), widget._spendLimit.type);
-      item.id = widget._spendLimit.id;
       _bloc.event.add(DeleteSpendLimitEvent(item));
 
       Navigator.pop(context);
@@ -249,38 +247,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                     onPressed: _submit,
                                   ),
                                 )),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: RaisedButton(
-                                  color: Theme.of(context).buttonColor,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.delete,
-                                          size: 28,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          'Xóa',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  onPressed: _delete,
-                                ),
-                              ),
-                            )
                           ],
                         ),
                       ),

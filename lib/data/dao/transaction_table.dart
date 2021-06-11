@@ -94,9 +94,10 @@ class TransactionTable {
     final Database db = DatabaseHelper.instance.database;
     int typeid = type.value;
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-        'select category.name as name, sum(amount) as sum from category, transaction_table where category.id = transaction_table.id_category and category.type = $typeid GROUP by category.id ORDER by sum DESC');
+        'select category.name as name, amount as sum,transaction_table.date as date from category, transaction_table where category.id = transaction_table.id_category and category.type = $typeid ');
     return List.generate(maps.length, (index) {
-      return CategorySpend(maps[index]['name'], maps[index]['sum']);
+      return CategorySpend(maps[index]['name'], maps[index]['sum'],
+          DateTime.parse(maps[index]['date']));
     });
   }
 

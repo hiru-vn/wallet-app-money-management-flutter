@@ -14,6 +14,7 @@ import 'package:wallet_exe/utils/text_input_formater.dart';
 
 class UpdateTransactionPage extends StatefulWidget {
   final Transaction _transaction;
+
   UpdateTransactionPage(this._transaction);
 
   @override
@@ -99,6 +100,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
+    void _delete() {
+      _bloc.event.add(DeleteTransactionEvent(_transaction));
+      Navigator.pop(context);
+    }
+
     void _submit() {
       if (!this._formBalanceKey.currentState.validate()) {
         return;
@@ -137,8 +143,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
               (currencyToInt(this._balanceController.text) +
                   this._transaction.amount);
         } else if (this._transaction.category.transactionType ==
-            TransactionType.INCOME)
-             {
+            TransactionType.INCOME) {
           this._account.balance +=
               (currencyToInt(this._balanceController.text) -
                   this._transaction.amount);
@@ -207,7 +212,8 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                             autofocus: true,
                             decoration: InputDecoration(
                               suffixText: 'đ',
-                              suffixStyle: Theme.of(context).textTheme.headline5,
+                              suffixStyle:
+                                  Theme.of(context).textTheme.headline5,
                               prefix: Icon(
                                 Icons.monetization_on,
                                 color: Theme.of(context).accentColor,
@@ -431,7 +437,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                             ],
                           ),
                         ),
-                        onPressed: _submit,
+                        onPressed: _delete,
                       ),
                     ),
                   ),

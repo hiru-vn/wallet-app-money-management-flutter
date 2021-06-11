@@ -91,16 +91,16 @@ class _CardbalanceState extends State<Cardbalance> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                        flex: 41,
+                        flex: 40,
                         child: Padding(
                           padding: EdgeInsets.only(top: 12),
-                          child: Container(
-                            height: 190,
+                          child: IntrinsicHeight(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text('Tình hình thu chi',
-                                    style: Theme.of(context).textTheme.headline6),
+                                    style:
+                                        Theme.of(context).textTheme.headline6),
                                 Padding(
                                   padding: EdgeInsets.all(20.0),
                                   child: Row(
@@ -111,13 +111,13 @@ class _CardbalanceState extends State<Cardbalance> {
                                       Container(
                                         height: outComeHeight,
                                         width: ScreenUtil.getInstance()
-                                            .setWidth(120),
+                                            .setWidth(80),
                                         color: Colors.red,
                                       ),
                                       Container(
                                         height: inComeHeight,
                                         width: ScreenUtil.getInstance()
-                                            .setWidth(120),
+                                            .setWidth(80),
                                         color: Colors.green,
                                       ),
                                     ],
@@ -128,7 +128,7 @@ class _CardbalanceState extends State<Cardbalance> {
                           ),
                         )),
                     Expanded(
-                      flex: 60,
+                      flex: 80,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
@@ -138,7 +138,7 @@ class _CardbalanceState extends State<Cardbalance> {
                             onChanged: changedDropDownItem,
                           ),
                           Padding(
-                            padding: EdgeInsets.all(20.0),
+                            padding: EdgeInsets.all(16.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -159,10 +159,22 @@ class _CardbalanceState extends State<Cardbalance> {
                                             style: TextStyle(fontSize: 16)),
                                       ],
                                     ),
-                                    Text(
-                                      textToCurrency(inCome.toString()) + ' đ',
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 18),
+                                    Expanded(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 12.0),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            textToCurrency(inCome.toString()) +
+                                                ' đ',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 18),
+                                          ),
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -184,10 +196,21 @@ class _CardbalanceState extends State<Cardbalance> {
                                             style: TextStyle(fontSize: 16)),
                                       ],
                                     ),
-                                    Text(
-                                      textToCurrency(outCome.toString()) + ' đ',
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 18),
+                                    Expanded(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 12.0),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            textToCurrency(outCome.toString()) +
+                                                ' đ',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.red, fontSize: 18),
+                                          ),
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -204,11 +227,21 @@ class _CardbalanceState extends State<Cardbalance> {
                                   children: <Widget>[
                                     Text('Tích lũy',
                                         style: TextStyle(fontSize: 16)),
-                                    Text(
-                                      textToCurrency(
-                                              (inCome - outCome).toString()) +
-                                          ' đ',
-                                      style: TextStyle(fontSize: 18),
+                                    Expanded(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 12.0),
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            textToCurrency((inCome - outCome)
+                                                    .toString()) +
+                                                ' đ',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                        ),
+                                      ),
                                     )
                                   ],
                                 ),
