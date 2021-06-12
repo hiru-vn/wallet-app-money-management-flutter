@@ -7,19 +7,25 @@ class UserAccountTable {
   final tableName = 'user_account';
   final id = 'id';
   final name = 'name';
-  final mail = 'mail';
+  final email = 'email';
   final password = 'password';
-  final balance = 'balance';
-  final themeColor = 'theme_color';
 
   void onCreate(Database db, int version) {
-    db.execute('CREATE TABLE $tableName('
-        '$id INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$name TEXT NOT NULL,'
-        '$mail TEXT NOT NULL,'
-        '$password TEXT NOT NULL,'
-        '$balance INTEGER NOT NULL,'
-        '$themeColor INTEGER NOT NULL');
+    db.execute('''
+    CREATE TABLE $tableName(
+        $id INTEGER PRIMARY KEY AUTOINCREMENT,
+        $name TEXT NOT NULL,
+        $email TEXT NOT NULL,
+        $password TEXT NOT NULL)
+      ''');
+  }
+
+  Future<UserAccount> getUser(UserAccountTable userAccount) async {
+    final Database db = DatabaseHelper.instance.database;
+    String rawQuery =
+        'SELECT * from user_account where user_account.email = ${userAccount.email} and user_account.password = ${userAccount.password}';
+    final List<Map<String, dynamic>> map = await db.rawQuery(rawQuery);
+    return UserAccount.fromMap(map[0]);
   }
 
   Future<int> insert(UserAccount userAccount) async {

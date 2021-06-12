@@ -4,7 +4,7 @@ import 'package:wallet_exe/bloc/category_bloc.dart';
 import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/database_helper.dart';
-import 'package:wallet_exe/pages/main_page.dart';
+import 'package:wallet_exe/fragments/login_fragment.dart';
 import 'package:wallet_exe/themes/theme.dart';
 import 'package:wallet_exe/themes/theme_bloc.dart';
 import './bloc/account_bloc.dart';
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
               theme: snapshot.hasData
                   ? _buildThemeData(snapshot.data)
                   : ThemeData(),
-              home: MainPage(),
+              home: LoginFragment(),
             );
           }),
     );

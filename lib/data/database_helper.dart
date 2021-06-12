@@ -4,6 +4,7 @@ import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/dao/spend_limit_table.dart';
 import 'package:wallet_exe/data/dao/transaction_table.dart';
+import 'package:wallet_exe/data/dao/user_account_table.dart';
 
 class DatabaseHelper {
   static const DB_NAME = 'wallet.db';
@@ -23,12 +24,14 @@ class DatabaseHelper {
         CategoryTable().onCreate(db, version);
         TransactionTable().onCreate(db, version);
         SpendLimitTable().onCreate(db, version);
+        UserAccountTable().onCreate(db, version);
       },
       onUpgrade: (db , oldVersion, newVersion) {
         AccountTable().onCreate(db, newVersion);
         CategoryTable().onCreate(db, newVersion);
         TransactionTable().onCreate(db, newVersion);
         SpendLimitTable().onCreate(db, newVersion);
+        UserAccountTable().onCreate(db, newVersion);
       },
       version: DB_VERSION
     );

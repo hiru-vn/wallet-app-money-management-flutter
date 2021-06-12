@@ -1,0 +1,47 @@
+import 'dart:async';
+
+import 'package:wallet_exe/bloc/base_bloc.dart';
+import 'package:wallet_exe/data/dao/user_account_table.dart';
+import 'package:wallet_exe/data/model/UserAccount.dart';
+import 'package:wallet_exe/event/base_event.dart';
+import 'package:wallet_exe/event/user_account_event.dart';
+
+class UserAccountBloc extends BaseBloc {
+  UserAccountTable _userAccountTable = UserAccountTable();
+
+  StreamController<UserAccount> _streamUserAccount =
+      StreamController<UserAccount>();
+
+  UserAccount _userAccount;
+
+  Stream<UserAccount> get userAccount => _streamUserAccount.stream;
+
+  _addAccount(UserAccount userAccount) async {
+    _userAccountTable.insert(userAccount);
+    _userAccount = userAccount;
+    _streamUserAccount.sink.add(_userAccount);
+  }
+
+  _updateAccount(UserAccount userAccount) async {
+    _userAccountTable.update(userAccount);
+    _userAccount = userAccount;
+    _streamUserAccount.sink.add(_userAccount);
+  }
+
+  void dispatchEvent(BaseEvent event) {
+    if (event is AddUserEvent) {
+      UserAccount user = UserAccount.copyOf(event.userAccount);
+      _addAccount(user);
+    } else if (event is UpdateUserEvent) {
+      UserAccount user = UserAccount.copyOf(event.userAccount);
+      _updateAccount(user);
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _streamUserAccount.close();
+    super.dispose();
+  }
+}
