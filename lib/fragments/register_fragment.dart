@@ -23,21 +23,22 @@ class _RegisterFragmentState extends State<RegisterFragment> {
 
   void _submit() {
     ValidateError validateError = ValidateError.NULL;
-    if (nameTextController.text.length <= 255 &&
+    if (nameTextController.text.trim().length <= 255 &&
         nameTextController.text.isNotEmpty) {
-      final name = nameTextController.text;
-      validateError = validateEmail(emailTextController.text);
+      final name = nameTextController.text.trim();
+      validateError = validateEmail(emailTextController.text.trim());
       if (validateError == ValidateError.NULL) {
-        final email = emailTextController.text;
-        validateError = validatePassword(passwordTextController.text);
+        final email = emailTextController.text.trim();
+        validateError = validatePassword(passwordTextController.text.trim());
         if (validateError == ValidateError.NULL) {
           validateError = validateConfirmPassword(
-              passwordTextController.text, confirmPasswordTextController.text);
+              passwordTextController.text.trim(),
+              confirmPasswordTextController.text.trim());
           if (validateError == ValidateError.NULL) {
             // Validate Complete
-            final password = passwordTextController.text;
+            final password = passwordTextController.text.trim();
             final userAccount = UserAccount(
-                name: name, email: email, password: password);
+                name: name, email: email.toLowerCase(), password: password);
             _bloc.event.add(AddUserEvent(userAccount));
             _navHomePage();
           }
@@ -68,13 +69,9 @@ class _RegisterFragmentState extends State<RegisterFragment> {
   }
 
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         padding: EdgeInsets.only(top: 24),
         width: size.width,
@@ -115,7 +112,7 @@ class _RegisterFragmentState extends State<RegisterFragment> {
                     Text(
                       'Đăng ký',
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     ),
                     SizedBox(height: 12),
                     Container(
@@ -201,7 +198,7 @@ class _RegisterFragmentState extends State<RegisterFragment> {
                           decoration: BoxDecoration(
                               color: Colors.amber.shade500,
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12))),
+                                  BorderRadius.all(Radius.circular(12))),
                           child: Text(
                             'Đăng Ký',
                             style: TextStyle(
@@ -225,7 +222,7 @@ class _RegisterFragmentState extends State<RegisterFragment> {
                           child: Text(
                             'tại đây',
                             style:
-                            TextStyle(decoration: TextDecoration.underline),
+                                TextStyle(decoration: TextDecoration.underline),
                           ),
                         ),
                         Text(

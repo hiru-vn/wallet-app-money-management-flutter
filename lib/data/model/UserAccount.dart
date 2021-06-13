@@ -29,6 +29,7 @@ class UserAccount {
   // getter
   Map<String, dynamic> toMap() {
     return {
+      UserAccountTable().id: id,
       UserAccountTable().name: name,
       UserAccountTable().email: email,
       UserAccountTable().password: password,
@@ -38,10 +39,8 @@ class UserAccount {
   // setter
   UserAccount.fromMap(Map<String, dynamic> map) {
     id = map[UserAccountTable().id];
-    name = map[UserAccount().name];
-    email = map[UserAccount().email];
-    password = map[UserAccount().password];
-    balance = map[UserAccount().balance];
-    themeColor = map[UserAccount().themeColor];
+    name = map[UserAccountTable().name];
+    email = map[UserAccountTable().email];
+    password = map[UserAccountTable().password];
   }
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:wallet_exe/bloc/user_account_bloc.dart';
+import 'package:wallet_exe/event/user_account_event.dart';
 import 'package:wallet_exe/fragments/register_fragment.dart';
 import 'package:wallet_exe/pages/main_page.dart';
+import 'package:wallet_exe/utils/validation_text.dart';
 
 class LoginFragment extends StatefulWidget {
   const LoginFragment({Key key}) : super(key: key);
@@ -10,17 +14,80 @@ class LoginFragment extends StatefulWidget {
 }
 
 class _LoginFragmentState extends State<LoginFragment> {
+  final _bloc = UserAccountBloc();
+   var hiddenPassword = true;
+  var _showError = false;
+
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _bloc.userAccount.listen((userAccount) {
+      if (userAccount != null)
+        _navHomePage();
+      else
+        _isShowError(true);
+    });
+  }
+
   void _submit() {
+    _isShowError(false);
+    if (validateEmail(emailTextController.text.trim()) == ValidateError.NULL) {
+      if (validatePassword(passwordTextController.text.trim()) ==
+          ValidateError.NULL) {
+        _bloc.event.add(LoginEvent(
+            emailTextController.text.trim().toLowerCase(),
+            passwordTextController.text.trim()));
+      } else
+        _isShowError(true);
+    } else
+      _isShowError(true);
+  }
+
+  _isShowError(bool isShow) {
+    setState(() {
+      _showError = isShow;
+    });
+  }
+
+  void _showPassword() {
+    setState(() {
+      hiddenPassword = false;
+    });
+  }
+
+  void _hiddenPassword() {
+    setState(() {
+      hiddenPassword = true;
+    });
+  }
+
+  Widget _showErrorWidget() {
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.red.shade500),
+          borderRadius: BorderRadius.all(Radius.circular(12))),
+      child: Text('Tài khoản hoặc mật khẩu không đúng'),
+    );
+  }
+
+  void _navHomePage() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => MainPage()));
   }
-  
-  void _navRegister(){
-    Navigator.push(context,MaterialPageRoute(builder: (context)=> RegisterFragment()));
+
+  void _navRegister() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => RegisterFragment()));
   }
-  
+
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
@@ -51,7 +118,16 @@ class _LoginFragmentState extends State<LoginFragment> {
               SizedBox(
                 height: 42,
               ),
+              _showError
+                  ? _showErrorWidget()
+                  : SizedBox(
+                      height: 0,
+                    ),
+              SizedBox(
+                height: _showError ? 42 : 0,
+              ),
               TextField(
+                controller: emailTextController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), hintText: 'Email'),
               ),
@@ -59,8 +135,22 @@ class _LoginFragmentState extends State<LoginFragment> {
                 height: 32,
               ),
               TextField(
+                controller: passwordTextController,
+                obscureText: hiddenPassword,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'Password'),
+                    suffixIcon: GestureDetector(
+                        onTapDown: (tapDownDetails) {
+                          _showPassword();
+                        },
+                        onTapUp: (tapUpDetails) {
+                          _hiddenPassword();
+                        },
+                        onTapCancel: _hiddenPassword,
+                        child: Icon(hiddenPassword
+                            ? Icons.remove_red_eye_rounded
+                            : Icons.remove_red_eye_outlined)),
+                    border: OutlineInputBorder(),
+                    hintText: 'Mật khẩu'),
               ),
               SizedBox(
                 height: 32,

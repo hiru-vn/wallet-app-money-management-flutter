@@ -20,12 +20,16 @@ class UserAccountTable {
       ''');
   }
 
-  Future<UserAccount> getUser(UserAccountTable userAccount) async {
+  Future<UserAccount> getUser(String email, String password) async {
     final Database db = DatabaseHelper.instance.database;
     String rawQuery =
-        'SELECT * from user_account where user_account.email = ${userAccount.email} and user_account.password = ${userAccount.password}';
-    final List<Map<String, dynamic>> map = await db.rawQuery(rawQuery);
-    return UserAccount.fromMap(map[0]);
+        'SELECT * from user_account where user_account.email = ? and user_account.password = ?';
+    final List<Map<String, dynamic>> map =
+        await db.rawQuery(rawQuery, [email, password]);
+    if (map.isNotEmpty)
+      return UserAccount.fromMap(map[0]);
+    else
+      return null;
   }
 
   Future<int> insert(UserAccount userAccount) async {
