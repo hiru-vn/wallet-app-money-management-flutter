@@ -3,13 +3,14 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wallet_exe/bloc/base_bloc.dart';
+import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/dao/user_account_table.dart';
 import 'package:wallet_exe/data/model/UserAccount.dart';
+import 'package:wallet_exe/data/model/strorage_key.dart';
 import 'package:wallet_exe/event/base_event.dart';
 import 'package:wallet_exe/event/user_account_event.dart';
 
 class UserAccountBloc extends BaseBloc {
-  static const KEY_CURRENT_USER = 'KEY_CURRENT_USER';
   UserAccountTable _userAccountTable = UserAccountTable();
 
   final storage = new FlutterSecureStorage();
@@ -41,11 +42,13 @@ class UserAccountBloc extends BaseBloc {
   }
 
   _addAccount(UserAccount userAccount) async {
-    _userAccountTable.insert(userAccount);
-    _userAccount = userAccount;
-    if (_userAccount != null)
+    userAccount.id = await _userAccountTable.insert(userAccount);
+    _userAccount = userAccount.id == 0 ? null : userAccount;
+    if (_userAccount != null) {
       storage.write(
           key: KEY_CURRENT_USER, value: jsonEncode(_userAccount.toMap()));
+      await AccountTable().initAccountData(_userAccount.id);
+    }
     _streamUserAccount.sink.add(_userAccount);
   }
 

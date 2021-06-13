@@ -1,13 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wallet_exe/bloc/base_bloc.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
+import 'package:wallet_exe/data/model/UserAccount.dart';
+import 'package:wallet_exe/data/model/strorage_key.dart';
 import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class AccountBloc extends BaseBloc {
   AccountTable _accountTable = AccountTable();
+
+  final storage = new FlutterSecureStorage();
 
   StreamController<List<Account>> _accountListStreamController =
       StreamController<List<Account>>();
@@ -28,8 +34,10 @@ class AccountBloc extends BaseBloc {
   }
 
   _addAccount(Account account) async {
+    final userJson = await storage.read(key: KEY_CURRENT_USER);
+    final user = UserAccount.fromMap(jsonDecode(userJson));
+    account.userId = user.id;
     _accountTable.insert(account);
-
     _accountListData.add(account);
     _accountListStreamController.sink.add(_accountListData);
   }

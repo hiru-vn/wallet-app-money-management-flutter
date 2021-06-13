@@ -83,12 +83,11 @@ class _AddAccountPageState extends State<AddAccountPage> {
         return;
       }
       Account account = Account(
-          _nameController.text,
-          currencyToInt(_balanceController.text),
-          AccountType.valueFromName(this._currentOption),
-          Icons.account_balance_wallet,
-          this._imgUrl
-          );
+          name: _nameController.text,
+          balance: currencyToInt(_balanceController.text),
+          type: AccountType.valueFromName(this._currentOption),
+          icon: Icons.account_balance_wallet,
+          img: this._imgUrl);
       _bloc.event.add(AddAccountEvent(account));
       Navigator.pop(context);
     }

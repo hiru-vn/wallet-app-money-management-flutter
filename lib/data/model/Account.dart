@@ -6,23 +6,26 @@ class Account {
   int id; // auto generate & unique
 
   String name;
+  int userId;
   //int idAppAccount;
   int balance;
   AccountType type;
   IconData icon;
   String img;
 
-  Account(
+  Account({
       this.name,
       //this.idAppAccount,
       this.balance,
+      this.userId,
       this.type,
       this.icon,
-      this.img);
+      this.img});
 
   Account.copyOf(Account copy) {
     this.id = copy.id;
     this.name = copy.name;
+    this.userId = copy.userId;
     this.balance = copy.balance;
     this.type = copy.type;
     this.icon = copy.icon;
@@ -35,6 +38,7 @@ class Account {
       AccountTable().id: id,
       AccountTable().name: name,
       AccountTable().balance: balance,
+      AccountTable().userId : userId,
       AccountTable().type: type.value,
       AccountTable().icon: 1, //TO DO:
       AccountTable().img: img,
@@ -45,6 +49,7 @@ class Account {
   Account.fromMap(Map<String, dynamic> map) {
     id = map[AccountTable().id];
     name = map[AccountTable().name];
+    userId = map[AccountTable().userId];
     balance = map[AccountTable().balance];
     type = AccountType.valueOf(map[AccountTable().type]);
     icon = Icons.check_circle_outline;

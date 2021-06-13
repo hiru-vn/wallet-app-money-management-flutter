@@ -10,6 +10,7 @@ class AccountTable {
   final tableName = 'account';
   final id = 'id_account';
   final name = 'account_name';
+  final userId = 'user_id';
 
   //final int idAppAccount; //TO DO
   final balance = 'balance';
@@ -22,16 +23,21 @@ class AccountTable {
     CREATE TABLE account (
       id_account INTEGER PRIMARY KEY,
       account_name TEXT NOT NULL UNIQUE,
+      user_id INTEGER NOT NULL,
       balance INTEGER NOT NULL,
       type INTEGER NOT NULL,
       icon INTEGER NOT NULL,
       img TEXT NOT NULL)
     ''');
-    db.execute('INSERT INTO account VALUES (0,"Ví",0,0,0,"assets/logo.png")');
+  }
+
+  Future<void> initAccountData(int userId){
+    final Database db = DatabaseHelper.instance.database;
+    db.execute('INSERT INTO account VALUES (0,"Ví",$userId,0,0,0,"assets/logo.png")');
     db.execute(
-        'INSERT INTO account VALUES (1,"ATM",0,0,0,"assets/credit.png")');
-    db.execute(
-        'INSERT INTO account VALUES (2,"MOMO",0,0,0,"assets/e-wallet.png")');
+        'INSERT INTO account VALUES (1,"ATM",$userId,0,0,0,"assets/credit.png")');
+ return db.execute(
+        'INSERT INTO account VALUES (2,"MOMO",$userId,0,0,0,"assets/e-wallet.png")');
   }
 
   Future<List<String>> getAllAccountName() async {

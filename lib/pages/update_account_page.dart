@@ -8,6 +8,7 @@ import 'package:wallet_exe/widgets/circle_image_picker.dart';
 
 class UpdateAccountPage extends StatefulWidget {
   Account _account;
+
   UpdateAccountPage(this._account);
 
   @override
@@ -88,11 +89,11 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
         return;
       }
       Account account = Account(
-          _nameController.text,
-          currencyToInt(_balanceController.text),
-          AccountType.valueFromName(this._currentOption),
-          Icons.account_balance_wallet,
-          _imgUrl);
+          name: _nameController.text,
+          balance: currencyToInt(_balanceController.text),
+          type: AccountType.valueFromName(this._currentOption),
+          icon: Icons.account_balance_wallet,
+          img: _imgUrl);
       account.id = this._account.id;
       bloc.event.add(UpdateAccountEvent(account));
       Navigator.pop(context);

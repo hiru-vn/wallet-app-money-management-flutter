@@ -1,3 +1,5 @@
+import 'package:wallet_exe/data/dao/account_table.dart';
+
 import '../model/UserAccount.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -37,7 +39,9 @@ class UserAccountTable {
     final Database db = DatabaseHelper.instance.database;
 
     // Insert the Category into the correct table.
-    return db.insert(tableName, userAccount.toMap());
+    final id = await db.insert(tableName, userAccount.toMap());
+
+    return  id;
   }
 
   Future<int> update(UserAccount userAccount) async {
