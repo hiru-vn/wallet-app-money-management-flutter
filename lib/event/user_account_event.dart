@@ -2,9 +2,10 @@ import 'package:wallet_exe/data/model/UserAccount.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class LoginEvent extends BaseEvent {
-  UserAccount userAccount;
+  String email;
+  String password;
 
-  LoginEvent(this.userAccount);
+  LoginEvent(this.email, this.password);
 }
 
 class AddUserEvent extends BaseEvent {
@@ -23,4 +24,8 @@ class GetUserEvent extends BaseEvent {
   UserAccount userAccount;
 
   GetUserEvent(this.userAccount);
+}
+
+class GetCurrentUserEvent extends BaseEvent {
+  GetCurrentUserEvent();
 }
