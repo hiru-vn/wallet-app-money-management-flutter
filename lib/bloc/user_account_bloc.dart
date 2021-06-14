@@ -25,7 +25,7 @@ class UserAccountBloc extends BaseBloc {
   _getUser(String email, String password) async {
     _userAccount = await _userAccountTable.getUser(email, password);
     if (_userAccount != null)
-      storage.write(
+      await storage.write(
           key: KEY_CURRENT_USER, value: jsonEncode(_userAccount.toMap()));
     _streamUserAccount.sink.add(_userAccount);
   }
@@ -45,7 +45,7 @@ class UserAccountBloc extends BaseBloc {
     userAccount.id = await _userAccountTable.insert(userAccount);
     _userAccount = userAccount.id == 0 ? null : userAccount;
     if (_userAccount != null) {
-      storage.write(
+      await storage.write(
           key: KEY_CURRENT_USER, value: jsonEncode(_userAccount.toMap()));
       await AccountTable().initAccountData(_userAccount.id);
     }
@@ -55,6 +55,12 @@ class UserAccountBloc extends BaseBloc {
   _updateAccount(UserAccount userAccount) async {
     _userAccountTable.update(userAccount);
     _userAccount = userAccount;
+    _streamUserAccount.sink.add(_userAccount);
+  }
+
+  _deleteCurrentUser() async {
+    await storage.delete(key: KEY_CURRENT_USER);
+    _userAccount = null;
     _streamUserAccount.sink.add(_userAccount);
   }
 
@@ -69,6 +75,8 @@ class UserAccountBloc extends BaseBloc {
       _getUser(event.email, event.password);
     } else if (event is GetCurrentUserEvent) {
       _getCurrentUser();
+    } else if (event is DeleteCurrentUserEvent) {
+      _deleteCurrentUser();
     }
   }
 

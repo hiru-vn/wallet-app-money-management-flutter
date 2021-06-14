@@ -104,6 +104,7 @@ class TransactionTable {
   // return the amount that would reach to spend limit
   Future<int> getMoneySpendByDuration(SpendLimitType type) async {
     int result = 0;
+    final timeCurrent = DateTime.now();
     final Database db = DatabaseHelper.instance.database;
     List<Map<String, dynamic>> maps = await db.rawQuery(
         'SELECT * from account, transaction_table , category where transaction_table.id_account = account.id_account and category.id = transaction_table.id_category');
@@ -114,14 +115,71 @@ class TransactionTable {
         .where(
             (item) => item.category.transactionType == TransactionType.EXPENSE)
         .toList();
-
-    if (type == SpendLimitType.MONTHLY) {
-      for (int i = 0; i < list.length; i++) {
-        if (list[i].date.month == DateTime.now().month) {
-          result += list[i].amount;
+    switch (type) {
+      case SpendLimitType.WEEKLY:
+        {
+          var startDay =
+              timeCurrent.subtract(Duration(days: timeCurrent.weekday));
+          var endDay = startDay.add(Duration(days: 8));
+          list
+              .where((item) =>
+                  (item.date.year == timeCurrent.year) &&
+                  (item.date.month == timeCurrent.month) &&
+                  item.date.isAfter(startDay) &&
+                  item.date.isBefore(endDay))
+              .toList()
+              .forEach((element) {
+            result += element.amount;
+          });
+          return result;
         }
-      }
+      case SpendLimitType.MONTHLY:
+        {
+          list
+              .where((item) =>
+                  (item.date.year == timeCurrent.year) &&
+                  item.date.month == timeCurrent.month)
+              .toList()
+              .forEach((item) {
+            result += item.amount;
+          });
+          return result;
+        }
+      case SpendLimitType.QUATERLY:
+        {
+          QUATERLY.forEach((moths) {
+            if (moths.contains(timeCurrent.month)) {
+              list
+                  .where((item) =>
+                      (moths.contains(item.date.month)) &&
+                      item.date.year == timeCurrent.year)
+                  .toList()
+                  .forEach((element) {
+                result += element.amount;
+              });
+            }
+          });
+          return result;
+        }
+      case SpendLimitType.YEARLY:
+        {
+          list
+              .where((item) => item.date.year == timeCurrent.year)
+              .toList()
+              .forEach((element) {
+            result += element.amount;
+          });
+          return result;
+        }
+      default:
+        return result;
     }
-    return result;
   }
+
+  static const QUATERLY = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [10, 11, 12]
+  ];
 }

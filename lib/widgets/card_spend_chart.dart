@@ -17,6 +17,8 @@ class CardSpendChart extends StatefulWidget {
 
 class _CardSpendChartState extends State<CardSpendChart> {
   DateTime selectedDate = DateTime.now();
+  final _bloc = TransactionBloc();
+  List<Transaction> data;
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -38,10 +40,19 @@ class _CardSpendChartState extends State<CardSpendChart> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    var _bloc = TransactionBloc();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     _bloc.initData();
+    _bloc.transactionListStream.listen((transactions) {
+      setState(() {
+        data = transactions;
+      });
+    });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     Widget _detailContent(int totalYear) {
       return Padding(
         padding: EdgeInsets.only(right: 20, left: 20),
@@ -82,75 +93,68 @@ class _CardSpendChartState extends State<CardSpendChart> {
     }
 
     return Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Colors.blueGrey
-              : Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0.0, 15.0),
-              blurRadius: 15.0,
-            ),
-          ],
-        ),
-        child: StreamBuilder(
-          stream: _bloc.transactionListStream,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.active:
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      width: double.infinity,
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.blueGrey
+            : Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: Offset(0.0, 15.0),
+            blurRadius: 15.0,
+          ),
+        ],
+      ),
+      child: data != null
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(_getTitle(),
-                              style: Theme.of(context).textTheme.headline6),
-                          RaisedButton(
-                            onPressed: () => _selectDate(context),
-                            child: Row(
-                              children: <Widget>[
-                                Text('Chọn năm'),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(Icons.create, size: 20),
-                              ],
+                      Text(_getTitle(),
+                          style: Theme.of(context).textTheme.headline6),
+                      RaisedButton(
+                        onPressed: () => _selectDate(context),
+                        child: Row(
+                          children: <Widget>[
+                            Text('Chọn năm'),
+                            SizedBox(
+                              width: 5,
                             ),
-                            color: Theme.of(context).accentColor,
-                          ),
-                        ],
+                            Icon(Icons.create, size: 20),
+                          ],
+                        ),
+                        color: Theme.of(context).accentColor,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text('(Đơn vị: Nghìn)'),
-                      Container(
-                        height: 200,
-                        width: double.infinity,
-                        child: SpendChart(_getData(snapshot.data)),
-                      ),
-                      widget.showDetail
-                          ? _detailContent(_getTotal(snapshot.data))
-                          : SizedBox(
-                              height: 10,
-                            )
-                    ]);
-              default:
-                return Center(
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(),
+                    ],
                   ),
-                );
-            }
-          },
-        ));
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text('(Đơn vị: Nghìn)'),
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    child: SpendChart(_getData(data)),
+                  ),
+                  widget.showDetail
+                      ? _detailContent(_getTotal(data))
+                      : SizedBox(
+                          height: 10,
+                        )
+                ])
+          : Center(
+              child: Container(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(),
+              ),
+            ),
+    );
   }
 
   int _getTotal(List<Transaction> list) {
@@ -166,40 +170,18 @@ class _CardSpendChartState extends State<CardSpendChart> {
   }
 
   List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
-    List<int> totalByMonth = List<int>();
-    int totalMonth = 0;
-    int flagMonth = 1;
+    List<int> totalByMonth = List<int>.filled(12, 0, growable: true);
     list.sort((a, b) {
       return a.date.compareTo(b.date);
     });
-    list = list
+    list
         .where((item) => (item.category.transactionType.name ==
                 TransactionType.EXPENSE.name &&
             item.date.year == selectedDate.year))
-        .toList();
-    for (int i = 0; i < list.length; i++) {
-      while (flagMonth < list[i].date.month) {
-        totalByMonth.add((totalMonth / 1000.0).round());
-        totalMonth = 0;
-        flagMonth++;
-      }
-      if (flagMonth == list[i].date.month) {
-        totalMonth += list[i].amount;
-      }
-      if (flagMonth > list[i].date.month) {
-        totalByMonth.add((totalMonth / 1000.0).round());
-      }
-      if (i > 0) {
-        if (i == list.length - 1) {
-          totalByMonth.add((totalMonth / 1000.0).round());
-        }
-      }
-    }
-
-    while (flagMonth < 12) {
-      totalByMonth.add(0);
-      flagMonth++;
-    }
+        .toList()
+        .forEach((item) {
+      totalByMonth[item.date.month - 1] += (item.amount / 1000).round();
+    });
 
     var data = List.generate(totalByMonth.length, (index) {
       return MoneySpend(index + 1, totalByMonth[index]);

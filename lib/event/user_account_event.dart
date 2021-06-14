@@ -29,3 +29,7 @@ class GetUserEvent extends BaseEvent {
 class GetCurrentUserEvent extends BaseEvent {
   GetCurrentUserEvent();
 }
+
+class DeleteCurrentUserEvent extends BaseEvent {
+  DeleteCurrentUserEvent();
+}

@@ -95,7 +95,7 @@ class BalanceDetailPage extends StatelessWidget {
       new charts.Series<BalanceDetail, String>(
         id: 'CategorySpend',
         domainFn: (BalanceDetail item, _) => item.accountName,
-        measureFn: (BalanceDetail item, _) => item.balance<0?0:item.balance,
+        measureFn: (BalanceDetail item, _) => item.balance<=0?1:item.balance,
         colorFn: (BalanceDetail item, _) =>
             charts.ColorUtil.fromDartColor(item.color),
         labelAccessorFn: (BalanceDetail spend, _) => spend.balance.toString(),

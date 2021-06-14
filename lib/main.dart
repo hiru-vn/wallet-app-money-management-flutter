@@ -6,12 +6,13 @@ import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/bloc/user_account_bloc.dart';
 import 'package:wallet_exe/data/database_helper.dart';
-import 'package:wallet_exe/event/user_account_event.dart';
 import 'package:wallet_exe/fragments/login_fragment.dart';
 import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/themes/theme.dart';
 import 'package:wallet_exe/themes/theme_bloc.dart';
 import './bloc/account_bloc.dart';
+import 'fragments/register_fragment.dart';
+import 'fragments/splash_fragment.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,6 @@ class MyApp extends StatelessWidget {
     transactionBloc.initData();
     categoryBloc.initData();
     spendLimitBloc.initData();
-    userBloc.event.add(GetCurrentUserEvent());
     return MultiProvider(
       providers: [
         Provider<AccountBloc>.value(
@@ -66,24 +66,16 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Wallet exe',
+              initialRoute: '/splash',
+              routes: {
+                '/splash': (context) => SplashFragment(),
+                '/register': (context) => RegisterFragment(),
+                '/home': (context) => MainPage(),
+                '/login': (context) => LoginFragment(),
+              },
               theme: snapshot.hasData
                   ? _buildThemeData(snapshot.data)
                   : ThemeData(),
-              home: StreamBuilder(
-                stream: userBloc.userAccount,
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.active:
-                      {
-                        var user = snapshot.data;
-                        return user != null ? MainPage() : LoginFragment();
-                      }
-                    default:
-                      return Container(color: Colors.amber.shade500,);
-                  }
-                  ;
-                },
-              ),
             );
           }),
     );

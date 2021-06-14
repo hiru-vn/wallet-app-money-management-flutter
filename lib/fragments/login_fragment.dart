@@ -15,7 +15,7 @@ class LoginFragment extends StatefulWidget {
 
 class _LoginFragmentState extends State<LoginFragment> {
   final _bloc = UserAccountBloc();
-   var hiddenPassword = true;
+  var hiddenPassword = true;
   var _showError = false;
 
   final emailTextController = TextEditingController();
@@ -76,13 +76,11 @@ class _LoginFragmentState extends State<LoginFragment> {
   }
 
   void _navHomePage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MainPage()));
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void _navRegister() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RegisterFragment()));
+    Navigator.pushNamed(context, '/register');
   }
 
   Widget build(BuildContext context) {

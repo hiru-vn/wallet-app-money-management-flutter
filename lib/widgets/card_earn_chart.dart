@@ -159,40 +159,18 @@ class _CardEarnChartState extends State<CardEarnChart> {
   }
 
   List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
-    List<int> totalByMonth = List<int>();
-    int totalMonth = 0;
-    int flagMonth = 1;
+    List<int> totalByMonth = List<int>.filled(12, 0, growable: true);
     list.sort((a, b) {
       return a.date.compareTo(b.date);
     });
-    list = list
+    list
         .where((item) =>
             (item.category.transactionType == TransactionType.INCOME &&
                 item.date.year == selectedDate.year))
-        .toList();
-    for (int i = 0; i < list.length; i++) {
-      while (flagMonth < list[i].date.month) {
-        totalByMonth.add((totalMonth / 1000).round());
-        totalMonth = 0;
-        flagMonth++;
-      }
-      if (flagMonth == list[i].date.month) {
-        totalMonth += list[i].amount;
-      }
-      if (flagMonth > list[i].date.month) {
-        totalByMonth.add((totalMonth / 1000).round());
-      }
-      if (i > 0) {
-        if (i == list.length - 1) {
-          totalByMonth.add((totalMonth / 1000).round());
-        }
-      }
-    }
-
-    while (flagMonth < 12) {
-      totalByMonth.add(0);
-      flagMonth++;
-    }
+        .toList()
+        .forEach((item) {
+      totalByMonth[item.date.month - 1] += (item.amount / 1000).round();
+    });
 
     var data = List.generate(totalByMonth.length, (index) {
       return MoneySpend(index + 1, totalByMonth[index]);

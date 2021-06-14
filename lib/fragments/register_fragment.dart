@@ -48,8 +48,10 @@ class _RegisterFragmentState extends State<RegisterFragment> {
   }
 
   void _navHomePage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MainPage()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => MainPage()),
+        ModalRoute.withName('/home'));
   }
 
   void _navLogin() {

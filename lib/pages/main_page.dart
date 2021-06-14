@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
+import 'package:wallet_exe/bloc/user_account_bloc.dart';
+import 'package:wallet_exe/event/user_account_event.dart';
 import 'package:wallet_exe/fragments/account_fragment.dart';
 import 'package:wallet_exe/fragments/chart_fragment.dart';
 import 'package:wallet_exe/fragments/home_fragment.dart';
@@ -16,6 +18,7 @@ import 'package:wallet_exe/pages/new_transaction_page.dart';
 class DrawerItem {
   String title;
   IconData icon;
+
   DrawerItem(this.title, this.icon);
 }
 
@@ -26,6 +29,7 @@ class MainPage extends StatefulWidget {
     new DrawerItem("Danh sách tài khoản", Icons.view_list),
     new DrawerItem("Biểu đồ", Icons.pie_chart),
     new DrawerItem("Cài đặt", Icons.settings),
+    new DrawerItem("Đăng xuất", Icons.login_outlined)
   ];
 
   MainPage({Key key}) : super(key: key);
@@ -36,6 +40,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedDrawerIndex = 0;
+  final _userBloc = UserAccountBloc();
+  String _userName = '';
+  String _userEmail = '';
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -49,6 +56,10 @@ class _MainPageState extends State<MainPage> {
         return ChartFragment();
       case 4:
         return SettingFragment();
+      case 5:
+        {
+          return Container();
+        }
       default:
         return Text("Error");
     }
@@ -56,7 +67,13 @@ class _MainPageState extends State<MainPage> {
 
   _onSelectItem(int index) {
     setState(() => _selectedDrawerIndex = index);
-    Navigator.of(context).pop(); // close the drawer
+    if (_selectedDrawerIndex == 5) {
+      _userBloc.event.add(DeleteCurrentUserEvent());
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/login', ModalRoute.withName('/home'));
+    } else {
+      Navigator.of(context).pop(); // close the drawer
+    }
   }
 
   _actionAdd() {
@@ -64,6 +81,21 @@ class _MainPageState extends State<MainPage> {
       context,
       MaterialPageRoute(builder: (context) => AddAccountPage()),
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _userBloc.event.add(GetCurrentUserEvent());
+    _userBloc.userAccount.listen((user) {
+      setState(() {
+        if (user != null) {
+          _userName = user.name ?? '';
+          _userEmail = user.email ?? '';
+        }
+      });
+    });
   }
 
   @override
@@ -77,7 +109,7 @@ class _MainPageState extends State<MainPage> {
         selected: i == _selectedDrawerIndex,
         onTap: () => _onSelectItem(i),
       ));
-      if (i == 3) drawerOptions.add(Divider());
+      if (i == 4) drawerOptions.add(Divider());
     }
 
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
@@ -92,7 +124,10 @@ class _MainPageState extends State<MainPage> {
             MaterialPageRoute(builder: (context) => NewTransactionPage()),
           );
         },
-        child: Icon(Icons.add, color: Colors.white,),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
@@ -112,12 +147,14 @@ class _MainPageState extends State<MainPage> {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.brown,
                 child: Text(
-                  'Q',
+                  _userName.isEmpty
+                      ? ''
+                      : _userName.substring(0, 1).toUpperCase(),
                   style: TextStyle(fontSize: 25),
                 ),
               ),
-              accountName: Text('Nguyễn Văn Quý'),
-              accountEmail: Text('nvqquy98@gmail.com'),
+              accountName: Text(_userName ?? ''),
+              accountEmail: Text(_userEmail ?? ''),
             ),
             Column(children: drawerOptions)
           ],
