@@ -51,7 +51,9 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: double.infinity,
                 height: ScreenUtil.getInstance().setHeight(170),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.blueGrey
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Padding(
@@ -70,27 +72,28 @@ class _HomeFragmentState extends State<HomeFragment> {
                             ),
                           ),
                           FutureBuilder(
-                          future: AccountTable().getTotalBalance(),
-                          builder: (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasError) {
-                              print(snapshot.error.toString());
-                              return Center(
-                                  child: Text(snapshot.error.toString()));
-                            } else if (snapshot.hasData) {
-                              return Text(
-                                textToCurrency(snapshot.data.toString()),
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context).primaryColor),
-                              );
-                            }
-                            return Container(
-                              width: 50,
-                              height: 50,
-                              child: CircularProgressIndicator(),
-                            );
-                          }),
+                              future: AccountTable().getTotalBalance(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasError) {
+                                  print(snapshot.error.toString());
+                                  return Center(
+                                      child: Text(snapshot.error.toString()));
+                                } else if (snapshot.hasData) {
+                                  return Text(
+                                    textToCurrency(snapshot.data.toString()),
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(context).primaryColor),
+                                  );
+                                }
+                                return Container(
+                                  width: 50,
+                                  height: 50,
+                                  child: CircularProgressIndicator(),
+                                );
+                              }),
                           Icon(
                             Icons.navigate_next,
                             size: 30,

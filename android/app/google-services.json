@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "598522064651",
+    "project_id": "appmoneyflutter",
+    "storage_bucket": "appmoneyflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598522064651:android:1e28240fefc54332cbbc0e",
+        "android_client_info": {
+          "package_name": "com.example.wallet_exe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598522064651-js90t5t1p9h15q1q3q8v2eir238lsaqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wallet_exe",
+            "certificate_hash": "0b13adc9f1310989fed28c28525d4c04b8b32519"
+          }
+        },
+        {
+          "client_id": "598522064651-pldhg33m7qq83lkov6f64meb103g83pk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJZZ2DAAHZKze1bBSA0DELaO3V36FqrVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598522064651-pldhg33m7qq83lkov6f64meb103g83pk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

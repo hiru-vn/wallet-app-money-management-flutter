@@ -23,6 +23,9 @@ class CurrencyTextFormatter extends TextInputFormatter {
 }
 
 String textToCurrency(String text) {
+  if(text == '(null)') {
+    return '0';
+  }
   bool isNegative = false;
   if (text.contains('-')) isNegative=true; 
   int number = int.parse(text.replaceAll(RegExp(r'[^\w\s]+'), '').replaceAll('[^\\d.]', ''));

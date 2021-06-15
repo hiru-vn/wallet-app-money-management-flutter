@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/bloc/user_account_bloc.dart';
 import 'package:wallet_exe/data/database_helper.dart';
+import 'package:wallet_exe/data/local/user_local_data_source.dart';
 import 'package:wallet_exe/fragments/login_fragment.dart';
 import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/themes/theme.dart';
@@ -17,6 +19,8 @@ import 'fragments/splash_fragment.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.init();
+  await Firebase.initializeApp();
+  await UserLocalDataSource.initData();
   runApp(MyApp());
 }
 

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wallet_exe/bloc/user_account_bloc.dart';
@@ -37,14 +38,28 @@ class _RegisterFragmentState extends State<RegisterFragment> {
           if (validateError == ValidateError.NULL) {
             // Validate Complete
             final password = passwordTextController.text.trim();
-            final userAccount = UserAccount(
-                name: name, email: email.toLowerCase(), password: password);
-            _bloc.event.add(AddUserEvent(userAccount));
-            _navHomePage();
+            _bloc.event.add(CreateUserEvent(name, email, password));
           }
         }
       }
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _bloc.userModel.listen((user) {
+      if (user != null) _navHomePage();
+    });
+    _bloc.error.listen((error) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Text('${(error as FirebaseAuthException).message}'),
+        ),
+      );
+    });
   }
 
   void _navHomePage() {

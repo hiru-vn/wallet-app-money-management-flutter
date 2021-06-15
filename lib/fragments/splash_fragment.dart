@@ -18,9 +18,9 @@ class _SplashFragmentState extends State<SplashFragment> {
     // TODO: implement initState
     super.initState();
     _bloc.event.add(GetCurrentUserEvent());
-    _bloc.userAccount.listen((userAccount) {
+    _bloc.userModel.listen((user) {
       Navigator.pushReplacementNamed(
-          context, userAccount != null ? '/home' : '/login');
+          context, user != null ? '/home' : '/login');
     });
   }
 

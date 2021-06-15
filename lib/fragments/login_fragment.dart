@@ -25,17 +25,19 @@ class _LoginFragmentState extends State<LoginFragment> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _bloc.userAccount.listen((userAccount) {
+    _bloc.userModel.listen((userAccount) {
       if (userAccount != null)
         _navHomePage();
-      else
-        _isShowError(true);
+    });
+    _bloc.error.listen((error) {
+      _isShowError(true);
     });
   }
 
   void _submit() {
     _isShowError(false);
-    if (validateEmail(emailTextController.text.trim()) == ValidateError.NULL) {
+    if (validateEmail(emailTextController.text.trim()) ==
+        ValidateError.NULL) {
       if (validatePassword(passwordTextController.text.trim()) ==
           ValidateError.NULL) {
         _bloc.event.add(LoginEvent(
@@ -84,10 +86,14 @@ class _LoginFragmentState extends State<LoginFragment> {
   }
 
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery
+        .of(context)
+        .size;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme
+          .of(context)
+          .primaryColor,
       body: Container(
         padding: EdgeInsets.only(top: 24),
         width: size.width,
@@ -119,8 +125,8 @@ class _LoginFragmentState extends State<LoginFragment> {
               _showError
                   ? _showErrorWidget()
                   : SizedBox(
-                      height: 0,
-                    ),
+                height: 0,
+              ),
               SizedBox(
                 height: _showError ? 42 : 0,
               ),

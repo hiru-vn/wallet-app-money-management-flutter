@@ -21,6 +21,13 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^0.7.0
 
+  #SharedPreferences
+  shared_preferences: ^0.5.12+4
+
+  # Firebase
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.1
+  cloud_firestore: ^0.16.0
   # icon picker
   flutter_iconpicker: ^0.1.2
 
@@ -73,16 +80,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/logo.png
-   - assets/bank.png
-   - assets/dollar.png
-   - assets/jp-yen.png
-   - assets/bitcoin.png
-   - assets/e-wallet.png
-   - assets/bank-card.png
-   - assets/credit.png
-   - assets/phone-wallet.png
-   - assets/saving-pig.png
+    - assets/logo.png
+    - assets/bank.png
+    - assets/dollar.png
+    - assets/jp-yen.png
+    - assets/bitcoin.png
+    - assets/e-wallet.png
+    - assets/bank-card.png
+    - assets/credit.png
+    - assets/phone-wallet.png
+    - assets/saving-pig.png
   # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

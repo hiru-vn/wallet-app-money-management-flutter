@@ -8,6 +8,14 @@ class LoginEvent extends BaseEvent {
   LoginEvent(this.email, this.password);
 }
 
+class CreateUserEvent extends BaseEvent {
+  String name;
+  String email;
+  String password;
+
+  CreateUserEvent(this.name, this.email, this.password);
+}
+
 class AddUserEvent extends BaseEvent {
   UserAccount userAccount;
 

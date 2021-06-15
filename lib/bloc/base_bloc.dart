@@ -3,11 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 abstract class BaseBloc {
-  StreamController<BaseEvent> _eventStreamController = 
-    StreamController<BaseEvent> ();
+  StreamController<BaseEvent> _eventStreamController =
+      StreamController<BaseEvent>();
+
+  StreamController<Exception> errorStreamControler =
+      StreamController<Exception>();
 
   // dung de day event vao stream
   Sink<BaseEvent> get event => _eventStreamController.sink;
+
+  Stream<Exception> get error => errorStreamControler.stream;
 
   BaseBloc() {
     _eventStreamController.stream.listen((event) {
@@ -25,5 +30,6 @@ abstract class BaseBloc {
   @mustCallSuper
   void dispose() {
     _eventStreamController.close();
+    errorStreamControler.close();
   }
 }
