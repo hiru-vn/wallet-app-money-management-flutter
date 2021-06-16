@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
     // TODO: implement initState
     super.initState();
     _userBloc.event.add(GetCurrentUserEvent());
-    _userBloc.userAccount.listen((user) {
+    _userBloc.userModel.listen((user) {
       setState(() {
         if (user != null) {
           _userName = user.name ?? '';

@@ -1,2 +1,2 @@
-const USER_DOCUMENT = 'user';
-const WALLET_DOCUMENT = 'wallet';
+const USER_COLLECTION = 'user';
+const WALLET_COLLECTION = 'wallet';

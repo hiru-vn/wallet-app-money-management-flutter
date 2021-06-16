@@ -18,3 +18,7 @@ class UpdateAccountEvent extends BaseEvent {
 
   UpdateAccountEvent(this.account);
 }
+
+class GetAllBalanceEvent extends BaseEvent {
+  GetAllBalanceEvent();
+}

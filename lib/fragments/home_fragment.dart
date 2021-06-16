@@ -1,7 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
+import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
+import 'package:wallet_exe/data/model/User.dart';
+import 'package:wallet_exe/data/model/strorage_key.dart';
+import 'package:wallet_exe/data/remote/firebase_util.dart';
+import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/pages/balance_detail_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_balance.dart';
@@ -16,6 +25,9 @@ class HomeFragment extends StatefulWidget {
 }
 
 class _HomeFragmentState extends State<HomeFragment> {
+  final _accountBloc = AccountBloc();
+  int _balanceTotal = 0;
+
   // get total balance
   int getTotalBalance(List<Account> accounts) {
     int totalBalance = 0;
@@ -28,9 +40,16 @@ class _HomeFragmentState extends State<HomeFragment> {
   @override
   void initState() {
     super.initState();
+    _accountBloc.event.add(GetAllBalanceEvent());
+    _accountBloc.balance.listen((balance) {
+      setState(() {
+        _balanceTotal = balance;
+      });
+      _accountBloc.error.listen((error) {});
+    });
   }
 
-  _balaceDetailNav() {
+  _balanceDetailNav() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => BalanceDetailPage()),
@@ -59,7 +78,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 child: Padding(
                     padding: EdgeInsets.all(15.0),
                     child: InkWell(
-                      onTap: _balaceDetailNav,
+                      onTap: _balanceDetailNav,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
@@ -71,29 +90,13 @@ class _HomeFragmentState extends State<HomeFragment> {
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
-                          FutureBuilder(
-                              future: AccountTable().getTotalBalance(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasError) {
-                                  print(snapshot.error.toString());
-                                  return Center(
-                                      child: Text(snapshot.error.toString()));
-                                } else if (snapshot.hasData) {
-                                  return Text(
-                                    textToCurrency(snapshot.data.toString()),
-                                    style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).primaryColor),
-                                  );
-                                }
-                                return Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(),
-                                );
-                              }),
+                          Text(
+                            textToCurrency(_balanceTotal.toString()),
+                            style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).primaryColor),
+                          ),
                           Icon(
                             Icons.navigate_next,
                             size: 30,

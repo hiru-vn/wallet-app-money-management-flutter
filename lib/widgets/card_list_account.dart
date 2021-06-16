@@ -34,8 +34,6 @@ class _CardListAccountState extends State<CardListAccount> {
     bloc.initData();
 
     return
-        // Consumer<AccountBloc>(
-        //   builder: (context, bloc, child) =>
         StreamBuilder<List<Account>>(
             stream: bloc.accountListStream,
             builder: (context, snapshot) {
@@ -74,7 +72,7 @@ class _CardListAccountState extends State<CardListAccount> {
                             title: Text(
                               "Đang sử dụng (" +
                                   AccountTable.getTotalByType(
-                                      snapshot.data, AccountType.SAVING) +
+                                      snapshot.data, AccountType.SPENDING) +
                                   " đ)",
                               style: Theme.of(context).textTheme.subtitle1,
                             ),

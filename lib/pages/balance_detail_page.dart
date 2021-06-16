@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_exe/data/dao/account_table.dart';
+import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/widgets/item_balance_chart_circle.dart';
@@ -9,6 +9,8 @@ class BalanceDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AccountBloc _blocAccount = AccountBloc();
+    _blocAccount.initData();
     return Scaffold(
       appBar: AppBar(
         title: Text('Số dư tài khoản'),
@@ -29,8 +31,8 @@ class BalanceDetailPage extends StatelessWidget {
             ),
           ],
         ),
-        child: FutureBuilder(
-          future: AccountTable().getAllAccount(),
+        child: StreamBuilder(
+          stream: _blocAccount.accountListStream,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error.toString());
@@ -38,7 +40,9 @@ class BalanceDetailPage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return Column(
                 children: <Widget>[
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Text('Các tài khoản',
                       style: Theme.of(context).textTheme.headline6),
                   SizedBox(
@@ -95,7 +99,8 @@ class BalanceDetailPage extends StatelessWidget {
       new charts.Series<BalanceDetail, String>(
         id: 'CategorySpend',
         domainFn: (BalanceDetail item, _) => item.accountName,
-        measureFn: (BalanceDetail item, _) => item.balance<=0?1:item.balance,
+        measureFn: (BalanceDetail item, _) =>
+            item.balance <= 0 ? 1 : item.balance,
         colorFn: (BalanceDetail item, _) =>
             charts.ColorUtil.fromDartColor(item.color),
         labelAccessorFn: (BalanceDetail spend, _) => spend.balance.toString(),

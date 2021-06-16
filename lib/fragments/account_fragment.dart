@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
+import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_list_account.dart';
 
@@ -11,6 +13,21 @@ class AccountFragment extends StatefulWidget {
 }
 
 class _AccountFragmentState extends State<AccountFragment> {
+  final _accountBloc = AccountBloc();
+  int _balance = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _accountBloc.event.add(GetAllBalanceEvent());
+    _accountBloc.balance.listen((balance) {
+      setState(() {
+        _balance = balance;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +37,10 @@ class _AccountFragmentState extends State<AccountFragment> {
             width: double.infinity,
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+              color: Theme
+                  .of(context)
+                  .brightness == Brightness.dark ? Colors.blueGrey : Colors
+                  .white,
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
@@ -30,24 +50,13 @@ class _AccountFragmentState extends State<AccountFragment> {
                 ),
               ],
             ),
-            child: FutureBuilder(
-                future: AccountTable().getTotalBalance(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasError) {
-                    print(snapshot.error.toString());
-                    return Center(child: Text(snapshot.error.toString()));
-                  } else if (snapshot.hasData) {
-                    return Text(
-                      'Tổng: '+textToCurrency(snapshot.data.toString()) + 'đ',
-                      style: Theme.of(context).textTheme.headline6,
-                    );
-                  }
-                  return Container(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(),
-                  );
-                }),
+            child: Text(
+              'Tổng: ' + textToCurrency(_balance.toString()) + 'đ',
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline6,
+            ),
           ),
           SizedBox(
             height: 15,

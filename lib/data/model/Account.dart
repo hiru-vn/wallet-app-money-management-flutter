@@ -3,18 +3,19 @@ import 'package:wallet_exe/enums/account_type.dart';
 import '../dao/account_table.dart';
 
 class Account {
-  int id; // auto generate & unique
+  String id; // auto generate & unique
 
   String name;
-  int userId;
+  String userId;
+
   //int idAppAccount;
   int balance;
   AccountType type;
   IconData icon;
   String img;
 
-  Account({
-      this.name,
+  Account(
+      {this.name,
       //this.idAppAccount,
       this.balance,
       this.userId,
@@ -38,7 +39,7 @@ class Account {
       AccountTable().id: id,
       AccountTable().name: name,
       AccountTable().balance: balance,
-      AccountTable().userId : userId,
+      AccountTable().userId: userId,
       AccountTable().type: type.value,
       AccountTable().icon: 1, //TO DO:
       AccountTable().img: img,

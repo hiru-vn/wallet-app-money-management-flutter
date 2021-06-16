@@ -31,12 +31,13 @@ class AccountTable {
     ''');
   }
 
-  Future<void> initAccountData(int userId){
+  Future<void> initAccountData(int userId) {
     final Database db = DatabaseHelper.instance.database;
-    db.execute('INSERT INTO account VALUES (0,"Ví",$userId,0,0,0,"assets/logo.png")');
+    db.execute(
+        'INSERT INTO account VALUES (0,"Ví",$userId,0,0,0,"assets/logo.png")');
     db.execute(
         'INSERT INTO account VALUES (1,"ATM",$userId,0,0,0,"assets/credit.png")');
- return db.execute(
+    return db.execute(
         'INSERT INTO account VALUES (2,"MOMO",$userId,0,0,0,"assets/e-wallet.png")');
   }
 
@@ -102,12 +103,11 @@ class AccountTable {
   }
 
   static String getTotalByType(List<Account> list, AccountType type) {
-    List<Account> returnList =
-        list.where((item) => (item.type == AccountType.SAVING)).toList();
-    if (returnList.length == 0) return "0";
-    return textToCurrency(returnList
-        .map<int>((m) => m.balance)
-        .reduce((a, b) => a + b)
-        .toString());
+    var sum = 0;
+    list.forEach((item) {
+      if (item.type.value == type.value) sum += item.balance;
+    });
+    if (sum == 0) return "0";
+    return textToCurrency(sum.toString());
   }
 }
