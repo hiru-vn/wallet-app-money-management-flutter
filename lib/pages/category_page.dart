@@ -32,7 +32,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     var _bloc = CategoryBloc();
     _bloc.initData();
-    
+
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
@@ -53,77 +53,98 @@ class _CategoryPageState extends State<CategoryPage> {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return Center(
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    child: Text('Bạn chưa tạo hạng mục nào'),
-                  ),
-                );
+
               case ConnectionState.none:
 
               case ConnectionState.active:
-                return SingleChildScrollView(
-                  child: Container(
-                    width: double.infinity,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
+                return (snapshot.data != null && snapshot.data.isNotEmpty)
+                    ? SingleChildScrollView(
+                        child: Container(
                           width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark? Colors.black45: Colors.white,
-                            borderRadius: BorderRadius.circular(8.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, 15.0),
-                                blurRadius: 15.0,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 15),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.black45
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      offset: Offset(0.0, 15.0),
+                                      blurRadius: 15.0,
+                                    ),
+                                  ],
+                                ),
+                                child: TextField(
+                                  onChanged: (text) {
+                                    this.setState(() {
+                                      _filter = text.trim();
+                                    });
+                                  },
+                                  decoration: InputDecoration(
+                                      hintText: 'Tìm tên hạng mục',
+                                      border: InputBorder.none,
+                                      icon: Icon(
+                                        Icons.search,
+                                        color: Colors.black.withOpacity(0.5),
+                                      )),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              CardCategoryList(
+                                  'TẤT CẢ',
+                                  snapshot.data
+                                      .where((item) => this._filter.isEmpty
+                                          ? true
+                                          : item.name.contains(this._filter))
+                                      .toList()),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              CardCategoryList(
+                                  'Hạng mục chi',
+                                  snapshot.data
+                                      .where((item) => (item.transactionType ==
+                                          TransactionType.EXPENSE))
+                                      .where((item) =>
+                                          (item.name.contains(this._filter)))
+                                      .toList()),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              CardCategoryList(
+                                  'Hạng mục thu',
+                                  snapshot.data
+                                      .where((item) => (item.transactionType ==
+                                          TransactionType.INCOME))
+                                      .where((item) =>
+                                          (item.name.contains(this._filter)))
+                                      .toList()),
+                              SizedBox(
+                                height: 15,
                               ),
                             ],
                           ),
-                          child: TextField(
-                            onChanged: (text) {
-                              this.setState((){
-                                _filter = text.trim();
-                              });
-                            },
-                            decoration: InputDecoration(
-                                hintText: 'Tìm tên hạng mục',
-                                border: InputBorder.none,
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Colors.black.withOpacity(0.5),
-                                )),
-                          ),
                         ),
-                        SizedBox(
-                          height: 15,
+                      )
+                    : Center(
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          child: Text('Bạn chưa tạo hạng mục nào'),
                         ),
-                        CardCategoryList('TẤT CẢ', snapshot.data.where((item)=>(item.name.contains(this._filter))).toList()),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        CardCategoryList(
-                            'Hạng mục chi',
-                            snapshot.data.where((item)=>(item.transactionType == TransactionType.EXPENSE)).where((item)=>(item.name.contains(this._filter))).toList()),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        CardCategoryList(
-                            'Hạng mục thu',
-                            snapshot.data.where((item)=>(item.transactionType == TransactionType.INCOME)).where((item)=>(item.name.contains(this._filter))).toList()),
-                        SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                      );
               default:
                 return Center(
                   child: Container(

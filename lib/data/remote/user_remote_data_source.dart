@@ -8,6 +8,8 @@ import 'package:wallet_exe/data/repo/state_data.dart';
 import 'package:wallet_exe/data/model/User.dart';
 import 'package:wallet_exe/enums/account_type.dart';
 
+import 'category_remote_data_source.dart';
+
 class UserRemoteDataSource {
   static final _instance = UserRemoteDataSource._internal();
   final _accountRemoteDataSource = AccountRemoteDataSource();
@@ -23,12 +25,14 @@ class UserRemoteDataSource {
     String email,
     String password,
   ) async {
+    final _categoryRemoteDataSource = CategoryRemoteDataSource();
     try {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       final user =
           UserModel(id: userCredential.user.uid, email: email, name: name);
       final userCollection = fireStore.collection(USER_COLLECTION).doc(user.id);
+      await userCollection.set(user.toMap());
       await _accountRemoteDataSource.addAccount(
           userCollection.id,
           Account(
@@ -37,8 +41,7 @@ class UserRemoteDataSource {
               userId: userCollection.id,
               img: "assets/logo.png",
               type: AccountType.SPENDING));
-      final categories = await CategoryTable().getAll();
-
+      await _categoryRemoteDataSource.registerCategory(userCollection.id);
       return StateData.success(user);
     } catch (e) {
       return StateData.error(e);

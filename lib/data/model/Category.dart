@@ -4,7 +4,7 @@ import '../dao/category_table.dart';
 import '../../utils/color_util.dart';
 
 class Category {
-  int id; // auto generate & unique
+  String id; // auto generate & unique
 
   String name;
   IconData icon;
@@ -36,10 +36,11 @@ class Category {
       CategoryTable().color: color.value,
       CategoryTable().name: name,
       CategoryTable().type: transactionType.value,
-      CategoryTable().icon: icon.codePoint.toString(),
-      CategoryTable().description : description,
+      CategoryTable().icon: icon.codePoint,
+      CategoryTable().description: description,
     };
   }
+
   // setter
   Category.fromMap(Map<String, dynamic> map) {
     id = map[CategoryTable().id];

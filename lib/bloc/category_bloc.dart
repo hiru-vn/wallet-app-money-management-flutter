@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:wallet_exe/bloc/base_bloc.dart';
 import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Category.dart';
+import 'package:wallet_exe/data/repository/category_repository.dart';
 import 'package:wallet_exe/event/category_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class CategoryBloc extends BaseBloc {
-  CategoryTable _categorytable = CategoryTable();
+  CategoryRepository _categoryRepository = CategoryRepositoryImpl();
 
   StreamController<List<Category>> _categoryListStreamController =
       StreamController<List<Category>>();
@@ -21,36 +22,46 @@ class CategoryBloc extends BaseBloc {
 
   initData() async {
     if (_categoryListData.length != 0) return;
-    _categoryListData = await _categorytable.getAll();
-    if (_categoryListData == null) return;
-
-    print('category bloc init');
-
-    _categoryListStreamController.sink.add(_categoryListData);
+    final stateData = await _categoryRepository.getAllCategory();
+    if (stateData.data != null) {
+      _categoryListData = stateData.data;
+      _categoryListStreamController.sink.add(_categoryListData);
+    } else {
+      errorStreamControler.sink.add(stateData.e);
+    }
   }
 
   _addCategory(Category category) async {
-    _categorytable.insert(category);
-
-    _categoryListData.add(category);
-    _categoryListStreamController.sink.add(_categoryListData);
+    final stateData = await _categoryRepository.addCategory(category);
+    if (stateData.data != null) {
+      _categoryListData.add(category);
+      _categoryListStreamController.sink.add(_categoryListData);
+    } else {
+      errorStreamControler.sink.add(stateData.e);
+    }
   }
 
   _deleteCategory(Category category) async {
-    _categorytable.delete(category.id);
-
-    _categoryListData.remove(category);
-    _categoryListStreamController.sink.add(_categoryListData);
+    final stateData = await _categoryRepository.deleteCategory(category.id);
+    if (stateData.data ?? false) {
+      _categoryListData.remove(category);
+      _categoryListStreamController.sink.add(_categoryListData);
+    } else {
+      errorStreamControler.sink.add(stateData.e);
+    }
   }
 
   _updateCategory(Category category) async {
-    _categorytable.update(category);
-
     int index = _categoryListData.indexWhere((item) {
       return item.id == category.id;
     });
-    _categoryListData[index] = category;
-    _categoryListStreamController.sink.add(_categoryListData);
+    final stateData = await _categoryRepository.updateCategory(category);
+    if (stateData.data != null) {
+      _categoryListData[index] = category;
+      _categoryListStreamController.sink.add(_categoryListData);
+    } else {
+      errorStreamControler.sink.add(stateData.e);
+    }
   }
 
   void dispatchEvent(BaseEvent event) {
