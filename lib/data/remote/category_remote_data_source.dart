@@ -31,7 +31,7 @@ class CategoryRemoteDataSource {
           .doc();
       category.id = document.id;
       await document.set(category.toMap());
-      return StateData.success(true);
+      return StateData.success(category);
     } catch (e) {
       return StateData.error(e);
     }

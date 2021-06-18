@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:wallet_exe/bloc/base_bloc.dart';
-import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/data/repository/category_repository.dart';
 import 'package:wallet_exe/event/category_event.dart';
@@ -34,7 +33,7 @@ class CategoryBloc extends BaseBloc {
   _addCategory(Category category) async {
     final stateData = await _categoryRepository.addCategory(category);
     if (stateData.data != null) {
-      _categoryListData.add(category);
+      _categoryListData.add(stateData.data);
       _categoryListStreamController.sink.add(_categoryListData);
     } else {
       errorStreamControler.sink.add(stateData.e);

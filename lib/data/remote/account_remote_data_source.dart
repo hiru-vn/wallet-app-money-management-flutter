@@ -1,6 +1,4 @@
-import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
-import 'package:wallet_exe/data/remote/category_remote_data_source.dart';
 import 'package:wallet_exe/data/remote/firebase_util.dart';
 import 'package:wallet_exe/data/repo/constrant_document.dart';
 import 'package:wallet_exe/data/repo/state_data.dart';
@@ -48,7 +46,7 @@ class AccountRemoteDataSource {
           .update(account.toMap());
       return StateData.success(true);
     } catch (e) {
-      StateData.error(e);
+      return StateData.error(e);
     }
   }
 
@@ -60,7 +58,7 @@ class AccountRemoteDataSource {
           .delete();
       return StateData.success(true);
     } catch (e) {
-      StateData.error(e);
+      return StateData.error(e);
     }
   }
 }

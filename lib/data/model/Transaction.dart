@@ -1,3 +1,5 @@
+import 'package:wallet_exe/data/dao/account_table.dart';
+import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/utils/date_format_util.dart';
@@ -5,7 +7,7 @@ import 'package:wallet_exe/utils/date_format_util.dart';
 import '../dao/transaction_table.dart';
 
 class Transaction {
-  int id; // auto generate & unique
+  String id; // auto generate & unique
 
   Account account;
   Category category;
@@ -14,12 +16,7 @@ class Transaction {
   String description;
 
   Transaction(
-    this.account,
-    this.category,
-    this.amount,
-    this.date,
-    this.description
-  );
+      this.account, this.category, this.amount, this.date, this.description);
 
   Transaction.copyOf(Transaction copy) {
     this.id = copy.id;
@@ -41,15 +38,16 @@ class Transaction {
       TransactionTable().idAccount: account.id
     };
   }
+
   // setter
   Transaction.fromMap(Map<String, dynamic> map) {
     id = map[TransactionTable().id];
-    account = Account.fromMap(map);
+    account = Account.fromMap(map[AccountTable().tableName]);
     date = DateTime.parse(map[TransactionTable().date]);
     amount = map[TransactionTable().amount];
     description = map[TransactionTable().description];
     //merge table query
-    category = Category.fromMap(map);
+    category = Category.fromMap(map[CategoryTable().tableName]);
   }
 
   void checkValidationAndThrow() {

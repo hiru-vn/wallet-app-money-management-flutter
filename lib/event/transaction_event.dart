@@ -1,4 +1,5 @@
 import 'package:wallet_exe/data/model/Transaction.dart';
+import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class AddTransactionEvent extends BaseEvent {

@@ -102,6 +102,14 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
 
     void _delete() {
       _bloc.event.add(DeleteTransactionEvent(_transaction));
+      if (this._transaction.category.transactionType ==
+          TransactionType.EXPENSE) {
+        this._account.balance += this._transaction.amount;
+      } else if (this._transaction.category.transactionType ==
+          TransactionType.INCOME) {
+        this._account.balance -= this._transaction.amount;
+      }
+      _blocAccount.event.add(UpdateAccountEvent(this._account));
       Navigator.pop(context);
     }
 
@@ -123,33 +131,15 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
       transaction.id = this._transaction.id;
       _bloc.event.add(UpdateTransactionEvent(transaction));
 
-      if (this._category.transactionType == TransactionType.EXPENSE) {
-        if (this._transaction.category.transactionType ==
-            TransactionType.EXPENSE) {
-          this._account.balance -=
-              (currencyToInt(this._balanceController.text) -
-                  this._transaction.amount);
-        } else if (this._transaction.category.transactionType ==
-            TransactionType.INCOME) {
-          this._account.balance -=
-              (currencyToInt(this._balanceController.text) +
-                  this._transaction.amount);
-        }
+      if (this._transaction.category.transactionType ==
+          TransactionType.EXPENSE) {
+        this._account.balance -= (currencyToInt(this._balanceController.text) -
+            this._transaction.amount);
+      } else if (this._transaction.category.transactionType ==
+          TransactionType.INCOME) {
+        this._account.balance -= (currencyToInt(this._balanceController.text) +
+            this._transaction.amount);
       }
-      if (this._category.transactionType == TransactionType.INCOME) {
-        if (this._transaction.category.transactionType ==
-            TransactionType.EXPENSE) {
-          this._account.balance +=
-              (currencyToInt(this._balanceController.text) +
-                  this._transaction.amount);
-        } else if (this._transaction.category.transactionType ==
-            TransactionType.INCOME) {
-          this._account.balance +=
-              (currencyToInt(this._balanceController.text) -
-                  this._transaction.amount);
-        }
-      }
-
       _blocAccount.event.add(UpdateAccountEvent(this._account));
 
       Navigator.pop(context);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:wallet_exe/data/dao/transaction_table.dart';
+import 'package:wallet_exe/bloc/category_spend_bloc.dart';
 import 'package:wallet_exe/enums/transaction_type.dart';
+import 'package:wallet_exe/event/category_spend_event.dart';
 import 'package:wallet_exe/widgets/item_spend_chart_circle.dart';
 
 class CardOutcomeChart extends StatefulWidget {
@@ -12,15 +13,17 @@ class CardOutcomeChart extends StatefulWidget {
 }
 
 class _CardOutcomeChartState extends State<CardOutcomeChart> {
-  List _option = ["Hôm nay", "Tuần này", "Tháng này", "Năm nay", "All"];
+  List _option = ["Hôm nay", "Tuần này", "Tháng này", "Năm nay", "Tất cả"];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentOption;
+  final _categorySpendsBloc = CategorySpendBloc();
 
   @override
   void initState() {
     _dropDownMenuItems = getDropDownMenuItems();
     _currentOption = "Tháng này";
     super.initState();
+
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -94,13 +97,15 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
           sum += item.money;
         }
       });
-      data.add(CategorySpend(name, (sum/1000).round(), DateTime.now()));
+      data.add(CategorySpend(name, (sum / 1000).round(), DateTime.now()));
     });
     return data;
   }
 
   @override
   Widget build(BuildContext context) {
+    _categorySpendsBloc.event
+        .add(GetCategorySpendByTransactionTypeEvent(TransactionType.EXPENSE));
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(15),
@@ -117,9 +122,8 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
           ),
         ],
       ),
-      child: FutureBuilder(
-        future: TransactionTable()
-            .getAmountSpendPerCategory(TransactionType.EXPENSE),
+      child: StreamBuilder(
+        stream: _categorySpendsBloc.categoryStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error.toString());
