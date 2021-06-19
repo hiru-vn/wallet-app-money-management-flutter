@@ -65,9 +65,9 @@ class CategoryRemoteDataSource {
           .collection(_getCollection(userId))
           .doc(categoryId)
           .delete();
-      StateData.success(true);
+      return StateData.success(true);
     } catch (e) {
-      StateData.error(e);
+      return StateData.error(e);
     }
   }
 

@@ -1,4 +1,3 @@
-import 'package:wallet_exe/data/dao/account_table.dart';
 
 import '../model/UserAccount.dart';
 import 'package:sqflite/sqflite.dart';

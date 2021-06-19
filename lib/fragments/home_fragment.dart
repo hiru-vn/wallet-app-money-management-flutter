@@ -1,15 +1,8 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
-import 'package:wallet_exe/data/dao/account_table.dart';
-import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
-import 'package:wallet_exe/data/model/User.dart';
-import 'package:wallet_exe/data/model/strorage_key.dart';
-import 'package:wallet_exe/data/remote/firebase_util.dart';
 import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/pages/balance_detail_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';

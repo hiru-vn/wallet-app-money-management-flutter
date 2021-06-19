@@ -90,6 +90,7 @@ class AccountBloc extends BaseBloc {
   void dispose() {
     // TODO: implement dispose
     _accountListStreamController.close();
+    _balanceControler.close();
     super.dispose();
   }
 }

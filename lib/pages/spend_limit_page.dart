@@ -35,17 +35,17 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
       Navigator.pop(context);
     }
 
-    _delete() {
-      if (!this._formspendLimitKey.currentState.validate()) {
-        return;
-      }
-
-      SpendLimit item = SpendLimit(
-          currencyToInt(_spendLimitController.text), widget._spendLimit.type);
-      _bloc.event.add(DeleteSpendLimitEvent(item));
-
-      Navigator.pop(context);
-    }
+    // _delete() {
+    //   if (!this._formspendLimitKey.currentState.validate()) {
+    //     return;
+    //   }
+    //
+    //   SpendLimit item = SpendLimit(
+    //       currencyToInt(_spendLimitController.text), widget._spendLimit.type);
+    //   _bloc.event.add(DeleteSpendLimitEvent(item));
+    //
+    //   Navigator.pop(context);
+    // }
 
     _chooseType() async {
       var temp = await Navigator.push(

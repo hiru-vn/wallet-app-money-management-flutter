@@ -31,14 +31,6 @@ class UserAccountBloc extends BaseBloc {
 
   Stream<UserModel> get userModel => _streamUserModel.stream;
 
-  _getUser(String email, String password) async {
-    _userAccount = await _userAccountTable.getUser(email, password);
-    if (_userAccount != null)
-      await storage.write(
-          key: KEY_CURRENT_USER, value: jsonEncode(_userAccount.toMap()));
-    _streamUserAccount.sink.add(_userAccount);
-  }
-
   _getCurrentUser() async {
     _userModel = _userRepository.getCurrentUser();
     _streamUserModel.sink.add(_userModel);

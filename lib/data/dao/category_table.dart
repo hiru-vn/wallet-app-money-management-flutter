@@ -1,4 +1,3 @@
-import 'package:wallet_exe/enums/transaction_type.dart';
 
 import '../model/Category.dart';
 import 'package:sqflite/sqflite.dart';

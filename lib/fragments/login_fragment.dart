@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wallet_exe/bloc/user_account_bloc.dart';
 import 'package:wallet_exe/event/user_account_event.dart';
-import 'package:wallet_exe/fragments/register_fragment.dart';
-import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/utils/validation_text.dart';
 
 class LoginFragment extends StatefulWidget {

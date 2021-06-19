@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
-import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/card_list_account.dart';

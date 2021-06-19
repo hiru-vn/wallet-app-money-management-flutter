@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:wallet_exe/bloc/base_bloc.dart';
-import 'package:wallet_exe/data/dao/spend_limit_table.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
+import 'package:wallet_exe/data/repository/spend_limit_repository.dart';
 import 'package:wallet_exe/data/repository/transaction_repository.dart';
 import 'package:wallet_exe/enums/spend_limit_type.dart';
 import 'package:wallet_exe/event/spend_limit_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class SpendLimitBloc extends BaseBloc {
-  SpendLimitTable _spendLimitTable = SpendLimitTable();
+  final SpendLimitRepository _spendLimitRepository = SpendLimitRepositoryImpl();
   final TransactionRepository _transactionRepository =
       TransactionRepositoryIml();
 
@@ -30,36 +30,42 @@ class SpendLimitBloc extends BaseBloc {
 
   initData() async {
     if (_spendLimitListData.length != 0) return;
-    _spendLimitListData = await _spendLimitTable.getAll();
-    if (_spendLimitListData == null) return;
-
-    _spendLimitListStreamController.sink.add(_spendLimitListData);
+    final stateData = await _spendLimitRepository.getAllSpendLimit();
+    if (stateData.data != null) {
+      _spendLimitListData = stateData.data;
+      _spendLimitListStreamController.sink.add(_spendLimitListData);
+    } else {
+      errorStreamControler.sink.add(stateData.e);
+    }
   }
 
   _addSpendLimit(SpendLimit spendLimit) async {
-    _spendLimitTable.insert(spendLimit);
-
-    _spendLimitListData.add(spendLimit);
-    _spendLimitListStreamController.sink.add(_spendLimitListData);
+    // _spendLimitTable.insert(spendLimit);
+    //
+    // _spendLimitListData.add(spendLimit);
+    // _spendLimitListStreamController.sink.add(_spendLimitListData);
   }
 
   _deleteSpendLimit(SpendLimit spendLimit) async {
-    final index = _spendLimitListData.indexWhere((item) {
-      return item.type.name == spendLimit.type.name;
-    });
-    _spendLimitTable.delete(_spendLimitListData[index].id);
-    _spendLimitListData.removeAt(index);
-    _spendLimitListStreamController.sink.add(_spendLimitListData);
+    // final index = _spendLimitListData.indexWhere((item) {
+    //   return item.type.name == spendLimit.type.name;
+    // });
+    // _spendLimitTable.delete(_spendLimitListData[index].id);
+    // _spendLimitListData.removeAt(index);
+    // _spendLimitListStreamController.sink.add(_spendLimitListData);
   }
 
   _updateSpendLimit(SpendLimit spendLimit) async {
     int index = _spendLimitListData.indexWhere((item) {
       return item.type.name == spendLimit.type.name;
     });
-    spendLimit.id = _spendLimitListData[index].id;
-    _spendLimitTable.update(spendLimit);
-    _spendLimitListData[index] = spendLimit;
-    _spendLimitListStreamController.sink.add(_spendLimitListData);
+    final stateData = await _spendLimitRepository.updateSpendLimit(spendLimit);
+    if (stateData.data ?? false) {
+      _spendLimitListData[index] = spendLimit;
+      _spendLimitListStreamController.sink.add(_spendLimitListData);
+    } else {
+      errorStreamControler.sink.add(stateData.e);
+    }
   }
 
   _getTotalTransactionBySpendLimit(SpendLimitType spendLimitType) async {

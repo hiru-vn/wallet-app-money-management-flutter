@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:wallet_exe/data/dao/category_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/data/remote/account_remote_data_source.dart';
 import 'package:wallet_exe/data/remote/firebase_util.dart';
+import 'package:wallet_exe/data/remote/spend_limit_remote_data_source.dart';
 import 'package:wallet_exe/data/repo/constrant_document.dart';
 import 'package:wallet_exe/data/repo/state_data.dart';
 import 'package:wallet_exe/data/model/User.dart';
@@ -26,6 +26,7 @@ class UserRemoteDataSource {
     String password,
   ) async {
     final _categoryRemoteDataSource = CategoryRemoteDataSource();
+    final _spendLimitRemoteDataSource = SpendLimitRemoteDataSource();
     try {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -42,6 +43,8 @@ class UserRemoteDataSource {
               img: "assets/logo.png",
               type: AccountType.SPENDING));
       await _categoryRemoteDataSource.registerCategory(userCollection.id);
+      await _spendLimitRemoteDataSource
+          .initDataWhenRegisterUser(userCollection.id);
       return StateData.success(user);
     } catch (e) {
       return StateData.error(e);

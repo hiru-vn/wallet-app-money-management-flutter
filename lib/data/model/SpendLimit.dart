@@ -2,7 +2,7 @@ import 'package:wallet_exe/data/dao/spend_limit_table.dart';
 import 'package:wallet_exe/enums/spend_limit_type.dart';
 
 class SpendLimit {
-  int id; // auto generate & unique
+  String id; // auto generate & unique
 
   //int idUserAccount;
   int amount;
