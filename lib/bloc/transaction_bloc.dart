@@ -1,15 +1,12 @@
 import 'dart:async';
 
 import 'package:wallet_exe/bloc/base_bloc.dart';
-import 'package:wallet_exe/data/dao/transaction_table.dart';
 import 'package:wallet_exe/data/model/Transaction.dart';
 import 'package:wallet_exe/data/repository/transaction_repository.dart';
-import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/event/transaction_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class TransactionBloc extends BaseBloc {
-  TransactionTable _transactionTable = TransactionTable();
   TransactionRepository _transactionRepository = TransactionRepositoryIml();
 
   StreamController<List<Transaction>> _transactionListStreamController =
@@ -84,7 +81,6 @@ class TransactionBloc extends BaseBloc {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _transactionListStreamController.close();
     super.dispose();
   }

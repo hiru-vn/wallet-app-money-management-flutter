@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:wallet_exe/bloc/spend_limit_bloc.dart';
 import 'package:wallet_exe/custom_toolbox/message_label.dart';
-import 'package:wallet_exe/data/dao/transaction_table.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
 import 'package:wallet_exe/enums/spend_limit_type.dart';
+import 'package:wallet_exe/event/spend_limit_event.dart';
 import 'package:wallet_exe/pages/spend_limit_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
@@ -163,7 +164,9 @@ class MaximunSpendItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width - 30;
-
+    final _spendLimitBloc = SpendLimitBloc();
+    _spendLimitBloc.event
+        .add(GetTotalTransactionBySpendLimitEvent(_spendLimit.type));
     void _nav() {
       Navigator.push(
         context,
@@ -172,8 +175,8 @@ class MaximunSpendItem extends StatelessWidget {
       );
     }
 
-    return FutureBuilder(
-      future: TransactionTable().getMoneySpendByDuration(_spendLimit.type),
+    return StreamBuilder(
+      stream: _spendLimitBloc.total,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error.toString());

@@ -3,14 +3,23 @@ import 'dart:async';
 import 'package:wallet_exe/bloc/base_bloc.dart';
 import 'package:wallet_exe/data/dao/spend_limit_table.dart';
 import 'package:wallet_exe/data/model/SpendLimit.dart';
+import 'package:wallet_exe/data/repository/transaction_repository.dart';
+import 'package:wallet_exe/enums/spend_limit_type.dart';
 import 'package:wallet_exe/event/spend_limit_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
 class SpendLimitBloc extends BaseBloc {
   SpendLimitTable _spendLimitTable = SpendLimitTable();
+  final TransactionRepository _transactionRepository =
+      TransactionRepositoryIml();
+
+  StreamController<int> _spendTotalTransactionController =
+      StreamController<int>();
+
+  Stream<int> get total => _spendTotalTransactionController.stream;
 
   StreamController<List<SpendLimit>> _spendLimitListStreamController =
-  StreamController<List<SpendLimit>>();
+      StreamController<List<SpendLimit>>();
 
   Stream<List<SpendLimit>> get spendLimitListStream =>
       _spendLimitListStreamController.stream;
@@ -53,6 +62,14 @@ class SpendLimitBloc extends BaseBloc {
     _spendLimitListStreamController.sink.add(_spendLimitListData);
   }
 
+  _getTotalTransactionBySpendLimit(SpendLimitType spendLimitType) async {
+    final stateData =
+        await _transactionRepository.getTransactionBySpendLimit(spendLimitType);
+    stateData.data != null
+        ? _spendTotalTransactionController.sink.add(stateData.data)
+        : errorStreamControler.sink.add(stateData.e);
+  }
+
   void dispatchEvent(BaseEvent event) {
     if (event is AddSpendLimitEvent) {
       SpendLimit spendLimit = SpendLimit.copyOf(event.spendLimit);
@@ -63,6 +80,8 @@ class SpendLimitBloc extends BaseBloc {
     } else if (event is UpdateSpendLimitEvent) {
       SpendLimit spendLimit = SpendLimit.copyOf(event.spendLimit);
       _updateSpendLimit(spendLimit);
+    } else if (event is GetTotalTransactionBySpendLimitEvent) {
+      _getTotalTransactionBySpendLimit(event.spendLimitType);
     }
   }
 
@@ -70,6 +89,7 @@ class SpendLimitBloc extends BaseBloc {
   void dispose() {
     // TODO: implement dispose
     _spendLimitListStreamController.close();
+    _spendTotalTransactionController.close();
     super.dispose();
   }
 }
