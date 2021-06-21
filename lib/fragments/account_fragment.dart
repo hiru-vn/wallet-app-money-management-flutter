@@ -36,10 +36,9 @@ class _AccountFragmentState extends State<AccountFragment> {
             width: double.infinity,
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Theme
-                  .of(context)
-                  .brightness == Brightness.dark ? Colors.blueGrey : Colors
-                  .white,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.blueGrey
+                  : Colors.white,
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
@@ -51,10 +50,7 @@ class _AccountFragmentState extends State<AccountFragment> {
             ),
             child: Text(
               'Tổng: ' + textToCurrency(_balance.toString()) + 'đ',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline6,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           SizedBox(

@@ -190,10 +190,10 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
     List<CategorySpend> data = List<CategorySpend>();
     CategorySpend last = CategorySpend("khác", 0, DateTime.now());
     for (int i = 0; i < list.length; i++) {
-      if (data.length < 8) {
+      if (data.length < 7) {
         data.add(list[i]);
         data[i].color = colors[i];
-      } else if (data.length == 8) {
+      } else if (data.length == 7) {
         last.money += list[i].money;
         if (i == list.length - 1) {
           data.add(last);

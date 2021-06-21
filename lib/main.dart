@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
     var userBloc = UserAccountBloc();
     accountBloc.initData();
     transactionBloc.initData();
-    categoryBloc.initData();
     spendLimitBloc.initData();
     return MultiProvider(
       providers: [

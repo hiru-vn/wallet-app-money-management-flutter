@@ -1,3 +1,4 @@
+import 'package:wallet_exe/data/local/category_local_data_source.dart';
 import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/data/model/User.dart';
 import 'package:wallet_exe/data/remote/category_remote_data_source.dart';
@@ -5,7 +6,7 @@ import 'package:wallet_exe/data/repo/state_data.dart';
 import 'package:wallet_exe/data/repository/user_repository.dart';
 
 abstract class CategoryRepository {
-  Future<StateData> getAllCategory();
+  Stream<List<Category>> getAllCategory();
 
   Future<StateData> addCategory(Category category);
 
@@ -19,6 +20,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
   final _categoryRemoteDataSource = CategoryRemoteDataSource();
   final UserRepository _userRepository = UserRepositoryImpl();
+  final _categoryLocalDataSource = CategoryLocalDataSource();
 
   factory CategoryRepositoryImpl() {
     return _instance;
@@ -34,10 +36,13 @@ class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   @override
-  Future<StateData> getAllCategory() async {
-    return _getUser() != null
-        ? await _categoryRemoteDataSource.getAllCategory(_getUser().id)
-        : _errorLogin();
+  Stream<List<Category>> getAllCategory() {
+    final _streamCategories =
+        _categoryRemoteDataSource.getAllCategory(_getUser().id);
+    _streamCategories.listen((data) {
+      _categoryLocalDataSource.saveCategories(data);
+    });
+    return _streamCategories;
   }
 
   @override

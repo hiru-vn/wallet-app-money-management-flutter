@@ -15,6 +15,7 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   var _filter = "";
+  var _bloc = CategoryBloc();
 
   @override
   void initState() {
@@ -30,9 +31,6 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    var _bloc = CategoryBloc();
-    _bloc.initData();
-
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
