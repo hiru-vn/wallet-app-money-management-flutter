@@ -4,7 +4,7 @@ class FlutterCircleImagePicker {
   static Future<String> showCircleImagePicker(BuildContext context,
       {double imageSize,
       ShapeBorder imagePickerShape,
-      Widget title,
+      Widget Title,
       Widget closeChild,
       String searchHintText,
       String noResultsText}) async {
@@ -13,7 +13,7 @@ class FlutterCircleImagePicker {
       builder: (BuildContext context) {
         return AlertDialog(
             shape: imagePickerShape,
-            title: title,
+            Title: Title,
             content: Container(
               constraints: BoxConstraints(maxHeight: 350, minWidth: 450),
               child: Column(children: <Widget>[
@@ -46,7 +46,8 @@ class CircleImagePicker extends StatefulWidget {
   static Function reload;
   static Map<String, String> imgMap;
 
-  CircleImagePicker({this.imageSize, this.noResultsText, Key key}) : super(key: key);
+  CircleImagePicker({this.imageSize, this.noResultsText, Key key})
+      : super(key: key);
 
   @override
   _CircleImagePickerState createState() => _CircleImagePickerState();
@@ -90,8 +91,8 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
                   : [
                       Center(
                         child: Text(widget.noResultsText), //+
-                            //' ' +
-                            //SearchBar.searchTextController.text),
+                        //' ' +
+                        //SearchBar.searchTextController.text),
                       ),
                     ]),
         ),
@@ -128,7 +129,7 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
 // class SearchBar extends StatefulWidget {
 //   final String searchHintText;
 //   static TextEditingController searchTextController =
-//       new TextEditingController();
+//        TextEditingController();
 
 //   SearchBar({this.searchHintText, Key key}) : super(key: key);
 
@@ -138,7 +139,7 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
 
 // class _SearchBarState extends State<SearchBar> {
 //   _search(String searchValue) {
-//     Map<String, ImageData> searchResult = new Map<String, ImageData>();
+//     Map<String, ImageData> searchResult =  Map<String, ImageData>();
 
 //     imgUrl.forEach((String key, String val) {
 //       if (key.toLowerCase().contains(searchValue.toLowerCase())) {

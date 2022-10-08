@@ -36,7 +36,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         iconSize: 40,
         iconPickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: Text('Chọn icon', style: TextStyle(fontWeight: FontWeight.bold)),
+        Title: Text('Chọn icon', style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
           textScaleFactor: 1.25,
@@ -52,7 +52,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List();
+    List<DropdownMenuItem<String>> items = [];
     for (TransactionType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -89,7 +89,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
     return Scaffold(
         appBar: AppBar(
-          title: Text('Tạo hạng mục mới'),
+          Title: Text('Tạo hạng mục mới'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -166,11 +166,11 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           SizedBox(
                             width: 10,
                           ),
-                          RaisedButton(
-                            color: Theme.of(context).accentColor,
+                          TextButton(
+                            // color: Theme.of(context).accentColor,
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
-                                style: Theme.of(context).textTheme.subtitle),
+                                style: Theme.of(context).textTheme.subTitle1),
                           ),
                         ],
                       ),
@@ -198,8 +198,8 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
+                  child: TextButton(
+                    // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
@@ -214,7 +214,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.TitleMedium,
                           ),
                         ],
                       ),

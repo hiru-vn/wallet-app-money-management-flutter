@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
               print(snapshot.data);
             }
             return MaterialApp(
-              title: 'Wallet exe',
+              Title: 'Wallet exe',
               theme: snapshot.hasData
                   ? _buildThemeData(snapshot.data)
                   : ThemeData(),

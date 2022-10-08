@@ -4,9 +4,9 @@ import 'package:wallet_exe/widgets/item_category.dart';
 
 class CardCategoryList extends StatelessWidget {
   final List<Category> _categories;
-  final String _title;
+  final String _Title;
 
-  const CardCategoryList(this._title, this._categories);
+  const CardCategoryList(this._Title, this._categories);
 
   List<Widget> createListCategory() {
     List<Widget> list = [];
@@ -24,7 +24,9 @@ class CardCategoryList extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 15),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.blueGrey
+              : Colors.white,
           borderRadius: BorderRadius.circular(8.0),
           boxShadow: [
             BoxShadow(
@@ -34,14 +36,23 @@ class CardCategoryList extends StatelessWidget {
             ),
           ],
         ),
-        child: _categories.length > 0 ? ExpansionTile(
-          title: Text(_title, style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500, color: Colors.grey)),
-          initiallyExpanded: true,
-          children: createListCategory(),
-        ): ExpansionTile(
-          title: Text(_title, style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500, color: Colors.grey)),
-          initiallyExpanded: false,
-        )
-    );
+        child: _categories.length > 0
+            ? ExpansionTile(
+                Title: Text(_Title,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey)),
+                initiallyExpanded: true,
+                children: createListCategory(),
+              )
+            : ExpansionTile(
+                Title: Text(_Title,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey)),
+                initiallyExpanded: false,
+              ));
   }
 }

@@ -32,7 +32,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                   stream: _bloc.outTheme,
                   builder: (context, AsyncSnapshot<AppTheme> snapshot) {
                     return ListTile(
-                      title: Text('Thiết đặt màu sắc:'),
+                      Title: Text('Thiết đặt màu sắc:'),
                       trailing: DropdownButton<AppTheme>(
                         hint: Text("Amber"),
                         value: snapshot.data,
@@ -48,7 +48,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                   },
                 ),
                 ListTile(
-                  title: Text('Đơn vị tiền tệ:'),
+                  Title: Text('Đơn vị tiền tệ:'),
                   trailing: DropdownButton<Currency>(
                     //hint: Text(Currency.VIETNAM.name),
                     value: _currency,
@@ -67,7 +67,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                   ),
                 ),
                 ListTile(
-                  title: Text('Ngôn ngữ:'),
+                  Title: Text('Ngôn ngữ:'),
                   trailing: DropdownButton<Language>(
                     //hint: Text(Currency.VIETNAM.name),
                     value: _language,
@@ -85,22 +85,23 @@ class _SettingFragmentState extends State<SettingFragment> {
                     }).toList(),
                   ),
                 ),
-                SizedBox(height: 25,),
+                SizedBox(
+                  height: 25,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: RaisedButton.icon(
-                          
+                        child: TextButton.icon(
                           color: Theme.of(context).primaryColor,
                           icon: Icon(Icons.cloud_upload),
                           label: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Đồng bộ dữ liệu',
-                              style: Theme.of(context).textTheme.title,
+                              style: Theme.of(context).textTheme.Title,
                             ),
                           ),
                           onPressed: _submit,
@@ -109,21 +110,23 @@ class _SettingFragmentState extends State<SettingFragment> {
                     ),
                   ],
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: RaisedButton.icon(
+                        child: TextButton.icon(
                           color: Colors.redAccent,
                           icon: Icon(Icons.clear_all),
                           label: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Xóa toàn bộ dữ liệu',
-                              style: Theme.of(context).textTheme.title,
+                              style: Theme.of(context).textTheme.Title,
                             ),
                           ),
                           onPressed: _submit,

@@ -13,16 +13,16 @@ class SpendLimitTypePage extends StatelessWidget {
     }
 
     _createList() {
-      List<Widget> list = List<Widget>();
+      List<Widget> list = [];
       List<SpendLimitType> items = SpendLimitType.getAllType();
       for (int i = 0; i < items.length; i++) {
         list.add(ListTile(
           onTap: () => _submit(items[i]),
           leading: Icon(Icons.timelapse),
-          title: Text(items[i].name),
+          Title: Text(items[i].name),
           trailing: Icon(Icons.keyboard_arrow_right),
         ));
-        if (i!=items.length-1) {
+        if (i != items.length - 1) {
           list.add(Divider());
         }
       }
@@ -31,7 +31,7 @@ class SpendLimitTypePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Loại hạn mức'),
+        Title: Text('Loại hạn mức'),
         centerTitle: true,
       ),
       body: Container(

@@ -29,7 +29,7 @@ class _CardbalanceState extends State<Cardbalance> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List();
+    List<DropdownMenuItem<String>> items = [];
     for (String option in _option) {
       items.add(DropdownMenuItem(value: option, child: Text(option)));
     }
@@ -67,7 +67,7 @@ class _CardbalanceState extends State<Cardbalance> {
               final inCome = values[0];
               final outCome = values[1];
               var sum = inCome + outCome;
-              if (sum == 0) sum=1;
+              if (sum == 0) sum = 1;
               var inComeHeight = inCome / sum * 120 + 5;
               var outComeHeight = outCome / sum * 120 + 5;
 
@@ -75,7 +75,9 @@ class _CardbalanceState extends State<Cardbalance> {
                 width: double.infinity,
                 padding: EdgeInsets.only(top: 15, left: 15, right: 15),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.blueGrey
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
                   boxShadow: [
                     BoxShadow(
@@ -98,7 +100,7 @@ class _CardbalanceState extends State<Cardbalance> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text('Tình hình thu chi',
-                                    style: Theme.of(context).textTheme.title),
+                                    style: Theme.of(context).textTheme.Title),
                                 Padding(
                                   padding: EdgeInsets.all(20.0),
                                   child: Row(

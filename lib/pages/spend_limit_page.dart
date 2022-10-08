@@ -56,12 +56,12 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
       );
 
       // prevent null
-      if (temp!= null) widget._spendLimit.type = temp;
+      if (temp != null) widget._spendLimit.type = temp;
     }
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sửa hạn mức'),
+          Title: Text('Sửa hạn mức'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -78,7 +78,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -93,7 +95,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     children: <Widget>[
                       Text(
                         'Hạn mức',
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context).textTheme.Title,
                       ),
                       Row(
                         children: <Widget>[
@@ -142,11 +144,12 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     ],
                   ),
                 ),
-                
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -174,7 +177,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                   size: 28,
                                 ),
                               )
-                              
                             ],
                           ),
                         ),
@@ -218,7 +220,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 flex: 1,
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5),
-                                  child: RaisedButton(
+                                  child: TextButton(
                                     color: Theme.of(context).primaryColor,
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
@@ -237,7 +239,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                             'Lưu',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .title,
+                                                .Title,
                                           ),
                                         ],
                                       ),
@@ -249,7 +251,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               flex: 1,
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5),
-                                child: RaisedButton(
+                                child: TextButton(
                                   color: Theme.of(context).buttonColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),
@@ -267,7 +269,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                         Text(
                                           'Xóa',
                                           style:
-                                              Theme.of(context).textTheme.title,
+                                              Theme.of(context).textTheme.Title,
                                         ),
                                       ],
                                     ),

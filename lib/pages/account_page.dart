@@ -15,7 +15,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Chọn tài khoản'),
+          Title: Text('Chọn tài khoản'),
           centerTitle: true,
         ),
         body: Provider<AccountBloc>.value(

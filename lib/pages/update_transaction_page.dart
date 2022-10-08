@@ -137,8 +137,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
               (currencyToInt(this._balanceController.text) +
                   this._transaction.amount);
         } else if (this._transaction.category.transactionType ==
-            TransactionType.INCOME)
-             {
+            TransactionType.INCOME) {
           this._account.balance +=
               (currencyToInt(this._balanceController.text) -
                   this._transaction.amount);
@@ -152,7 +151,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chi tiết giao dịch'),
+        Title: Text('Chi tiết giao dịch'),
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -179,7 +178,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.Title,
                   ),
                   Row(
                     children: <Widget>[
@@ -410,7 +409,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: RaisedButton(
+                      child: TextButton(
                         color: Theme.of(context).buttonColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -426,7 +425,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Xóa',
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.Title,
                               ),
                             ],
                           ),
@@ -439,7 +438,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: RaisedButton(
+                      child: TextButton(
                         color: Theme.of(context).primaryColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -455,7 +454,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Lưu',
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.Title,
                               ),
                             ],
                           ),

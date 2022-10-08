@@ -12,12 +12,12 @@ class RecordsPage extends StatelessWidget {
     items.sort((a, b) {
       return b.date.compareTo(a.date);
     });
-    List<Widget> list = List<Widget>();
+    List<Widget> list = [];
     for (int i = 0; i < items.length; i++) {
       list.add(ListTile(
         leading: Icon(items[i].category.icon),
-        title: Text(items[i].category.name),
-        subtitle: Text(items[i].date.day.toString() +
+        Title: Text(items[i].category.name),
+        subTitle: Text(items[i].date.day.toString() +
             '/' +
             items[i].date.month.toString()),
         trailing: Text(
@@ -49,7 +49,7 @@ class RecordsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Ghi chép gần đây'),
+          Title: Text('Ghi chép gần đây'),
         ),
         body: StreamBuilder<List<Transaction>>(
             stream: bloc.transactionListStream,

@@ -15,23 +15,19 @@ class DatabaseHelper {
 
   Database get database => _database;
 
-  init() async{
-    _database = await openDatabase(
-      join(await getDatabasesPath(), DB_NAME),
-      onCreate: (db, version) {
-        AccountTable().onCreate(db, version);
-        CategoryTable().onCreate(db, version);
-        TransactionTable().onCreate(db, version);
-        SpendLimitTable().onCreate(db, version);
-      },
-      onUpgrade: (db , oldVersion, newVersion) {
-        AccountTable().onCreate(db, newVersion);
-        CategoryTable().onCreate(db, newVersion);
-        TransactionTable().onCreate(db, newVersion);
-        SpendLimitTable().onCreate(db, newVersion);
-      },
-      version: DB_VERSION
-    );
+  init() async {
+    _database = await openDatabase(join(await getDatabasesPath(), DB_NAME),
+        onCreate: (db, version) {
+      AccountTable().onCreate(db, version);
+      CategoryTable().onCreate(db, version);
+      TransactionTable().onCreate(db, version);
+      SpendLimitTable().onCreate(db, version);
+    }, onUpgrade: (db, oldVersion, Version) {
+      AccountTable().onCreate(db, Version);
+      CategoryTable().onCreate(db, Version);
+      TransactionTable().onCreate(db, Version);
+      SpendLimitTable().onCreate(db, Version);
+    }, version: DB_VERSION);
   }
 
   static const initScript2 = '''

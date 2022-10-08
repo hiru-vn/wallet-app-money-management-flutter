@@ -45,7 +45,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
         imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: Text('Chọn ảnh tài khoản',
+        Title: Text('Chọn ảnh tài khoản',
             style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
@@ -62,7 +62,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List();
+    List<DropdownMenuItem<String>> items = [];
     for (AccountType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -100,7 +100,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(this._account.name),
+        Title: Text(this._account.name),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -225,7 +225,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                child: RaisedButton(
+                child: TextButton(
                   color: Theme.of(context).primaryColor,
                   child: Padding(
                     padding: EdgeInsets.all(10),
@@ -241,7 +241,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                         ),
                         Text(
                           'Lưu',
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.Title,
                         ),
                       ],
                     ),

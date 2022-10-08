@@ -11,21 +11,21 @@ import 'package:wallet_exe/fragments/home_fragment.dart';
 import 'package:wallet_exe/fragments/setting_fragment.dart';
 import 'package:wallet_exe/fragments/transaction_fragment.dart';
 import 'package:wallet_exe/pages/add_account_page.dart';
-import 'package:wallet_exe/pages/new_transaction_page.dart';
+import 'package:wallet_exe/pages/_transaction_page.dart';
 
 class DrawerItem {
-  String title;
+  String Title;
   IconData icon;
-  DrawerItem(this.title, this.icon);
+  DrawerItem(this.Title, this.icon);
 }
 
 class MainPage extends StatefulWidget {
   final drawerItems = [
-    new DrawerItem("Tổng quan", Icons.home),
-    new DrawerItem("Các giao dịch", Icons.account_balance_wallet),
-    new DrawerItem("Danh sách tài khoản", Icons.view_list),
-    new DrawerItem("Biểu đồ", Icons.pie_chart),
-    new DrawerItem("Cài đặt", Icons.settings),
+    DrawerItem("Tổng quan", Icons.home),
+    DrawerItem("Các giao dịch", Icons.account_balance_wallet),
+    DrawerItem("Danh sách tài khoản", Icons.view_list),
+    DrawerItem("Biểu đồ", Icons.pie_chart),
+    DrawerItem("Cài đặt", Icons.settings),
   ];
 
   MainPage({Key key}) : super(key: key);
@@ -71,9 +71,9 @@ class _MainPageState extends State<MainPage> {
     var drawerOptions = <Widget>[];
     for (var i = 0; i < widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
-      drawerOptions.add(new ListTile(
-        leading: new Icon(d.icon),
-        title: new Text(d.title),
+      drawerOptions.add(ListTile(
+        leading: Icon(d.icon),
+        title: Text(d.Title),
         selected: i == _selectedDrawerIndex,
         onTap: () => _onSelectItem(i),
       ));
@@ -89,14 +89,17 @@ class _MainPageState extends State<MainPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => NewTransactionPage()),
+            MaterialPageRoute(builder: (context) => TransactionPage()),
           );
         },
-        child: Icon(Icons.add, color: Colors.white,),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
-          title: Text(widget.drawerItems[_selectedDrawerIndex].title),
+          title: Text(widget.drawerItems[_selectedDrawerIndex].Title),
           actions: _selectedDrawerIndex == 2
               ? <Widget>[
                   IconButton(

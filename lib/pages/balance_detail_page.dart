@@ -11,7 +11,7 @@ class BalanceDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Số dư tài khoản'),
+        Title: Text('Số dư tài khoản'),
       ),
       body: Container(
         width: double.infinity,
@@ -38,9 +38,13 @@ class BalanceDetailPage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return Column(
                 children: <Widget>[
-                  SizedBox(height: 15,),
-                  Text('Các tài khoản',
-                      style: Theme.of(context).textTheme.title),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'Các tài khoản',
+                    style: Theme.of(context).textTheme.TitleMedium,
+                  ),
                   SizedBox(
                     height: 15,
                   ),
@@ -92,10 +96,11 @@ class BalanceDetailPage extends StatelessWidget {
     }
 
     return [
-      new charts.Series<BalanceDetail, String>(
+      charts.Series<BalanceDetail, String>(
         id: 'CategorySpend',
         domainFn: (BalanceDetail item, _) => item.accountName,
-        measureFn: (BalanceDetail item, _) => item.balance<0?0:item.balance,
+        measureFn: (BalanceDetail item, _) =>
+            item.balance < 0 ? 0 : item.balance,
         colorFn: (BalanceDetail item, _) =>
             charts.ColorUtil.fromDartColor(item.color),
         labelAccessorFn: (BalanceDetail spend, _) => spend.balance.toString(),

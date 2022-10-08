@@ -27,8 +27,8 @@ class MaximunSpendItem extends StatelessWidget {
       case SpendLimitType.MONTHLY:
         final now = DateTime.now();
         final lastDay = (now.month < 12)
-            ? new DateTime(now.year, now.month + 1, 0)
-            : new DateTime(now.year + 1, 1, 0);
+            ? DateTime(now.year, now.month + 1, 0)
+            : DateTime(now.year + 1, 1, 0);
 
         return '1/' +
             now.month.toString() +
@@ -78,8 +78,8 @@ class MaximunSpendItem extends StatelessWidget {
     } else if (_spendLimit.type == SpendLimitType.MONTHLY) {
       final now = DateTime.now();
       final lastDay = (now.month < 12)
-          ? new DateTime(now.year, now.month + 1, 0)
-          : new DateTime(now.year + 1, 1, 0);
+          ? DateTime(now.year, now.month + 1, 0)
+          : DateTime(now.year + 1, 1, 0);
       return (lastDay.day - now.day).toString();
     } else if (_spendLimit.type == SpendLimitType.QUATERLY) {
       int th = DateTime.now().month ~/ 3;
@@ -128,8 +128,8 @@ class MaximunSpendItem extends StatelessWidget {
       // to do
       final now = DateTime.now();
       final lastDay = (now.month < 12)
-          ? new DateTime(now.year, now.month + 1, 0)
-          : new DateTime(now.year + 1, 1, 0);
+          ? DateTime(now.year, now.month + 1, 0)
+          : DateTime(now.year + 1, 1, 0);
       double scale = (now.day - lastDay.day / 2 - 0.5) / lastDay.day;
       if (scale >= 0) {
         if ((scale * containerWidth * 1.9).abs() > 20) {
@@ -153,8 +153,8 @@ class MaximunSpendItem extends StatelessWidget {
   EdgeInsets _prevent2Lines() {
     final now = DateTime.now();
     final lastDay = (now.month < 12)
-        ? new DateTime(now.year, now.month + 1, 0)
-        : new DateTime(now.year + 1, 1, 0);
+        ? DateTime(now.year, now.month + 1, 0)
+        : DateTime(now.year + 1, 1, 0);
     if (now.day == 1) return EdgeInsets.only(left: 10);
     if (now.day == lastDay.day) return EdgeInsets.only(right: 10);
     return EdgeInsets.all(0);
@@ -199,7 +199,7 @@ class MaximunSpendItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(this._spendLimit.type.name,
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.Title),
                           Text(_getTimelineString()),
                         ],
                       ),
@@ -213,7 +213,7 @@ class MaximunSpendItem extends StatelessWidget {
                           Text(
                               textToCurrency(_spendLimit.amount.toString()) +
                                   ' đ',
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.Title),
                         ],
                       ),
                     )
@@ -232,8 +232,7 @@ class MaximunSpendItem extends StatelessWidget {
                       padding: const EdgeInsets.all(3.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).accentColor,
-                        borderRadius:
-                            BorderRadius.all(new Radius.circular(5.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       ),
                       child: Text("Hôm nay", maxLines: 1),
                     ),

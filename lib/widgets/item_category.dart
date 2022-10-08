@@ -21,21 +21,20 @@ class ItemCategory extends StatelessWidget {
       direction: DismissDirection.endToStart,
       background: Container(
           color: Colors.red,
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Text("Xóa",
-                    style: TextStyle(
-                        color: Colors.white70,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16)),
-                SizedBox(
-                  width: 20,
-                ),
-              ])),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+            Text("Xóa",
+                style: TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
+            SizedBox(
+              width: 20,
+            ),
+          ])),
       child: ListTile(
         leading: Icon(_category.icon),
-        title: Text(_category.name),
+        Title: Text(_category.name),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
           Navigator.pop(

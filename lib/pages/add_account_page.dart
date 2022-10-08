@@ -37,7 +37,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
         imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: Text('Chọn ảnh tài khoản',
+        Title: Text('Chọn ảnh tài khoản',
             style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
@@ -54,7 +54,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List();
+    List<DropdownMenuItem<String>> items = [];
     for (AccountType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -87,15 +87,14 @@ class _AddAccountPageState extends State<AddAccountPage> {
           currencyToInt(_balanceController.text),
           AccountType.valueFromName(this._currentOption),
           Icons.account_balance_wallet,
-          this._imgUrl
-          );
+          this._imgUrl);
       _bloc.event.add(AddAccountEvent(account));
       Navigator.pop(context);
     }
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Tạo tài khoản mới'),
+          Title: Text('Tạo tài khoản mới'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -225,8 +224,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
+                  child: TextButton(
+                    // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
@@ -241,7 +240,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.TitleMedium,
                           ),
                         ],
                       ),

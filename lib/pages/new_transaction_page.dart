@@ -12,14 +12,14 @@ import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
-class NewTransactionPage extends StatefulWidget {
-  NewTransactionPage({Key key}) : super(key: key);
+class TransactionPage extends StatefulWidget {
+  TransactionPage({Key key}) : super(key: key);
 
   @override
-  _NewTransactionPageState createState() => _NewTransactionPageState();
+  _TransactionPageState createState() => _TransactionPageState();
 }
 
-class _NewTransactionPageState extends State<NewTransactionPage> {
+class _TransactionPageState extends State<TransactionPage> {
   var _balanceController = TextEditingController();
   var _descriptionController = TextEditingController();
   var _formBalanceKey = GlobalKey<FormState>();
@@ -147,7 +147,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.t,
                   ),
                   Row(
                     children: <Widget>[
@@ -232,8 +232,8 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                             width: 50,
                             child: Icon(
                               _category == null
-                              ? Icons.category
-                              : _category.icon,
+                                  ? Icons.category
+                                  : _category.icon,
                               size: 28,
                             ),
                           ),
@@ -379,7 +379,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: RaisedButton(
+              child: TextButton(
                 color: Theme.of(context).primaryColor,
                 child: Padding(
                   padding: EdgeInsets.all(10),

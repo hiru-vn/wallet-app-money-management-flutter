@@ -102,8 +102,8 @@ class _CardEarnChartState extends State<CardEarnChart> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text('Thu nhập năm nay',
-                              style: Theme.of(context).textTheme.title),
-                          RaisedButton(
+                              style: Theme.of(context).textTheme.Title),
+                          TextButton(
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[
@@ -199,7 +199,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
     });
 
     return [
-      new charts.Series<MoneySpend, String>(
+      charts.Series<MoneySpend, String>(
         id: 'MoneySpend',
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (MoneySpend spend, _) => spend.month.toString(),

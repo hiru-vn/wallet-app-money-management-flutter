@@ -21,8 +21,8 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
   }
 
   final _createListAccountTile = (List<Account> listAccount) {
-    List<Widget> list = new List<Widget>();
-    for (int i=0; i< listAccount.length; i++) {
+    List<Widget> list = [];
+    for (int i = 0; i < listAccount.length; i++) {
       list.add(ItemAccountChoose(listAccount[i]));
       list.add(Divider());
     }
@@ -50,7 +50,9 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
                 return Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -65,23 +67,29 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
                       Container(
                         width: double.infinity,
                         child: ExpansionTile(
-                          title: Text(
+                          Title: Text(
                             "Đang sử dụng",
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                           initiallyExpanded: true,
-                          children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SPENDING)).toList()),
+                          children: _createListAccountTile(snapshot.data
+                              .where(
+                                  (item) => (item.type == AccountType.SPENDING))
+                              .toList()),
                         ),
                       ),
                       Container(
                         width: double.infinity,
                         child: ExpansionTile(
-                          title: Text(
+                          Title: Text(
                             "Tài khoản tiết kiệm",
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                           initiallyExpanded: false,
-                          children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SAVING)).toList()),
+                          children: _createListAccountTile(snapshot.data
+                              .where(
+                                  (item) => (item.type == AccountType.SAVING))
+                              .toList()),
                         ),
                       )
                     ],
