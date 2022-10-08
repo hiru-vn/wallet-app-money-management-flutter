@@ -109,8 +109,13 @@ class _CardSpendChartState extends State<CardSpendChart> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(_getTitle(),
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
                           TextButton(
+=======
+                              style: Theme.of(context).textTheme.title),
+                          RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[

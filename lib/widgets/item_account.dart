@@ -60,9 +60,15 @@ class ItemAccount extends StatelessWidget {
                 padding: EdgeInsets.all(5),
                 child: Image.asset(this._account.img),
               ),
+<<<<<<< HEAD
               Title: Text(this._account.name,
                   style: Theme.of(context).textTheme.subTitle),
               subTitle: Text(textToCurrency(this._account.balance.toString())),
+=======
+              title: Text(this._account.name,
+                  style: Theme.of(context).textTheme.subtitle),
+              subtitle: Text(textToCurrency(this._account.balance.toString())),
+>>>>>>> parent of 4e15e8e (update new version)
               trailing: _simplePopup(),
             ));
           default:

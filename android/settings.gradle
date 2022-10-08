@@ -2,8 +2,13 @@ include ':app'
 
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 
+<<<<<<< HEAD
 def plugins =  Properties()
 def pluginsFile =  File(flutterProjectRoot.toFile(), '.flutter-plugins')
+=======
+def plugins = new Properties()
+def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')
+>>>>>>> parent of 4e15e8e (update new version)
 if (pluginsFile.exists()) {
     pluginsFile.withReader('UTF-8') { reader -> plugins.load(reader) }
 }

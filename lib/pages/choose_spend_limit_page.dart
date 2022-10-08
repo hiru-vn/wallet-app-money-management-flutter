@@ -11,8 +11,14 @@ class ChooseSpendLimitPage extends StatefulWidget {
 }
 
 class _ChooseSpendLimitPageState extends State<ChooseSpendLimitPage> {
+<<<<<<< HEAD
   _submit(BuildContext context, int Index) {
     Navigator.pop(context, Index);
+=======
+
+  _submit(BuildContext context, int newIndex) {
+    Navigator.pop(context, newIndex);
+>>>>>>> parent of 4e15e8e (update new version)
   }
 
   // @override
@@ -27,13 +33,15 @@ class _ChooseSpendLimitPageState extends State<ChooseSpendLimitPage> {
     bloc.initData();
 
     _createList(List<SpendLimit> items) {
-      List<Widget> list = [];
+      List<Widget> list = List<Widget>();
       for (int i = 0; i < items.length; i++) {
         list.add(ListTile(
           onTap: () => _submit(context, i),
           leading: Icon(Icons.timelapse),
           title: Text(items[i].type.name),
-          trailing: i == widget._currentIndex ? Icon(Icons.check_circle) : null,
+          trailing: i == widget._currentIndex
+              ? Icon(Icons.check_circle)
+              : null,
         ));
         if (i != items.length - 1) {
           list.add(Divider());

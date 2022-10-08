@@ -12,7 +12,7 @@ class RecordsPage extends StatelessWidget {
     items.sort((a, b) {
       return b.date.compareTo(a.date);
     });
-    List<Widget> list = [];
+    List<Widget> list = List<Widget>();
     for (int i = 0; i < items.length; i++) {
       list.add(ListTile(
         leading: Icon(items[i].category.icon),

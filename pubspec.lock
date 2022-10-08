@@ -14,63 +14,83 @@ packages:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.6.0"
+=======
+    version: "1.5.2"
+>>>>>>> parent of 4e15e8e (update new version)
   async:
     dependency: transitive
     description:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.9.0"
+    version: "2.5.0-nullsafety.1"
   boolean_selector:
     dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.0-nullsafety.1"
   characters:
     dependency: transitive
     description:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.2.1"
+=======
+    version: "1.1.0-nullsafety.3"
+>>>>>>> parent of 4e15e8e (update new version)
   charcode:
     dependency: transitive
     description:
       name: charcode
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.3.1"
+=======
+    version: "1.2.0-nullsafety.1"
+>>>>>>> parent of 4e15e8e (update new version)
   charts_common:
     dependency: transitive
     description:
       name: charts_common
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0"
+    version: "0.8.1"
   charts_flutter:
     dependency: "direct main"
     description:
       name: charts_flutter
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.12.0"
+=======
+    version: "0.8.1"
+>>>>>>> parent of 4e15e8e (update new version)
   clock:
     dependency: transitive
     description:
       name: clock
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.0-nullsafety.1"
   collection:
     dependency: transitive
     description:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.16.0"
+=======
+    version: "1.15.0-nullsafety.3"
+>>>>>>> parent of 4e15e8e (update new version)
   convert:
     dependency: transitive
     description:
@@ -84,7 +104,11 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.5"
+=======
+    version: "2.1.4"
+>>>>>>> parent of 4e15e8e (update new version)
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -98,7 +122,7 @@ packages:
       name: fake_async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.1"
+    version: "1.2.0-nullsafety.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -110,14 +134,22 @@ packages:
       name: flutter_iconpicker
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.1.5"
+=======
+    version: "0.1.4"
+>>>>>>> parent of 4e15e8e (update new version)
   flutter_launcher_icons:
     dependency: "direct main"
     description:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.7.5"
+=======
+    version: "0.7.4"
+>>>>>>> parent of 4e15e8e (update new version)
   flutter_masked_text:
     dependency: "direct main"
     description:
@@ -143,7 +175,11 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.19"
+=======
+    version: "2.1.11"
+>>>>>>> parent of 4e15e8e (update new version)
   intl:
     dependency: "direct main"
     description:
@@ -164,42 +200,43 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "0.11.3+2"
   matcher:
     dependency: transitive
     description:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.12"
-  material_color_utilities:
-    dependency: transitive
-    description:
-      name: material_color_utilities
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.5"
+    version: "0.12.10-nullsafety.1"
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.8.0"
+=======
+    version: "1.3.0-nullsafety.3"
+>>>>>>> parent of 4e15e8e (update new version)
   path:
     dependency: "direct main"
     description:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.0-nullsafety.1"
   petitparser:
     dependency: transitive
     description:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "3.1.0"
+=======
+    version: "2.4.0"
+>>>>>>> parent of 4e15e8e (update new version)
   provider:
     dependency: "direct main"
     description:
@@ -225,13 +262,14 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.8.0-nullsafety.2"
   sqflite:
     dependency: "direct main"
     description:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.3.2+4"
   sqflite_common:
     dependency: transitive
@@ -240,76 +278,94 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3+3"
+=======
+    version: "1.1.8"
+>>>>>>> parent of 4e15e8e (update new version)
   stack_trace:
     dependency: transitive
     description:
       name: stack_trace
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.0"
+    version: "1.10.0-nullsafety.1"
   stream_channel:
     dependency: transitive
     description:
       name: stream_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.0-nullsafety.1"
   string_scanner:
     dependency: transitive
     description:
       name: string_scanner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.0-nullsafety.1"
   synchronized:
     dependency: transitive
     description:
       name: synchronized
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.2.0+2"
+=======
+    version: "2.1.1"
+>>>>>>> parent of 4e15e8e (update new version)
   term_glyph:
     dependency: transitive
     description:
       name: term_glyph
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.0-nullsafety.1"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.12"
+    version: "0.2.19-nullsafety.2"
   typed_data:
     dependency: transitive
     description:
       name: typed_data
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.0-nullsafety.3"
   vector_math:
     dependency: transitive
     description:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.0-nullsafety.3"
   xml:
     dependency: transitive
     description:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "4.5.1"
+=======
+    version: "3.5.0"
+>>>>>>> parent of 4e15e8e (update new version)
   yaml:
     dependency: transitive
     description:
       name: yaml
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.2.1"
 sdks:
   dart: ">=2.17.0-0 <3.0.0"
   flutter: ">=2.5.0"
+=======
+    version: "2.2.0"
+sdks:
+  dart: ">=2.10.0-110 <2.11.0"
+  flutter: ">=1.9.1 <2.0.0"
+>>>>>>> parent of 4e15e8e (update new version)

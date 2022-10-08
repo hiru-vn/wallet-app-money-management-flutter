@@ -12,8 +12,13 @@ import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
+<<<<<<< HEAD
 class TransactionPage extends StatefulWidget {
   TransactionPage({Key key}) : super(key: key);
+=======
+class NewTransactionPage extends StatefulWidget {
+  NewTransactionPage({Key key}) : super(key: key);
+>>>>>>> parent of 4e15e8e (update new version)
 
   @override
   _TransactionPageState createState() => _TransactionPageState();
@@ -147,7 +152,11 @@ class _TransactionPageState extends State<TransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
+<<<<<<< HEAD
                     style: Theme.of(context).textTheme.t,
+=======
+                    style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                   ),
                   Row(
                     children: <Widget>[
@@ -232,8 +241,13 @@ class _TransactionPageState extends State<TransactionPage> {
                             width: 50,
                             child: Icon(
                               _category == null
+<<<<<<< HEAD
                                   ? Icons.category
                                   : _category.icon,
+=======
+                              ? Icons.category
+                              : _category.icon,
+>>>>>>> parent of 4e15e8e (update new version)
                               size: 28,
                             ),
                           ),
@@ -379,7 +393,11 @@ class _TransactionPageState extends State<TransactionPage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
+<<<<<<< HEAD
               child: TextButton(
+=======
+              child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
                 color: Theme.of(context).primaryColor,
                 child: Padding(
                   padding: EdgeInsets.all(10),

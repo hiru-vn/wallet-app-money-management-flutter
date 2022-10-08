@@ -137,7 +137,8 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
               (currencyToInt(this._balanceController.text) +
                   this._transaction.amount);
         } else if (this._transaction.category.transactionType ==
-            TransactionType.INCOME) {
+            TransactionType.INCOME)
+             {
           this._account.balance +=
               (currencyToInt(this._balanceController.text) -
                   this._transaction.amount);
@@ -178,7 +179,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
+<<<<<<< HEAD
                     style: Theme.of(context).textTheme.Title,
+=======
+                    style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                   ),
                   Row(
                     children: <Widget>[
@@ -409,7 +414,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
+<<<<<<< HEAD
                       child: TextButton(
+=======
+                      child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
                         color: Theme.of(context).buttonColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -425,7 +434,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Xóa',
+<<<<<<< HEAD
                                 style: Theme.of(context).textTheme.Title,
+=======
+                                style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                               ),
                             ],
                           ),
@@ -438,7 +451,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
+<<<<<<< HEAD
                       child: TextButton(
+=======
+                      child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
                         color: Theme.of(context).primaryColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -454,7 +471,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Lưu',
+<<<<<<< HEAD
                                 style: Theme.of(context).textTheme.Title,
+=======
+                                style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                               ),
                             ],
                           ),

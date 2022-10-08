@@ -10,7 +10,7 @@ class CardTransaction extends StatelessWidget {
   CardTransaction(this._list, this._date);
 
   List<Widget> _createRenderItem() {
-    List<Widget> listItem = [];
+    List<Widget> listItem = List<Widget>();
     for (int i = 0; i < _list.length; i++) {
       listItem.add(ItemTransaction(_list[i]));
       if (_list[i].category.transactionType == TransactionType.INCOME) {
@@ -21,11 +21,7 @@ class CardTransaction extends StatelessWidget {
       }
     }
 
-    listItem.add(Divider(
-      thickness: 2.0,
-      indent: 15,
-      endIndent: 15,
-    ));
+    listItem.add(Divider(thickness: 2.0, indent: 15, endIndent: 15,));
     listItem.add(_createTotalTile(_totalDay));
 
     return listItem;
@@ -80,6 +76,7 @@ class CardTransaction extends StatelessWidget {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,11 +102,19 @@ class CardTransaction extends StatelessWidget {
             children: <Widget>[
               Text(
                 _getTitle(),
+<<<<<<< HEAD
                 style: Theme.of(context).textTheme.Title,
               ),
               Text(
                 _getDate(),
                 style: Theme.of(context).textTheme.subTitle,
+=======
+                style: Theme.of(context).textTheme.title,
+              ),
+              Text(
+                _getDate(),
+                style: Theme.of(context).textTheme.subtitle,
+>>>>>>> parent of 4e15e8e (update new version)
               ),
             ],
           ),

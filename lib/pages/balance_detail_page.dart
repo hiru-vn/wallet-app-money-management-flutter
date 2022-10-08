@@ -38,6 +38,7 @@ class BalanceDetailPage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return Column(
                 children: <Widget>[
+<<<<<<< HEAD
                   SizedBox(
                     height: 15,
                   ),
@@ -45,6 +46,11 @@ class BalanceDetailPage extends StatelessWidget {
                     'Các tài khoản',
                     style: Theme.of(context).textTheme.TitleMedium,
                   ),
+=======
+                  SizedBox(height: 15,),
+                  Text('Các tài khoản',
+                      style: Theme.of(context).textTheme.title),
+>>>>>>> parent of 4e15e8e (update new version)
                   SizedBox(
                     height: 15,
                   ),
@@ -99,8 +105,7 @@ class BalanceDetailPage extends StatelessWidget {
       charts.Series<BalanceDetail, String>(
         id: 'CategorySpend',
         domainFn: (BalanceDetail item, _) => item.accountName,
-        measureFn: (BalanceDetail item, _) =>
-            item.balance < 0 ? 0 : item.balance,
+        measureFn: (BalanceDetail item, _) => item.balance<0?0:item.balance,
         colorFn: (BalanceDetail item, _) =>
             charts.ColorUtil.fromDartColor(item.color),
         labelAccessorFn: (BalanceDetail spend, _) => spend.balance.toString(),

@@ -85,23 +85,30 @@ class _SettingFragmentState extends State<SettingFragment> {
                     }).toList(),
                   ),
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                SizedBox(height: 25,),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
+<<<<<<< HEAD
                         child: TextButton.icon(
+=======
+                        child: RaisedButton.icon(
+                          
+>>>>>>> parent of 4e15e8e (update new version)
                           color: Theme.of(context).primaryColor,
                           icon: Icon(Icons.cloud_upload),
                           label: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Đồng bộ dữ liệu',
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title,
+=======
+                              style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                             ),
                           ),
                           onPressed: _submit,
@@ -110,23 +117,29 @@ class _SettingFragmentState extends State<SettingFragment> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 5,
-                ),
+                SizedBox(height: 5,),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
+<<<<<<< HEAD
                         child: TextButton.icon(
+=======
+                        child: RaisedButton.icon(
+>>>>>>> parent of 4e15e8e (update new version)
                           color: Colors.redAccent,
                           icon: Icon(Icons.clear_all),
                           label: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Xóa toàn bộ dữ liệu',
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title,
+=======
+                              style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                             ),
                           ),
                           onPressed: _submit,

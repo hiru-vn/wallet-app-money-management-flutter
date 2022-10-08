@@ -24,7 +24,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = [];
+    List<DropdownMenuItem<String>> items = new List();
     for (String option in _option) {
       items.add(DropdownMenuItem(value: option, child: Text(option)));
     }
@@ -39,7 +39,11 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
 
   List<CategorySpend> _applyfilter(List<CategorySpend> list) {
     List<CategorySpend> result = List<CategorySpend>();
+<<<<<<< HEAD
     for (int i = 0; i < list.length; i++) {
+=======
+    for (int i=0;i<list.length;i++) {
+>>>>>>> parent of 4e15e8e (update new version)
       //if (list[i].)
     }
     return result;
@@ -51,9 +55,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
       width: double.infinity,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.blueGrey
-            : Colors.white,
+        color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
         boxShadow: [
           BoxShadow(
@@ -64,8 +66,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
         ],
       ),
       child: FutureBuilder(
-        future: TransactionTable()
-            .getAmountSpendPerCategory(TransactionType.EXPENSE),
+        future: TransactionTable().getAmountSpendPerCategory(TransactionType.EXPENSE),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error.toString());
@@ -77,7 +78,11 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Biểu đồ chi',
+<<<<<<< HEAD
                         style: Theme.of(context).textTheme.Title),
+=======
+                        style: Theme.of(context).textTheme.title),
+>>>>>>> parent of 4e15e8e (update new version)
                     DropdownButton(
                       value: _currentOption,
                       items: _dropDownMenuItems,
@@ -107,8 +112,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
     );
   }
 
-  static List<charts.Series<CategorySpend, String>> _createData(
-      List<CategorySpend> list) {
+  static List<charts.Series<CategorySpend, String>> _createData(List<CategorySpend> list) {
     final List<Color> colors = [
       // Color(0x7adfeeee),
       // Color(0xffffd54f),
@@ -129,12 +133,13 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
     List<CategorySpend> data = List<CategorySpend>();
     CategorySpend last = CategorySpend("khác", 0);
     for (int i = 0; i < list.length; i++) {
-      if (data.length < 6) {
+      if (data.length<6){
         data.add(list[i]);
         data[i].color = colors[i];
-      } else if (data.length == 6) {
-        last.money += list[i].money;
-        if (i == list.length - 1) {
+      }
+      else if (data.length == 6) {
+        last.money+=list[i].money;
+        if (i == list.length-1) {
           data.add(last);
         }
       }

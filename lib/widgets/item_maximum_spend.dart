@@ -199,7 +199,11 @@ class MaximunSpendItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(this._spendLimit.type.name,
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
+=======
+                              style: Theme.of(context).textTheme.title),
+>>>>>>> parent of 4e15e8e (update new version)
                           Text(_getTimelineString()),
                         ],
                       ),
@@ -213,7 +217,11 @@ class MaximunSpendItem extends StatelessWidget {
                           Text(
                               textToCurrency(_spendLimit.amount.toString()) +
                                   ' đ',
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
+=======
+                              style: Theme.of(context).textTheme.title),
+>>>>>>> parent of 4e15e8e (update new version)
                         ],
                       ),
                     )
@@ -232,7 +240,12 @@ class MaximunSpendItem extends StatelessWidget {
                       padding: const EdgeInsets.all(3.0),
                       decoration: BoxDecoration(
                         color: Theme.of(context).accentColor,
+<<<<<<< HEAD
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
+=======
+                        borderRadius:
+                            BorderRadius.all(new Radius.circular(5.0)),
+>>>>>>> parent of 4e15e8e (update new version)
                       ),
                       child: Text("Hôm nay", maxLines: 1),
                     ),

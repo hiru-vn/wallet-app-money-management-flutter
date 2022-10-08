@@ -10,12 +10,17 @@ class ItemAccountChoose extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: InkWell(
-      child: ListTile(
-        leading: Padding(
-          padding: EdgeInsets.all(5),
-          child: Image.asset(_account.img),
+      child: InkWell(
+        child: ListTile(
+          leading: Padding(
+            padding: EdgeInsets.all(5),
+            child: Image.asset(_account.img),
+          ),
+          title: Text(this._account.name, style: Theme.of(context).textTheme.subtitle),
+          subtitle: Text(textToCurrency(this._account.balance.toString())),
+          trailing: Icon(Icons.keyboard_arrow_right),
         ),
+<<<<<<< HEAD
         Title: Text(this._account.name,
             style: Theme.of(context).textTheme.subTitle),
         subTitle: Text(textToCurrency(this._account.balance.toString())),
@@ -24,6 +29,11 @@ class ItemAccountChoose extends StatelessWidget {
       onTap: () {
         Navigator.pop(context, this._account);
       },
+=======
+        onTap: () {
+          Navigator.pop(context, this._account);
+        },
+>>>>>>> parent of 4e15e8e (update new version)
     ));
   }
 }

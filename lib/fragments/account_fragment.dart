@@ -20,9 +20,7 @@ class _AccountFragmentState extends State<AccountFragment> {
             width: double.infinity,
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.blueGrey
-                  : Colors.white,
+              color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
@@ -40,8 +38,13 @@ class _AccountFragmentState extends State<AccountFragment> {
                     return Center(child: Text(snapshot.error.toString()));
                   } else if (snapshot.hasData) {
                     return Text(
+<<<<<<< HEAD
                       'Tổng: ' + textToCurrency(snapshot.data.toString()) + 'đ',
                       style: Theme.of(context).textTheme.Title,
+=======
+                      'Tổng: '+textToCurrency(snapshot.data.toString()) + 'đ',
+                      style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
                     );
                   }
                   return Container(
