@@ -37,7 +37,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
 
   List<DropdownMenuItem<String>> _getDropDownMenuItems(snapshotData) {
     var listItem = snapshotData as List<String>;
-    List<DropdownMenuItem<String>> items = [];
+    List<DropdownMenuItem<String>> items = new List();
     for (String option in listItem) {
       items.add(DropdownMenuItem(value: option, child: Text(option)));
     }
@@ -45,13 +45,13 @@ class _TransactionFragmentState extends State<TransactionFragment> {
   }
 
   List<Widget> _createListCardTransaction(List<Transaction> list) {
-    List<Widget> result = [];
+    List<Widget> result = List<Widget>();
     List<Transaction> filter = list;
 
     if (_currentOption != "Tất cả")
       filter =
           list.where((item) => (item.account.name == _currentOption)).toList();
-
+    
     // if user find day
     if (this.selectedDate.day != DateTime.now().day ||
         this.selectedDate.month != DateTime.now().month ||
@@ -70,10 +70,10 @@ class _TransactionFragmentState extends State<TransactionFragment> {
     DateTime flagDate = DateTime.now();
     for (int i = 0; i < 7; i++) {
       filter = tempFilter
-          .where((item) => (item.date.year == flagDate.year &&
-              item.date.month == flagDate.month &&
-              item.date.day == flagDate.day))
-          .toList();
+        .where((item) => (item.date.year == flagDate.year &&
+            item.date.month == flagDate.month &&
+            item.date.day == flagDate.day))
+        .toList();
       result.add(CardTransaction(filter, flagDate));
       result.add(SizedBox(height: 15));
       flagDate = flagDate.subtract(Duration(days: 1));
@@ -112,7 +112,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                           children: <Widget>[
                             Text(
                               'Tài khoản:',
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context).textTheme.subhead,
                             ),
                             SizedBox(
                               width: 10,
@@ -124,8 +124,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                                   if (snapshot2.hasError) {
                                     print(snapshot2.error.toString());
                                     return Center(
-                                        child:
-                                            Text(snapshot2.error.toString()));
+                                        child: Text(snapshot2.error.toString()));
                                   } else if (snapshot2.hasData) {
                                     return DropdownButton<String>(
                                       value: _currentOption,
@@ -142,7 +141,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                                 }),
                           ],
                         ),
-                        TextButton(
+                        RaisedButton(
                           onPressed: () => _selectDate(context),
                           child: Row(
                             children: <Widget>[
@@ -153,7 +152,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                               Icon(Icons.create, size: 20),
                             ],
                           ),
-                          // color: Theme.of(context).accentColor,
+                          color: Theme.of(context).accentColor,
                         ),
                       ],
                     ),

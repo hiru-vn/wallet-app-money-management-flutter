@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/pages/balance_detail_page.dart';
@@ -48,12 +49,9 @@ class _HomeFragmentState extends State<HomeFragment> {
               padding: EdgeInsets.all(18.0),
               child: Container(
                 width: double.infinity,
-                height: 70,
-                // .setHeight(170),
+                height: ScreenUtil.getInstance().setHeight(170),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.blueGrey
-                      : Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Padding(
@@ -64,37 +62,35 @@ class _HomeFragmentState extends State<HomeFragment> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
+                            backgroundColor: Theme.of(context).accentColor,
                             child: Icon(
                               Icons.attach_money,
                               size: 30,
-                              color: Theme.of(context).canvasColor,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                           FutureBuilder(
-                              future: AccountTable().getTotalBalance(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasError) {
-                                  print(snapshot.error.toString());
-                                  return Center(
-                                      child: Text(snapshot.error.toString()));
-                                } else if (snapshot.hasData) {
-                                  return Text(
-                                    textToCurrency(snapshot.data.toString()),
-                                    style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).primaryColor),
-                                  );
-                                }
-                                return Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(),
-                                );
-                              }),
+                          future: AccountTable().getTotalBalance(),
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasError) {
+                              print(snapshot.error.toString());
+                              return Center(
+                                  child: Text(snapshot.error.toString()));
+                            } else if (snapshot.hasData) {
+                              return Text(
+                                textToCurrency(snapshot.data.toString()),
+                                style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context).primaryColor),
+                              );
+                            }
+                            return Container(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(),
+                            );
+                          }),
                           Icon(
                             Icons.navigate_next,
                             size: 30,

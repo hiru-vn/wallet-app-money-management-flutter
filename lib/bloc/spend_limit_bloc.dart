@@ -12,10 +12,9 @@ class SpendLimitBloc extends BaseBloc {
   StreamController<List<SpendLimit>> _spendLimitListStreamController =
       StreamController<List<SpendLimit>>();
 
-  Stream<List<SpendLimit>> get spendLimitListStream =>
-      _spendLimitListStreamController.stream;
+  Stream<List<SpendLimit>> get spendLimitListStream => _spendLimitListStreamController.stream;
 
-  List<SpendLimit> _spendLimitListData = [];
+  List<SpendLimit> _spendLimitListData = List<SpendLimit>();
 
   List<SpendLimit> get spendLimitListData => _spendLimitListData;
 
@@ -43,14 +42,12 @@ class SpendLimitBloc extends BaseBloc {
 
   _updateSpendLimit(SpendLimit spendLimit) async {
     _spendLimitTable.update(spendLimit);
-    int index = _spendLimitListData.indexWhere((item) {
-      return item.id == spendLimit.id;
-    });
+    int index =_spendLimitListData.indexWhere((item) {return item.id == spendLimit.id;});
     _spendLimitListData[index] = spendLimit;
     _spendLimitListStreamController.sink.add(_spendLimitListData);
   }
 
-  void dispatchEvent(BaseEvent event) {
+  void dispatchEvent(BaseEvent event) { 
     if (event is AddSpendLimitEvent) {
       SpendLimit spendLimit = SpendLimit.copyOf(event.spendLimit);
       _addSpendLimit(spendLimit);

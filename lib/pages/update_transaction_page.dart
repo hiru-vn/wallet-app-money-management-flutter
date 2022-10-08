@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
@@ -94,9 +95,9 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
     _bloc.initData();
     _blocAccount.initData();
 
-    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    ScreenUtil.instance =
+        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     void _submit() {
       if (!this._formBalanceKey.currentState.validate()) {
@@ -136,7 +137,8 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
               (currencyToInt(this._balanceController.text) +
                   this._transaction.amount);
         } else if (this._transaction.category.transactionType ==
-            TransactionType.INCOME) {
+            TransactionType.INCOME)
+             {
           this._account.balance +=
               (currencyToInt(this._balanceController.text) -
                   this._transaction.amount);
@@ -177,7 +179,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.title,
                   ),
                   Row(
                     children: <Widget>[
@@ -205,11 +207,10 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                             autofocus: true,
                             decoration: InputDecoration(
                               suffixText: 'đ',
-                              suffixStyle:
-                                  Theme.of(context).textTheme.headline6,
+                              suffixStyle: Theme.of(context).textTheme.headline,
                               prefix: Icon(
                                 Icons.monetization_on,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).accentColor,
                                 size: 26,
                               ),
                               hintText: '0',
@@ -409,8 +410,8 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: TextButton(
-                        // color: Theme.of(context).buttonColor,
+                      child: RaisedButton(
+                        color: Theme.of(context).buttonColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
                           child: Row(
@@ -425,7 +426,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Xóa',
-                                style: Theme.of(context).textTheme.titleMedium,
+                                style: Theme.of(context).textTheme.title,
                               ),
                             ],
                           ),
@@ -438,8 +439,8 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: TextButton(
-                        // color: Theme.of(context).primaryColor,
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
                           child: Row(
@@ -454,7 +455,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               ),
                               Text(
                                 'Lưu',
-                                style: Theme.of(context).textTheme.titleMedium,
+                                style: Theme.of(context).textTheme.title,
                               ),
                             ],
                           ),

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/fragments/account_fragment.dart';
@@ -76,9 +80,9 @@ class _MainPageState extends State<MainPage> {
       if (i == 3) drawerOptions.add(Divider());
     }
 
-    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    ScreenUtil.instance =
+        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -88,10 +92,7 @@ class _MainPageState extends State<MainPage> {
             MaterialPageRoute(builder: (context) => NewTransactionPage()),
           );
         },
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
+        child: Icon(Icons.add, color: Colors.white,),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
@@ -99,9 +100,7 @@ class _MainPageState extends State<MainPage> {
           actions: _selectedDrawerIndex == 2
               ? <Widget>[
                   IconButton(
-                    icon: Icon(
-                      Icons.add,
-                    ),
+                    icon: Icon(Icons.add),
                     onPressed: _actionAdd,
                   )
                 ]

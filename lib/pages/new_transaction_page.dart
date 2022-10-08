@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
@@ -11,8 +12,6 @@ import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
-import '../bloc/category_bloc.dart';
-
 class NewTransactionPage extends StatefulWidget {
   NewTransactionPage({Key key}) : super(key: key);
 
@@ -24,7 +23,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
   var _balanceController = TextEditingController();
   var _descriptionController = TextEditingController();
   var _formBalanceKey = GlobalKey<FormState>();
-  Category category;
+  Category _category;
   Account _account;
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
@@ -75,49 +74,46 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
   }
 
   _getCurrencyColor() {
-    if (category == null) return Colors.red;
-    return (category.transactionType == TransactionType.EXPENSE)
+    if (this._category == null) return Colors.red;
+    return (this._category.transactionType == TransactionType.EXPENSE)
         ? Colors.red
         : Colors.green;
   }
 
   @override
   Widget build(BuildContext context) {
-    print(category ?? '');
     var _bloc = TransactionBloc();
     var _blocAccount = AccountBloc();
-    var _categoryBloc = CategoryBloc();
-    _categoryBloc.initData();
     _bloc.initData();
     _blocAccount.initData();
 
-    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    ScreenUtil.instance =
+        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     void _submit() {
-      if (!_formBalanceKey.currentState.validate()) {
+      if (!this._formBalanceKey.currentState.validate()) {
         return;
       }
       if (_account == null) return;
-      if (category == null) return;
+      if (_category == null) return;
 
       DateTime saveTime = DateTime(_selectedDate.year, _selectedDate.month,
           _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
       Transaction transaction = Transaction(
-          _account,
-          category,
-          currencyToInt(_balanceController.text),
+          this._account,
+          this._category,
+          currencyToInt(this._balanceController.text),
           saveTime,
-          _descriptionController.text);
+          this._descriptionController.text);
       _bloc.event.add(AddTransactionEvent(transaction));
 
-      if (category.transactionType == TransactionType.EXPENSE)
-        _account.balance -= currencyToInt(_balanceController.text);
-      if (category.transactionType == TransactionType.INCOME)
-        _account.balance += currencyToInt(_balanceController.text);
+      if (this._category.transactionType == TransactionType.EXPENSE)
+        this._account.balance -= currencyToInt(this._balanceController.text);
+      if (this._category.transactionType == TransactionType.INCOME)
+        this._account.balance += currencyToInt(this._balanceController.text);
 
-      _blocAccount.event.add(UpdateAccountEvent(_account));
+      _blocAccount.event.add(UpdateAccountEvent(this._account));
 
       Navigator.pop(context);
     }
@@ -151,7 +147,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.title,
                   ),
                   Row(
                     children: <Widget>[
@@ -179,11 +175,10 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                             autofocus: true,
                             decoration: InputDecoration(
                               suffixText: 'đ',
-                              suffixStyle:
-                                  Theme.of(context).textTheme.headline4,
+                              suffixStyle: Theme.of(context).textTheme.headline,
                               prefix: Icon(
                                 Icons.monetization_on,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).accentColor,
                                 size: 26,
                               ),
                               hintText: '0',
@@ -225,28 +220,29 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: InkWell(
                       onTap: () async {
-                        category = await Navigator.push(
+                        _category = await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryPage()),
                         );
-                        setState(() {});
                       },
                       child: Row(
                         children: <Widget>[
                           Container(
                             width: 50,
                             child: Icon(
-                              category == null ? Icons.category : category.icon,
+                              _category == null
+                              ? Icons.category
+                              : _category.icon,
                               size: 28,
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Text(
-                              category == null
+                              _category == null
                                   ? 'Chọn hạng mục'
-                                  : category.name,
+                                  : _category.name,
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.grey,
@@ -276,7 +272,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: TextField(
-                              controller: _descriptionController,
+                              controller: this._descriptionController,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -343,7 +339,6 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                           MaterialPageRoute(
                               builder: (context) => AccountPage()),
                         );
-                        setState(() {});
                       },
                       child: Row(
                         children: <Widget>[
@@ -384,7 +379,8 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: TextButton(
+              child: RaisedButton(
+                color: Theme.of(context).primaryColor,
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Row(
@@ -399,9 +395,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
                       ),
                       Text(
                         'Ghi',
-                        style: Theme.of(context).textTheme.titleMedium.copyWith(
-                              color: Theme.of(context).primaryColor,
-                            ),
+                        style: Theme.of(context).textTheme.title,
                       ),
                     ],
                   ),

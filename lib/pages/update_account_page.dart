@@ -62,7 +62,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = [];
+    List<DropdownMenuItem<String>> items = new List();
     for (AccountType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -225,8 +225,8 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextButton(
-                  // color: Theme.of(context).primaryColor,
+                child: RaisedButton(
+                  color: Theme.of(context).primaryColor,
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Row(
@@ -241,7 +241,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                         ),
                         Text(
                           'Lưu',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context).textTheme.title,
                         ),
                       ],
                     ),

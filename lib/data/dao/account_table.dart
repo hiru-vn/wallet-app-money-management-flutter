@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
+
 import '../model/Account.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../enums/account_type.dart';
+
 import '../database_helper.dart';
 
 class AccountTable {
@@ -24,12 +27,9 @@ class AccountTable {
       icon INTEGER NOT NULL,
       img TEXT NOT NULL)
     ''');
-    db.execute(
-        'INSERT INTO account VALUES (0,"Ví",1000000,0,0,"assets/logo.png")');
-    db.execute(
-        'INSERT INTO account VALUES (1,"ATM",0,0,0,"assets/credit.png")');
-    db.execute(
-        'INSERT INTO account VALUES (2,"MOMO",0,0,0,"assets/e-wallet.png")');
+    db.execute('INSERT INTO account VALUES (0,"Ví",1000000,0,0,"assets/logo.png")');
+    db.execute('INSERT INTO account VALUES (1,"ATM",0,0,0,"assets/credit.png")');
+    db.execute('INSERT INTO account VALUES (2,"MOMO",0,0,0,"assets/e-wallet.png")');
   }
 
   Future<List<String>> getAllAccountName() async {
@@ -59,8 +59,7 @@ class AccountTable {
 
   Future<void> updateAccount(Account account) async {
     final Database db = DatabaseHelper.instance.database;
-    await db.update(tableName, account.toMap(),
-        where: '$id = ?', whereArgs: [account.id]);
+    await db.update(tableName, account.toMap(), where: '$id = ?', whereArgs: [account.id]);
   }
 
   Future<String> getTotalBalance() async {
@@ -94,12 +93,8 @@ class AccountTable {
   }
 
   static String getTotalByType(List<Account> list, AccountType type) {
-    List<Account> returnList =
-        list.where((item) => (item.type == AccountType.SAVING)).toList();
+    List<Account> returnList = list.where((item) => (item.type == AccountType.SAVING)).toList();
     if (returnList.length == 0) return "0";
-    return textToCurrency(returnList
-        .map<int>((m) => m.balance)
-        .reduce((a, b) => a + b)
-        .toString());
+    return textToCurrency(returnList.map<int>((m) => m.balance).reduce((a,b )=>a+b).toString());
   }
 }

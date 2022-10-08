@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: appTheme.theme.brightness,
       primarySwatch: appTheme.theme.primarySwatch,
+      accentColor: appTheme.theme.accentColor,
       fontFamily: 'Quicksand',
     );
   }

@@ -47,7 +47,7 @@ class MessageLabel extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).accentColor,
               borderRadius: BorderRadius.all(new Radius.circular(5.0)),
             ),
             child: Text("Hôm nay"),
@@ -55,7 +55,7 @@ class MessageLabel extends StatelessWidget {
           Container(
             child: CustomPaint(
               painter: TrianglePainter(
-                strokeColor: Theme.of(context).colorScheme.secondary,
+                strokeColor: Theme.of(context).accentColor,
                 strokeWidth: 10,
                 paintingStyle: PaintingStyle.fill,
               ),

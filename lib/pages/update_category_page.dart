@@ -26,14 +26,14 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
     this._category = widget._category;
     _dropDownMenuItems = getDropDownMenuItems();
     _currentOption = this._category.transactionType.name;
-    _nameController.text = this._category.name;
+    _nameController.text= this._category.name;
     //_descriptionController = this._category.description;
 
     super.initState();
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = [];
+    List<DropdownMenuItem<String>> items = new List();
     for (TransactionType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -55,8 +55,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
         _nameController.text,
         Icons.ac_unit,
         Colors.blueAccent,
-        TransactionType.valueFromName(this._currentOption),
-        ''); //TO DO
+        TransactionType.valueFromName(this._currentOption), ''); //TO DO
     category.id = this._category.id;
     _bloc.event.add(UpdateCategoryEvent(category));
     Navigator.pop(context);
@@ -144,8 +143,8 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextButton(
-                    // color: Theme.of(context).primaryColor,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
@@ -160,7 +159,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.title,
                           ),
                         ],
                       ),

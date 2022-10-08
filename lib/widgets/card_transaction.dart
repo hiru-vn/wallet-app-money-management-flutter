@@ -4,13 +4,13 @@ import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/widgets/item_transaction.dart';
 
 class CardTransaction extends StatelessWidget {
-  List<Transaction> _list = [];
+  List<Transaction> _list = List<Transaction>();
   DateTime _date;
   int _totalDay = 0;
   CardTransaction(this._list, this._date);
 
   List<Widget> _createRenderItem() {
-    List<Widget> listItem = [];
+    List<Widget> listItem = List<Widget>();
     for (int i = 0; i < _list.length; i++) {
       listItem.add(ItemTransaction(_list[i]));
       if (_list[i].category.transactionType == TransactionType.INCOME) {
@@ -21,11 +21,7 @@ class CardTransaction extends StatelessWidget {
       }
     }
 
-    listItem.add(Divider(
-      thickness: 2.0,
-      indent: 15,
-      endIndent: 15,
-    ));
+    listItem.add(Divider(thickness: 2.0, indent: 15, endIndent: 15,));
     listItem.add(_createTotalTile(_totalDay));
 
     return listItem;
@@ -80,6 +76,7 @@ class CardTransaction extends StatelessWidget {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,11 +102,11 @@ class CardTransaction extends StatelessWidget {
             children: <Widget>[
               Text(
                 _getTitle(),
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.title,
               ),
               Text(
                 _getDate(),
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subtitle,
               ),
             ],
           ),

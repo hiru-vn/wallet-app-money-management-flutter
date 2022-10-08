@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
@@ -53,7 +54,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = [];
+    List<DropdownMenuItem<String>> items = new List();
     for (AccountType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -70,9 +71,9 @@ class _AddAccountPageState extends State<AddAccountPage> {
   Widget build(BuildContext context) {
     var _bloc = AccountBloc();
 
-    // ScreenUtil.instance = ScreenUtil.init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    ScreenUtil.instance =
+        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     void _submit() {
       if (!this._formNameKey.currentState.validate()) {
@@ -86,7 +87,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
           currencyToInt(_balanceController.text),
           AccountType.valueFromName(this._currentOption),
           Icons.account_balance_wallet,
-          this._imgUrl);
+          this._imgUrl
+          );
       _bloc.event.add(AddAccountEvent(account));
       Navigator.pop(context);
     }
@@ -223,8 +225,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextButton(
-                    // color: Theme.of(context).primaryColor,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
@@ -239,7 +241,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.title,
                           ),
                         ],
                       ),

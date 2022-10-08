@@ -6,16 +6,16 @@ import 'package:wallet_exe/data/model/Transaction.dart';
 import 'package:wallet_exe/event/transaction_event.dart';
 import 'package:wallet_exe/event/base_event.dart';
 
+
 class TransactionBloc extends BaseBloc {
   TransactionTable _transactionTable = TransactionTable();
 
-  StreamController<List<Transaction>> _transactionListStreamController =
-      StreamController<List<Transaction>>();
+  StreamController<List<Transaction>> _transactionListStreamController = 
+    StreamController<List<Transaction>>();
 
-  Stream<List<Transaction>> get transactionListStream =>
-      _transactionListStreamController.stream;
+  Stream<List<Transaction>> get transactionListStream => _transactionListStreamController.stream;
 
-  List<Transaction> _transactionListData = [];
+  List<Transaction> _transactionListData = List<Transaction>();
 
   List<Transaction> get transactionListData => _transactionListData;
 
@@ -29,7 +29,7 @@ class TransactionBloc extends BaseBloc {
   }
 
   _addTransaction(Transaction transaction) async {
-    _transactionTable.insert(transaction);
+    _transactionTable.insert(transaction);    
 
     _transactionListData.add(transaction);
     _transactionListStreamController.sink.add(_transactionListData);
@@ -45,14 +45,12 @@ class TransactionBloc extends BaseBloc {
   _updateTransaction(Transaction transaction) async {
     _transactionTable.update(transaction);
 
-    int index = _transactionListData.indexWhere((item) {
-      return item.id == transaction.id;
-    });
+    int index =_transactionListData.indexWhere((item) {return item.id == transaction.id;});
     _transactionListData[index] = transaction;
     _transactionListStreamController.sink.add(_transactionListData);
   }
 
-  void dispatchEvent(BaseEvent event) {
+  void dispatchEvent(BaseEvent event) { 
     if (event is AddTransactionEvent) {
       Transaction transaction = Transaction.copyOf(event.transaction);
       _addTransaction(transaction);
@@ -67,6 +65,7 @@ class TransactionBloc extends BaseBloc {
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
   }
 }
