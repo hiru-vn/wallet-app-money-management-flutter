@@ -199,7 +199,7 @@ class MaximunSpendItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(this._spendLimit.type.name,
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.titleMedium),
                           Text(_getTimelineString()),
                         ],
                       ),
@@ -213,7 +213,7 @@ class MaximunSpendItem extends StatelessWidget {
                           Text(
                               textToCurrency(_spendLimit.amount.toString()) +
                                   ' đ',
-                              style: Theme.of(context).textTheme.title),
+                              style: Theme.of(context).textTheme.titleMedium),
                         ],
                       ),
                     )
@@ -231,7 +231,7 @@ class MaximunSpendItem extends StatelessWidget {
                       margin: _prevent2Lines(),
                       padding: const EdgeInsets.all(3.0),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).colorScheme.secondary,
                         borderRadius:
                             BorderRadius.all(new Radius.circular(5.0)),
                       ),
@@ -240,7 +240,7 @@ class MaximunSpendItem extends StatelessWidget {
                     Container(
                       child: CustomPaint(
                         painter: TrianglePainter(
-                          strokeColor: Theme.of(context).accentColor,
+                          strokeColor: Theme.of(context).colorScheme.secondary,
                           strokeWidth: 10,
                           paintingStyle: PaintingStyle.fill,
                         ),

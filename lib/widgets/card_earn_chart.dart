@@ -49,7 +49,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
               children: <Widget>[
                 Text(
                   'Trung bình tháng:',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(textToCurrency(
                         (totalYear / DateTime.now().month).round().toString()) +
@@ -64,7 +64,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
               children: <Widget>[
                 Text(
                   'Tổng thu nhập:',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -102,8 +102,8 @@ class _CardEarnChartState extends State<CardEarnChart> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text('Thu nhập năm nay',
-                              style: Theme.of(context).textTheme.title),
-                          RaisedButton(
+                              style: Theme.of(context).textTheme.titleMedium),
+                          TextButton(
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[
@@ -114,14 +114,14 @@ class _CardEarnChartState extends State<CardEarnChart> {
                                 Icon(Icons.create, size: 20),
                               ],
                             ),
-                            color: Theme.of(context).accentColor,
+                            // color: Theme.of(context).accentColor,
                           ),
                         ],
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Text('(Đơn vị: Nghìn)'),
+                      Text('(Đơn vị: VND)'),
                       Container(
                         height: 200,
                         width: double.infinity,
@@ -159,7 +159,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
   }
 
   List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
-    List<int> totalByMonth = List<int>();
+    List<int> totalByMonth = [];
     int totalMonth = 0;
     int flagMonth = 1;
     list.sort((a, b) {

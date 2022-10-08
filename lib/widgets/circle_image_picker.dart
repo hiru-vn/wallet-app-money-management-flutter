@@ -24,8 +24,8 @@ class FlutterCircleImagePicker {
               ]),
             ),
             actions: [
-              FlatButton(
-                padding: EdgeInsets.only(right: 20),
+              TextButton(
+                // padding: EdgeInsets.only(right: 20),
                 onPressed: () => Navigator.of(context).pop(),
                 child: closeChild,
               )
@@ -46,7 +46,8 @@ class CircleImagePicker extends StatefulWidget {
   static Function reload;
   static Map<String, String> imgMap;
 
-  CircleImagePicker({this.imageSize, this.noResultsText, Key key}) : super(key: key);
+  CircleImagePicker({this.imageSize, this.noResultsText, Key key})
+      : super(key: key);
 
   @override
   _CircleImagePickerState createState() => _CircleImagePickerState();
@@ -90,8 +91,8 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
                   : [
                       Center(
                         child: Text(widget.noResultsText), //+
-                            //' ' +
-                            //SearchBar.searchTextController.text),
+                        //' ' +
+                        //SearchBar.searchTextController.text),
                       ),
                     ]),
         ),

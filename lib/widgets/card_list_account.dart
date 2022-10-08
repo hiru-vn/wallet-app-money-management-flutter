@@ -21,8 +21,8 @@ class _CardListAccountState extends State<CardListAccount> {
   // }
 
   _createListAccountTile(List<Account> listAccount) {
-    List<Widget> list = new List<Widget>();
-    for (int i=0; i< listAccount.length; i++) {
+    List<Widget> list = [];
+    for (int i = 0; i < listAccount.length; i++) {
       list.add(ItemAccount(listAccount[i]));
     }
     return list;
@@ -33,75 +33,89 @@ class _CardListAccountState extends State<CardListAccount> {
     AccountBloc bloc = AccountBloc();
     bloc.initData();
 
-    return 
-    // Consumer<AccountBloc>(
-    //   builder: (context, bloc, child) => 
-      StreamBuilder<List<Account>>(
-          stream: bloc.accountListStream,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    child: Text('Bạn chưa tạo tài khoản nào'),
-                  ),
-                );
-              case ConnectionState.none:
+    return
+        // Consumer<AccountBloc>(
+        //   builder: (context, bloc, child) =>
+        StreamBuilder<List<Account>>(
+            stream: bloc.accountListStream,
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Center(
+                    child: Container(
+                      width: 100,
+                      height: 50,
+                      child: Text('Bạn chưa tạo tài khoản nào'),
+                    ),
+                  );
+                case ConnectionState.none:
 
-              case ConnectionState.active:
-                return Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(0.0, 15.0),
-                        blurRadius: 15.0,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        child: ExpansionTile(
-                          title: Text(
-                            "Đang sử dụng ("+ AccountTable.getTotalByType(snapshot.data, AccountType.SAVING) +" đ)",
-                            style: Theme.of(context).textTheme.subhead,
-                          ),
-                          initiallyExpanded: true,
-                          children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SPENDING)).toList()),
+                case ConnectionState.active:
+                  return Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.blueGrey
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0.0, 15.0),
+                          blurRadius: 15.0,
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: ExpansionTile(
-                          title: Text(
-                            "Tài khoản tiết kiệm ("+ AccountTable.getTotalByType(snapshot.data, AccountType.SAVING) +" đ)",
-                            style: Theme.of(context).textTheme.subhead,
+                      ],
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          child: ExpansionTile(
+                            title: Text(
+                              "Đang sử dụng (" +
+                                  AccountTable.getTotalByType(
+                                      snapshot.data, AccountType.SAVING) +
+                                  " đ)",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            initiallyExpanded: true,
+                            children: _createListAccountTile(snapshot.data
+                                .where((item) =>
+                                    (item.type == AccountType.SPENDING))
+                                .toList()),
                           ),
-                          initiallyExpanded: false,
-                          children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SAVING)).toList()),
                         ),
-                      )
-                    ],
-                  ),
-                );
+                        Container(
+                          width: double.infinity,
+                          child: ExpansionTile(
+                            title: Text(
+                              "Tài khoản tiết kiệm (" +
+                                  AccountTable.getTotalByType(
+                                      snapshot.data, AccountType.SAVING) +
+                                  " đ)",
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            initiallyExpanded: false,
+                            children: _createListAccountTile(snapshot.data
+                                .where(
+                                    (item) => (item.type == AccountType.SAVING))
+                                .toList()),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
 
-              default:
-                return Center(
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-            }
-          });
+                default:
+                  return Center(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+              }
+            });
     //       ,
     // );
   }

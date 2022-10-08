@@ -85,47 +85,50 @@ class _SettingFragmentState extends State<SettingFragment> {
                     }).toList(),
                   ),
                 ),
-                SizedBox(height: 25,),
+                SizedBox(
+                  height: 25,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: RaisedButton.icon(
-                          
+                        child: IconButton(
                           color: Theme.of(context).primaryColor,
                           icon: Icon(Icons.cloud_upload),
-                          label: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              'Đồng bộ dữ liệu',
-                              style: Theme.of(context).textTheme.title,
-                            ),
-                          ),
+                          // label: Padding(
+                          //   padding: EdgeInsets.symmetric(vertical: 10),
+                          //   child: Text(
+                          //     'Đồng bộ dữ liệu',
+                          //     style: Theme.of(context).textTheme.title,
+                          //   ),
+                          // ),
                           onPressed: _submit,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: RaisedButton.icon(
+                        child: IconButton(
                           color: Colors.redAccent,
                           icon: Icon(Icons.clear_all),
-                          label: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              'Xóa toàn bộ dữ liệu',
-                              style: Theme.of(context).textTheme.title,
-                            ),
-                          ),
+                          // label: Padding(
+                          //   padding: EdgeInsets.symmetric(vertical: 10),
+                          //   child: Text(
+                          //     'Xóa toàn bộ dữ liệu',
+                          //     style: Theme.of(context).textTheme.title,
+                          //   ),
+                          // ),
                           onPressed: _submit,
                         ),
                       ),

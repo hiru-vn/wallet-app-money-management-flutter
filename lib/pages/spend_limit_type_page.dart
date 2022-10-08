@@ -13,7 +13,7 @@ class SpendLimitTypePage extends StatelessWidget {
     }
 
     _createList() {
-      List<Widget> list = List<Widget>();
+      List<Widget> list = [];
       List<SpendLimitType> items = SpendLimitType.getAllType();
       for (int i = 0; i < items.length; i++) {
         list.add(ListTile(
@@ -22,7 +22,7 @@ class SpendLimitTypePage extends StatelessWidget {
           title: Text(items[i].name),
           trailing: Icon(Icons.keyboard_arrow_right),
         ));
-        if (i!=items.length-1) {
+        if (i != items.length - 1) {
           list.add(Divider());
         }
       }

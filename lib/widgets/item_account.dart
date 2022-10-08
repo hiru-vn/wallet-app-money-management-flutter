@@ -61,7 +61,7 @@ class ItemAccount extends StatelessWidget {
                 child: Image.asset(this._account.img),
               ),
               title: Text(this._account.name,
-                  style: Theme.of(context).textTheme.subtitle),
+                  style: Theme.of(context).textTheme.subtitle1),
               subtitle: Text(textToCurrency(this._account.balance.toString())),
               trailing: _simplePopup(),
             ));

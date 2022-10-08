@@ -52,11 +52,12 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
       var temp = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SpendLimitTypePage(widget._spendLimit.type)),
+          builder: (context) => SpendLimitTypePage(widget._spendLimit.type),
+        ),
       );
 
       // prevent null
-      if (temp!= null) widget._spendLimit.type = temp;
+      if (temp != null) widget._spendLimit.type = temp;
     }
 
     return Scaffold(
@@ -78,7 +79,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -93,7 +96,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     children: <Widget>[
                       Text(
                         'Hạn mức',
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Row(
                         children: <Widget>[
@@ -122,10 +125,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 decoration: InputDecoration(
                                   suffixText: 'đ',
                                   suffixStyle:
-                                      Theme.of(context).textTheme.headline,
+                                      Theme.of(context).textTheme.headline4,
                                   prefix: Icon(
                                     Icons.monetization_on,
-                                    color: Theme.of(context).accentColor,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     size: 26,
                                   ),
                                   hintText: '0',
@@ -142,11 +146,12 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     ],
                   ),
                 ),
-                
                 Container(
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark? Colors.blueGrey: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.blueGrey
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
@@ -174,7 +179,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                   size: 28,
                                 ),
                               )
-                              
                             ],
                           ),
                         ),
@@ -218,8 +222,8 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 flex: 1,
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5),
-                                  child: RaisedButton(
-                                    color: Theme.of(context).primaryColor,
+                                  child: TextButton(
+                                    // color: Theme.of(context).primaryColor,
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Row(
@@ -237,7 +241,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                             'Lưu',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .title,
+                                                .titleMedium,
                                           ),
                                         ],
                                       ),
@@ -249,8 +253,8 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               flex: 1,
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5),
-                                child: RaisedButton(
-                                  color: Theme.of(context).buttonColor,
+                                child: TextButton(
+                                  // color: Theme.of(context).buttonColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),
                                     child: Row(
@@ -266,8 +270,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                         ),
                                         Text(
                                           'Xóa',
-                                          style:
-                                              Theme.of(context).textTheme.title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
                                         ),
                                       ],
                                     ),

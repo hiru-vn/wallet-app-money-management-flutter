@@ -19,36 +19,36 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil: ^0.7.0
+  flutter_screenutil: ^5.5.4
 
   # icon picker
-  flutter_iconpicker: ^0.1.2
+  flutter_iconpicker: ^3.2.1
 
   # flutter chart
   charts_flutter:
 
   # The following is state management library (not from flutter community).
-  provider: ^3.2.0
+  provider: ^6.0.3
 
   # The following package is to access database.
-  sqflite: ^1.1.8
+  sqflite: ^2.1.0+1
   path: ^1.6.2
 
   # Week of year, Date of year
-  jiffy: ^2.1.2
+  jiffy: ^5.0.0
 
   # Change theme
-  rxdart: ^0.22.0
+  rxdart: ^0.27.5
 
   # change icon
-  flutter_launcher_icons: ^0.7.4
+  flutter_launcher_icons: ^0.10.0
 
   # date format, money format
-  intl: ^0.16.0
+  intl: ^0.17.0
   flutter_masked_text:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
