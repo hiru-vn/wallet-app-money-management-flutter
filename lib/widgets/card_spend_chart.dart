@@ -110,8 +110,13 @@ class _CardSpendChartState extends State<CardSpendChart> {
                         children: <Widget>[
                           Text(_getTitle(),
 <<<<<<< HEAD
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
                           TextButton(
+=======
+                              style: Theme.of(context).textTheme.title),
+                          RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.title),
                           RaisedButton(

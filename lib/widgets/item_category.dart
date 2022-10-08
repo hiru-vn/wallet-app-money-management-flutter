@@ -36,7 +36,11 @@ class ItemCategory extends StatelessWidget {
       child: ListTile(
         leading: Icon(_category.icon),
 <<<<<<< HEAD
+<<<<<<< HEAD
         Title: Text(_category.name),
+=======
+        title: Text(_category.name),
+>>>>>>> parent of 4e15e8e (update new version)
 =======
         title: Text(_category.name),
 >>>>>>> parent of 4e15e8e (update new version)

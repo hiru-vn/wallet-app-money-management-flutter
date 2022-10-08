@@ -39,6 +39,7 @@ class BalanceDetailPage extends StatelessWidget {
               return Column(
                 children: <Widget>[
 <<<<<<< HEAD
+<<<<<<< HEAD
                   SizedBox(
                     height: 15,
                   ),
@@ -46,6 +47,11 @@ class BalanceDetailPage extends StatelessWidget {
                     'Các tài khoản',
                     style: Theme.of(context).textTheme.TitleMedium,
                   ),
+=======
+                  SizedBox(height: 15,),
+                  Text('Các tài khoản',
+                      style: Theme.of(context).textTheme.title),
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                   SizedBox(height: 15,),
                   Text('Các tài khoản',

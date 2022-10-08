@@ -48,6 +48,7 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
                   child: Text('Bạn chưa tạo hạn mức nào'),
                 ),
 <<<<<<< HEAD
+<<<<<<< HEAD
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -79,6 +80,8 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
         }
       },
 =======
+=======
+>>>>>>> parent of 4e15e8e (update new version)
               );
             case ConnectionState.none:
 
@@ -127,6 +130,9 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
               );
           }
         },
+<<<<<<< HEAD
+>>>>>>> parent of 4e15e8e (update new version)
+=======
 >>>>>>> parent of 4e15e8e (update new version)
     );
   }

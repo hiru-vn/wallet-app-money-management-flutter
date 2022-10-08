@@ -94,7 +94,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                       Text(
                         'Hạn mức',
 <<<<<<< HEAD
+<<<<<<< HEAD
                         style: Theme.of(context).textTheme.Title,
+=======
+                        style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                         style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -223,7 +227,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5),
 <<<<<<< HEAD
+<<<<<<< HEAD
                                   child: TextButton(
+=======
+                                  child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                   child: RaisedButton(
 >>>>>>> parent of 4e15e8e (update new version)
@@ -246,7 +254,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                             style: Theme.of(context)
                                                 .textTheme
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 .Title,
+=======
+                                                .title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                                 .title,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -262,7 +274,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5),
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 child: TextButton(
+=======
+                                child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                 child: RaisedButton(
 >>>>>>> parent of 4e15e8e (update new version)
@@ -284,7 +300,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                           'Xóa',
                                           style:
 <<<<<<< HEAD
+<<<<<<< HEAD
                                               Theme.of(context).textTheme.Title,
+=======
+                                              Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                               Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)

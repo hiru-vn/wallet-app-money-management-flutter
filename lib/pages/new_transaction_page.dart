@@ -13,9 +13,12 @@ import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class TransactionPage extends StatefulWidget {
   TransactionPage({Key key}) : super(key: key);
 =======
+=======
+>>>>>>> parent of 4e15e8e (update new version)
 class NewTransactionPage extends StatefulWidget {
   NewTransactionPage({Key key}) : super(key: key);
 >>>>>>> parent of 4e15e8e (update new version)
@@ -153,7 +156,11 @@ class _TransactionPageState extends State<TransactionPage> {
                   Text(
                     'Số tiền',
 <<<<<<< HEAD
+<<<<<<< HEAD
                     style: Theme.of(context).textTheme.t,
+=======
+                    style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                     style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -242,8 +249,13 @@ class _TransactionPageState extends State<TransactionPage> {
                             child: Icon(
                               _category == null
 <<<<<<< HEAD
+<<<<<<< HEAD
                                   ? Icons.category
                                   : _category.icon,
+=======
+                              ? Icons.category
+                              : _category.icon,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                               ? Icons.category
                               : _category.icon,
@@ -394,7 +406,11 @@ class _TransactionPageState extends State<TransactionPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
 <<<<<<< HEAD
+<<<<<<< HEAD
               child: TextButton(
+=======
+              child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
               child: RaisedButton(
 >>>>>>> parent of 4e15e8e (update new version)

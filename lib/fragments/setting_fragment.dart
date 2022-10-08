@@ -93,7 +93,12 @@ class _SettingFragmentState extends State<SettingFragment> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         child: TextButton.icon(
+=======
+                        child: RaisedButton.icon(
+                          
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                         child: RaisedButton.icon(
                           
@@ -105,7 +110,11 @@ class _SettingFragmentState extends State<SettingFragment> {
                             child: Text(
                               'Đồng bộ dữ liệu',
 <<<<<<< HEAD
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title,
+=======
+                              style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -125,7 +134,11 @@ class _SettingFragmentState extends State<SettingFragment> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         child: TextButton.icon(
+=======
+                        child: RaisedButton.icon(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                         child: RaisedButton.icon(
 >>>>>>> parent of 4e15e8e (update new version)
@@ -136,7 +149,11 @@ class _SettingFragmentState extends State<SettingFragment> {
                             child: Text(
                               'Xóa toàn bộ dữ liệu',
 <<<<<<< HEAD
+<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title,
+=======
+                              style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)

@@ -99,7 +99,11 @@ class _CardbalanceState extends State<Cardbalance> {
                               children: <Widget>[
                                 Text('Tình hình thu chi',
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     style: Theme.of(context).textTheme.Title),
+=======
+                                    style: Theme.of(context).textTheme.title),
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                     style: Theme.of(context).textTheme.title),
 >>>>>>> parent of 4e15e8e (update new version)

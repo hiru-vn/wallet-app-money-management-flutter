@@ -39,8 +39,13 @@ class _AccountFragmentState extends State<AccountFragment> {
                   } else if (snapshot.hasData) {
                     return Text(
 <<<<<<< HEAD
+<<<<<<< HEAD
                       'Tổng: ' + textToCurrency(snapshot.data.toString()) + 'đ',
                       style: Theme.of(context).textTheme.Title,
+=======
+                      'Tổng: '+textToCurrency(snapshot.data.toString()) + 'đ',
+                      style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                       'Tổng: '+textToCurrency(snapshot.data.toString()) + 'đ',
                       style: Theme.of(context).textTheme.title,

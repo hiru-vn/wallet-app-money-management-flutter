@@ -180,7 +180,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                   Text(
                     'Số tiền',
 <<<<<<< HEAD
+<<<<<<< HEAD
                     style: Theme.of(context).textTheme.Title,
+=======
+                    style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                     style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -415,7 +419,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
 <<<<<<< HEAD
+<<<<<<< HEAD
                       child: TextButton(
+=======
+                      child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                       child: RaisedButton(
 >>>>>>> parent of 4e15e8e (update new version)
@@ -435,7 +443,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               Text(
                                 'Xóa',
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 style: Theme.of(context).textTheme.Title,
+=======
+                                style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                 style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -452,7 +464,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
 <<<<<<< HEAD
+<<<<<<< HEAD
                       child: TextButton(
+=======
+                      child: RaisedButton(
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                       child: RaisedButton(
 >>>>>>> parent of 4e15e8e (update new version)
@@ -472,7 +488,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               Text(
                                 'Lưu',
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 style: Theme.of(context).textTheme.Title,
+=======
+                                style: Theme.of(context).textTheme.title,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                                 style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)

@@ -68,7 +68,11 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
                           Title: Text(
                             "Đang sử dụng",
 <<<<<<< HEAD
+<<<<<<< HEAD
                             style: Theme.of(context).textTheme.headline4,
+=======
+                            style: Theme.of(context).textTheme.subhead,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                             style: Theme.of(context).textTheme.subhead,
 >>>>>>> parent of 4e15e8e (update new version)
@@ -83,7 +87,11 @@ class _CardChooseAccountState extends State<CardChooseAccount> {
                           Title: Text(
                             "Tài khoản tiết kiệm",
 <<<<<<< HEAD
+<<<<<<< HEAD
                             style: Theme.of(context).textTheme.headline4,
+=======
+                            style: Theme.of(context).textTheme.subhead,
+>>>>>>> parent of 4e15e8e (update new version)
 =======
                             style: Theme.of(context).textTheme.subhead,
 >>>>>>> parent of 4e15e8e (update new version)
