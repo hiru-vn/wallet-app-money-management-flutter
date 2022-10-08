@@ -10,14 +10,7 @@ class UserAccount {
   int balance = 0;
   Color themeColor = Colors.amber;
 
-  UserAccount({
-    this.id,
-    this.name,
-    this.mail,
-    this.password,
-    this.balance,
-    this.themeColor
-  });
+  UserAccount({id, name, mail, password, balance, themeColor});
 
   // getter
   Map<String, dynamic> toMap() {
@@ -30,6 +23,7 @@ class UserAccount {
       UserAccountTable().themeColor: themeColor,
     };
   }
+
   // setter
   UserAccount.fromMap(Map<String, dynamic> map) {
     id = map[UserAccountTable().id];

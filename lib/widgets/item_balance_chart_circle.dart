@@ -13,25 +13,20 @@ class BalanceChartCircle extends StatelessWidget {
       _seriesList,
       animate: animate,
       animationDuration: Duration(milliseconds: 500),
-      defaultRenderer: charts.ArcRendererConfig(
-        arcWidth: 60,
-        arcRendererDecorators: [
-          charts.ArcLabelDecorator(
-            labelPosition: charts.ArcLabelPosition.outside
-          )
-        ]
-      ),
+      defaultRenderer:
+          charts.ArcRendererConfig(arcWidth: 60, arcRendererDecorators: [
+        charts.ArcLabelDecorator(labelPosition: charts.ArcLabelPosition.outside)
+      ]),
       behaviors: [
         charts.DatumLegend(
-          position: charts.BehaviorPosition.bottom,
-          outsideJustification: charts.OutsideJustification.endDrawArea,
-          horizontalFirst: true,
-          cellPadding: EdgeInsets.only(right: 10,bottom: 10),
-          entryTextStyle: charts.TextStyleSpec(
-            color: charts.MaterialPalette.purple.shadeDefault,
-            fontSize: 12,
-          )
-        )
+            position: charts.BehaviorPosition.bottom,
+            outsideJustification: charts.OutsideJustification.endDrawArea,
+            horizontalFirst: true,
+            cellPadding: EdgeInsets.only(right: 10, bottom: 10),
+            entryTextStyle: charts.TextStyleSpec(
+              color: charts.MaterialPalette.purple.shadeDefault,
+              fontSize: 12,
+            ))
       ],
     );
   }
@@ -42,5 +37,6 @@ class BalanceDetail {
   int balance;
   Color color;
 
-  BalanceDetail(this.accountName, this.balance, {this.color = Colors.blueAccent});
+  BalanceDetail(this.accountName, this.balance,
+      {this.color = Colors.blueAccent});
 }

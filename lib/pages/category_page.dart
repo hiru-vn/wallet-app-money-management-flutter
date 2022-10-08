@@ -33,10 +33,6 @@ class _CategoryPageState extends State<CategoryPage> {
     var _bloc = CategoryBloc();
     _bloc.initData();
 
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
-
     return Scaffold(
         appBar: AppBar(
           title: Text('Chọn hạng mục'),
@@ -91,7 +87,7 @@ class _CategoryPageState extends State<CategoryPage> {
                           ),
                           child: TextField(
                             onChanged: (text) {
-                              this.setState(() {
+                              setState(() {
                                 _filter = text.trim();
                               });
                             },
@@ -110,8 +106,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         CardCategoryList(
                             'TẤT CẢ',
                             snapshot.data
-                                .where((item) =>
-                                    (item.name.contains(this._filter)))
+                                .where((item) => (item.name.contains(_filter)))
                                 .toList()),
                         SizedBox(
                           height: 15,
@@ -121,8 +116,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             snapshot.data
                                 .where((item) => (item.transactionType ==
                                     TransactionType.EXPENSE))
-                                .where((item) =>
-                                    (item.name.contains(this._filter)))
+                                .where((item) => (item.name.contains(_filter)))
                                 .toList()),
                         SizedBox(
                           height: 15,
@@ -132,8 +126,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             snapshot.data
                                 .where((item) => (item.transactionType ==
                                     TransactionType.INCOME))
-                                .where((item) =>
-                                    (item.name.contains(this._filter)))
+                                .where((item) => (item.name.contains(_filter)))
                                 .toList()),
                         SizedBox(
                           height: 15,

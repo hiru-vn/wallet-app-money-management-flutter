@@ -69,23 +69,19 @@ class _AddAccountPageState extends State<AddAccountPage> {
   Widget build(BuildContext context) {
     var _bloc = AccountBloc();
 
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
-
     void _submit() {
-      if (!this._formNameKey.currentState.validate()) {
+      if (!_formNameKey.currentState.validate()) {
         return;
       }
-      if (!this._formBalanceKey.currentState.validate()) {
+      if (!_formBalanceKey.currentState.validate()) {
         return;
       }
       Account account = Account(
           _nameController.text,
           currencyToInt(_balanceController.text),
-          AccountType.valueFromName(this._currentOption),
+          AccountType.valueFromName(_currentOption),
           Icons.account_balance_wallet,
-          this._imgUrl);
+          _imgUrl);
       _bloc.event.add(AddAccountEvent(account));
       Navigator.pop(context);
     }
@@ -171,7 +167,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                             child: SizedBox(
                               height: 38,
                               width: 38,
-                              child: Image.asset(this._imgUrl),
+                              child: Image.asset(_imgUrl),
                             ),
                           ),
                           IconButton(
@@ -223,6 +219,9 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
                     // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),

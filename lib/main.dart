@@ -69,9 +69,6 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: appTheme.theme.brightness,
       fontFamily: 'Quicksand',
-      colorScheme:
-          ColorScheme.fromSwatch(primarySwatch: appTheme.theme.primarySwatch)
-              .copyWith(secondary: appTheme.theme.accentColor),
     );
   }
 }

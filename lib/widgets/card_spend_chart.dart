@@ -31,9 +31,9 @@ class _CardSpendChartState extends State<CardSpendChart> {
   }
 
   _getTitle() {
-    String end = (this.selectedDate.year == DateTime.now().year)
+    String end = (selectedDate.year == DateTime.now().year)
         ? 'nay'
-        : this.selectedDate.year.toString();
+        : selectedDate.year.toString();
     return 'Chi tiêu năm ' + end;
   }
 
@@ -71,7 +71,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Tổng chi:',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -111,6 +111,9 @@ class _CardSpendChartState extends State<CardSpendChart> {
                           Text(_getTitle(),
                               style: Theme.of(context).textTheme.titleMedium),
                           TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[

@@ -24,6 +24,9 @@ class FlutterCircleImagePicker {
             ),
             actions: [
               TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
                 // padding: EdgeInsets.only(right: 20),
                 onPressed: () => Navigator.of(context).pop(),
                 child: closeChild,
@@ -130,7 +133,7 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
 //   static TextEditingController searchTextController =
 //        TextEditingController();
 
-//   SearchBar({this.searchHintText, Key key}) : super(key: key);
+//   SearchBar({searchHintText, Key key}) : super(key: key);
 
 //   @override
 //   _SearchBarState createState() => _SearchBarState();

@@ -15,7 +15,7 @@ import 'new_transaction_page.dart';
 class DrawerItem {
   String title;
   IconData icon;
-  DrawerItem(this.title, this.icon);
+  DrawerItem(title, icon);
 }
 
 class MainPage extends StatefulWidget {
@@ -78,10 +78,6 @@ class _MainPageState extends State<MainPage> {
       ));
       if (i == 3) drawerOptions.add(Divider());
     }
-
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(

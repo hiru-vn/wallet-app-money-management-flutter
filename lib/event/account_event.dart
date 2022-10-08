@@ -4,17 +4,17 @@ import 'package:wallet_exe/event/base_event.dart';
 class AddAccountEvent extends BaseEvent {
   Account account;
 
-  AddAccountEvent(this.account);
+  AddAccountEvent(account);
 }
 
 class DeleteAccountEvent extends BaseEvent {
   Account account;
 
-  DeleteAccountEvent(this.account);
+  DeleteAccountEvent(account);
 }
 
 class UpdateAccountEvent extends BaseEvent {
   Account account;
 
-  UpdateAccountEvent(this.account);
+  UpdateAccountEvent(account);
 }

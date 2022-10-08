@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/dao/transaction_table.dart';
 import 'package:wallet_exe/data/model/Transaction.dart';
@@ -62,8 +61,8 @@ class _CardbalanceState extends State<Cardbalance> {
                 return SizedBox(
                   height: 15,
                 );
-              final values = TransactionTable().getTotal(snapshot.data,
-                  DurationFilter.valueFromName(this._currentOption));
+              final values = TransactionTable().getTotal(
+                  snapshot.data, DurationFilter.valueFromName(_currentOption));
               final inCome = values[0];
               final outCome = values[1];
               var sum = inCome + outCome;
@@ -112,14 +111,12 @@ class _CardbalanceState extends State<Cardbalance> {
                                     children: <Widget>[
                                       Container(
                                         height: outComeHeight,
-                                        width: ScreenUtil.getInstance()
-                                            .setWidth(120),
+                                        width: 50,
                                         color: Colors.red,
                                       ),
                                       Container(
                                         height: inComeHeight,
-                                        width: ScreenUtil.getInstance()
-                                            .setWidth(120),
+                                        width: 50,
                                         color: Colors.green,
                                       ),
                                     ],

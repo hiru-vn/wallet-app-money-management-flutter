@@ -23,7 +23,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
     _bloc.initData();
 
     _submit() {
-      if (!this._formspendLimitKey.currentState.validate()) {
+      if (!_formspendLimitKey.currentState.validate()) {
         return;
       }
 
@@ -36,7 +36,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
     }
 
     _delete() {
-      if (!this._formspendLimitKey.currentState.validate()) {
+      if (!_formspendLimitKey.currentState.validate()) {
         return;
       }
 
@@ -124,7 +124,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 decoration: InputDecoration(
                                   suffixText: 'đ',
                                   suffixStyle:
-                                      Theme.of(context).textTheme.titleMedium,
+                                      Theme.of(context).textTheme.headline4,
                                   prefix: Icon(
                                     Icons.monetization_on,
                                     color:
@@ -222,6 +222,10 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5),
                                   child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                    ),
                                     // color: Theme.of(context).primaryColor,
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
@@ -253,6 +257,10 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5),
                                 child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                  ),
                                   // color: Theme.of(context).buttonColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),

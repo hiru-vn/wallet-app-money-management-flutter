@@ -13,20 +13,20 @@ class Account {
   String img;
 
   Account(
-      this.name,
-      //this.idAppAccount,
-      this.balance,
-      this.type,
-      this.icon,
-      this.img);
+      name,
+      //idAppAccount,
+      balance,
+      type,
+      icon,
+      img);
 
   Account.copyOf(Account copy) {
-    this.id = copy.id;
-    this.name = copy.name;
-    this.balance = copy.balance;
-    this.type = copy.type;
-    this.icon = copy.icon;
-    this.img = copy.img;
+    id = copy.id;
+    name = copy.name;
+    balance = copy.balance;
+    type = copy.type;
+    icon = copy.icon;
+    img = copy.img;
   }
 
   // getter

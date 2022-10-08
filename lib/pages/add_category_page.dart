@@ -66,7 +66,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   _submit(_bloc) {
-    if (!this._formNameKey.currentState.validate()) {
+    if (!_formNameKey.currentState.validate()) {
       return;
     }
     //add data
@@ -74,7 +74,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         _nameController.text,
         _iconData,
         Colors.blueAccent,
-        TransactionType.valueFromName(this._currentOption),
+        TransactionType.valueFromName(_currentOption),
         _descriptionController.text); //TO DO
     _bloc.event.add(AddCategoryEvent(category));
     Navigator.pop(context);
@@ -83,10 +83,6 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   @override
   Widget build(BuildContext context) {
     var _bloc = CategoryBloc();
-
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
     return Scaffold(
         appBar: AppBar(
           title: Text('Tạo hạng mục mới'),
@@ -167,6 +163,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             width: 10,
                           ),
                           TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
                             // color: Theme.of(context).accentColor,
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
@@ -199,7 +198,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
-                    // color: Theme.of(context).primaryColor,
+                    style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(

@@ -13,21 +13,15 @@ class Transaction {
   DateTime date;
   String description;
 
-  Transaction(
-    this.account,
-    this.category,
-    this.amount,
-    this.date,
-    this.description
-  );
+  Transaction(account, category, amount, date, description);
 
   Transaction.copyOf(Transaction copy) {
-    this.id = copy.id;
-    this.account = copy.account;
-    this.category = copy.category;
-    this.amount = copy.amount;
-    this.date = copy.date;
-    this.description = copy.description;
+    id = copy.id;
+    account = copy.account;
+    category = copy.category;
+    amount = copy.amount;
+    date = copy.date;
+    description = copy.description;
   }
 
   // getter
@@ -41,6 +35,7 @@ class Transaction {
       TransactionTable().idAccount: account.id
     };
   }
+
   // setter
   Transaction.fromMap(Map<String, dynamic> map) {
     id = map[TransactionTable().id];

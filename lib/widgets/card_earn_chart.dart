@@ -64,7 +64,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
               children: <Widget>[
                 Text(
                   'Tổng thu nhập:',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -104,6 +104,9 @@ class _CardEarnChartState extends State<CardEarnChart> {
                           Text('Thu nhập năm nay',
                               style: Theme.of(context).textTheme.titleMedium),
                           TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[

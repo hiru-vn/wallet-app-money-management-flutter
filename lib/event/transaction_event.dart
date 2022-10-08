@@ -4,17 +4,17 @@ import 'package:wallet_exe/event/base_event.dart';
 class AddTransactionEvent extends BaseEvent {
   Transaction transaction;
 
-  AddTransactionEvent(this.transaction);
+  AddTransactionEvent(transaction);
 }
 
 class DeleteTransactionEvent extends BaseEvent {
   Transaction transaction;
 
-  DeleteTransactionEvent(this.transaction);
+  DeleteTransactionEvent(transaction);
 }
 
 class UpdateTransactionEvent extends BaseEvent {
   Transaction transaction;
 
-  UpdateTransactionEvent(this.transaction);
+  UpdateTransactionEvent(transaction);
 }

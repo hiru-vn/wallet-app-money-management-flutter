@@ -1,7 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
-
 class SpendChart extends StatelessWidget {
   final List<charts.Series> _seriesList;
   final bool animate;

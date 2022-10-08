@@ -23,11 +23,10 @@ class ItemTransaction extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Icon(_transaction.category.icon),
       ),
-      title:
-          Text(this._transaction.category.name, style: TextStyle(fontSize: 18)),
-      trailing: Text(this._transaction.amount.toString(),
+      title: Text(_transaction.category.name, style: TextStyle(fontSize: 18)),
+      trailing: Text(_transaction.amount.toString(),
           style: TextStyle(
-              color: this._transaction.category.transactionType ==
+              color: _transaction.category.transactionType ==
                       TransactionType.INCOME
                   ? Colors.green
                   : Colors.red,

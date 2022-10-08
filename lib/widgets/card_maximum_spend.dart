@@ -77,14 +77,14 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
                             style: Theme.of(context).textTheme.titleMedium),
                         IconButton(
                           icon: Icon(Icons.settings),
-                          onPressed: this._chooseSpendLimit,
+                          onPressed: _chooseSpendLimit,
                         ),
                       ],
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    MaximunSpendItem(snapshot.data[this._currentIndex]),
+                    MaximunSpendItem(snapshot.data[_currentIndex]),
                   ],
                 ));
           default:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/bloc/transaction_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
@@ -74,8 +73,8 @@ class _TransactionPageState extends State<TransactionPage> {
   }
 
   _getCurrencyColor() {
-    if (this._category == null) return Colors.red;
-    return (this._category.transactionType == TransactionType.EXPENSE)
+    if (_category == null) return Colors.red;
+    return (_category.transactionType == TransactionType.EXPENSE)
         ? Colors.red
         : Colors.green;
   }
@@ -87,12 +86,8 @@ class _TransactionPageState extends State<TransactionPage> {
     _bloc.initData();
     _blocAccount.initData();
 
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
-
     void _submit() {
-      if (!this._formBalanceKey.currentState.validate()) {
+      if (!_formBalanceKey.currentState.validate()) {
         return;
       }
       if (_account == null) return;
@@ -101,19 +96,19 @@ class _TransactionPageState extends State<TransactionPage> {
       DateTime saveTime = DateTime(_selectedDate.year, _selectedDate.month,
           _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
       Transaction transaction = Transaction(
-          this._account,
-          this._category,
-          currencyToInt(this._balanceController.text),
+          _account,
+          _category,
+          currencyToInt(_balanceController.text),
           saveTime,
-          this._descriptionController.text);
+          _descriptionController.text);
       _bloc.event.add(AddTransactionEvent(transaction));
 
-      if (this._category.transactionType == TransactionType.EXPENSE)
-        this._account.balance -= currencyToInt(this._balanceController.text);
-      if (this._category.transactionType == TransactionType.INCOME)
-        this._account.balance += currencyToInt(this._balanceController.text);
+      if (_category.transactionType == TransactionType.EXPENSE)
+        _account.balance -= currencyToInt(_balanceController.text);
+      if (_category.transactionType == TransactionType.INCOME)
+        _account.balance += currencyToInt(_balanceController.text);
 
-      _blocAccount.event.add(UpdateAccountEvent(this._account));
+      _blocAccount.event.add(UpdateAccountEvent(_account));
 
       Navigator.pop(context);
     }
@@ -176,7 +171,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             decoration: InputDecoration(
                               suffixText: 'đ',
                               suffixStyle:
-                                  Theme.of(context).textTheme.headline1,
+                                  Theme.of(context).textTheme.headline4,
                               prefix: Icon(
                                 Icons.monetization_on,
                                 color: Theme.of(context).colorScheme.secondary,
@@ -273,7 +268,7 @@ class _TransactionPageState extends State<TransactionPage> {
                           Expanded(
                             flex: 1,
                             child: TextField(
-                              controller: this._descriptionController,
+                              controller: _descriptionController,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -396,7 +391,10 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       Text(
                         'Ghi',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            .copyWith(color: Theme.of(context).primaryColor),
                       ),
                     ],
                   ),

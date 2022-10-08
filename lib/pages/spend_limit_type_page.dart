@@ -4,7 +4,7 @@ import 'package:wallet_exe/enums/spend_limit_type.dart';
 class SpendLimitTypePage extends StatelessWidget {
   SpendLimitType _type;
 
-  SpendLimitTypePage(this._type);
+  SpendLimitTypePage(_type);
 
   @override
   Widget build(BuildContext context) {

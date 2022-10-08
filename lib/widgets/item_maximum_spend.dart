@@ -167,8 +167,7 @@ class MaximunSpendItem extends StatelessWidget {
     void _nav() {
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => SpendLimitPage(this._spendLimit)),
+        MaterialPageRoute(builder: (context) => SpendLimitPage(_spendLimit)),
       );
     }
 
@@ -198,7 +197,7 @@ class MaximunSpendItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(this._spendLimit.type.name,
+                          Text(_spendLimit.type.name,
                               style: Theme.of(context).textTheme.titleMedium),
                           Text(_getTimelineString()),
                         ],
@@ -213,7 +212,7 @@ class MaximunSpendItem extends StatelessWidget {
                           Text(
                               textToCurrency(_spendLimit.amount.toString()) +
                                   ' đ',
-                              style: Theme.of(context).textTheme.titleMedium),
+                              style: Theme.of(context).textTheme.headline4),
                         ],
                       ),
                     )
@@ -256,9 +255,9 @@ class MaximunSpendItem extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: LinearProgressIndicator(
                   backgroundColor: Colors.black38,
-                  value: snapshot.data > this._spendLimit.amount
+                  value: snapshot.data > _spendLimit.amount
                       ? 1
-                      : snapshot.data / this._spendLimit.amount,
+                      : snapshot.data / _spendLimit.amount,
                 ),
               ),
               SizedBox(
@@ -269,7 +268,7 @@ class MaximunSpendItem extends StatelessWidget {
                 children: <Widget>[
                   Text('Còn ' + _getDaysLeft() + ' ngày'),
                   Text(textToCurrency(
-                      (this._spendLimit.amount - snapshot.data).toString())),
+                      (_spendLimit.amount - snapshot.data).toString())),
                 ],
               ),
             ],

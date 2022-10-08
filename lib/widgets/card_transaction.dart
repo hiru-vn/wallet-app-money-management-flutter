@@ -7,7 +7,7 @@ class CardTransaction extends StatelessWidget {
   List<Transaction> _list = [];
   DateTime _date;
   int _totalDay = 0;
-  CardTransaction(this._list, this._date);
+  CardTransaction(_list, _date);
 
   List<Widget> _createRenderItem() {
     List<Widget> listItem = [];
@@ -32,11 +32,11 @@ class CardTransaction extends StatelessWidget {
   }
 
   String _getDate() {
-    return this._date.day.toString() +
+    return _date.day.toString() +
         "/" +
-        this._date.month.toString() +
+        _date.month.toString() +
         "/" +
-        this._date.year.toString();
+        _date.year.toString();
   }
 
   bool checkEqualDate(DateTime date1, DateTime date2) {

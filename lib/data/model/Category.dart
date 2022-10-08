@@ -13,20 +13,20 @@ class Category {
   String description;
 
   Category(
-    this.name,
-    this.icon,
-    this.color,
-    this.transactionType,
-    this.description,
+    name,
+    icon,
+    color,
+    transactionType,
+    description,
   );
 
   Category.copyOf(Category copy) {
-    this.id = copy.id;
-    this.name = copy.name;
-    this.icon = copy.icon;
-    this.color = copy.color;
-    this.transactionType = copy.transactionType;
-    this.description = copy.description;
+    id = copy.id;
+    name = copy.name;
+    icon = copy.icon;
+    color = copy.color;
+    transactionType = copy.transactionType;
+    description = copy.description;
   }
 
   // getter
@@ -37,9 +37,10 @@ class Category {
       CategoryTable().name: name,
       CategoryTable().type: transactionType.value,
       CategoryTable().icon: icon.codePoint.toString(),
-      CategoryTable().description : description,
+      CategoryTable().description: description,
     };
   }
+
   // setter
   Category.fromMap(Map<String, dynamic> map) {
     id = map[CategoryTable().id];

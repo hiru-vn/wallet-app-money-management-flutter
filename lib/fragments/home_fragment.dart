@@ -49,7 +49,7 @@ class _HomeFragmentState extends State<HomeFragment> {
               padding: EdgeInsets.all(18.0),
               child: Container(
                 width: double.infinity,
-                height: ScreenUtil.getInstance().setHeight(170),
+                height: 70,
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.blueGrey

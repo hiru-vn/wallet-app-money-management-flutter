@@ -53,15 +53,15 @@ class _TransactionFragmentState extends State<TransactionFragment> {
           list.where((item) => (item.account.name == _currentOption)).toList();
 
     // if user find day
-    if (this.selectedDate.day != DateTime.now().day ||
-        this.selectedDate.month != DateTime.now().month ||
-        this.selectedDate.year != DateTime.now().year) {
+    if (selectedDate.day != DateTime.now().day ||
+        selectedDate.month != DateTime.now().month ||
+        selectedDate.year != DateTime.now().year) {
       filter = filter
           .where((item) => (item.date.year == selectedDate.year &&
               item.date.month == selectedDate.month &&
               item.date.day == selectedDate.day))
           .toList();
-      result.add(CardTransaction(filter, this.selectedDate));
+      result.add(CardTransaction(filter, selectedDate));
       return result;
     }
 
