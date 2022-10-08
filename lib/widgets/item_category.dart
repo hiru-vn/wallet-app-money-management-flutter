@@ -15,7 +15,7 @@ class ItemCategory extends StatelessWidget {
       key: Key(this._category.id.toString()),
       onDismissed: (direction) {
         bloc.event.add(DeleteCategoryEvent(this._category));
-        Scaffold.of(context)
+        ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("đã xóa danh mục")));
       },
       direction: DismissDirection.endToStart,
@@ -34,7 +34,7 @@ class ItemCategory extends StatelessWidget {
           ])),
       child: ListTile(
         leading: Icon(_category.icon),
-        Title: Text(_category.name),
+        title: Text(_category.name),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
           Navigator.pop(

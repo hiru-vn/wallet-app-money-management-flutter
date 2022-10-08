@@ -11,7 +11,7 @@ class BalanceDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        Title: Text('Số dư tài khoản'),
+        title: Text('Số dư tài khoản'),
       ),
       body: Container(
         width: double.infinity,
@@ -43,7 +43,7 @@ class BalanceDetailPage extends StatelessWidget {
                   ),
                   Text(
                     'Các tài khoản',
-                    style: Theme.of(context).textTheme.TitleMedium,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   SizedBox(
                     height: 15,
@@ -80,7 +80,7 @@ class BalanceDetailPage extends StatelessWidget {
       Colors.black54,
     ];
 
-    List<BalanceDetail> data = List<BalanceDetail>();
+    List<BalanceDetail> data = [];
     BalanceDetail last = BalanceDetail("khác", 0);
     for (int i = 0; i < list.length; i++) {
       if (data.length < 6) {

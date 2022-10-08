@@ -45,8 +45,6 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
         imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        Title: Text('Chọn ảnh tài khoản',
-            style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
           textScaleFactor: 1.25,
@@ -100,7 +98,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
 
     return Scaffold(
       appBar: AppBar(
-        Title: Text(this._account.name),
+        title: Text(this._account.name),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -226,7 +224,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextButton(
-                  color: Theme.of(context).primaryColor,
+                  // color: Theme.of(context).primaryColor,
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Row(
@@ -241,7 +239,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                         ),
                         Text(
                           'Lưu',
-                          style: Theme.of(context).textTheme.Title,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     ),

@@ -1,24 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class CurrencyTextFormatter extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue Value) {
-    if (Value.text.length == 0) {
-      return Value.copyWith(text: '');
-    } else if (Value.text.compareTo(oldValue.text) != 0) {
-      int selectionIndexFromTheRight = Value.text.length - Value.selection.end;
+      TextEditingValue oldValue, TextEditingValue value) {
+    if (value.text.length == 0) {
+      return value.copyWith(text: '');
+    } else if (value.text.compareTo(oldValue.text) != 0) {
+      int selectionIndexFromTheRight = value.text.length - value.selection.end;
       final f = NumberFormat("#,###");
-      int num = int.parse(Value.text.replaceAll(f.symbols.GROUP_SEP, ''));
-      final String = f.format(num);
+      int num = int.parse(value.text.replaceAll(f.symbols.GROUP_SEP, ''));
+      final _string = f.format(num);
       return TextEditingValue(
-        text: String,
+        text: _string,
         selection: TextSelection.collapsed(
-            offset: String.length - selectionIndexFromTheRight),
+            offset: _string.length - selectionIndexFromTheRight),
       );
     } else {
-      return Value;
+      return value;
     }
   }
 }

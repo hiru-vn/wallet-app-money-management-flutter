@@ -4,9 +4,9 @@ import 'package:wallet_exe/widgets/item_category.dart';
 
 class CardCategoryList extends StatelessWidget {
   final List<Category> _categories;
-  final String _Title;
+  final String _title;
 
-  const CardCategoryList(this._Title, this._categories);
+  const CardCategoryList(this._title, this._categories);
 
   List<Widget> createListCategory() {
     List<Widget> list = [];
@@ -38,7 +38,7 @@ class CardCategoryList extends StatelessWidget {
         ),
         child: _categories.length > 0
             ? ExpansionTile(
-                Title: Text(_Title,
+                title: Text(_title,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -47,7 +47,7 @@ class CardCategoryList extends StatelessWidget {
                 children: createListCategory(),
               )
             : ExpansionTile(
-                Title: Text(_Title,
+                title: Text(_title,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,

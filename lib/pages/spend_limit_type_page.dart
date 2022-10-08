@@ -19,7 +19,7 @@ class SpendLimitTypePage extends StatelessWidget {
         list.add(ListTile(
           onTap: () => _submit(items[i]),
           leading: Icon(Icons.timelapse),
-          Title: Text(items[i].name),
+          title: Text(items[i].name),
           trailing: Icon(Icons.keyboard_arrow_right),
         ));
         if (i != items.length - 1) {
@@ -31,7 +31,7 @@ class SpendLimitTypePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        Title: Text('Loại hạn mức'),
+        title: Text('Loại hạn mức'),
         centerTitle: true,
       ),
       body: Container(

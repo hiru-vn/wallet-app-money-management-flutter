@@ -68,7 +68,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
 
     return Scaffold(
         appBar: AppBar(
-          Title: Text('Sửa hạng mục'),
+          title: Text('Sửa hạng mục'),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -145,7 +145,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
@@ -160,7 +160,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.Title,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
                       ),

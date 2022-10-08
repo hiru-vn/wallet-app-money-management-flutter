@@ -4,7 +4,7 @@ import 'package:wallet_exe/enums/transaction_type.dart';
 import 'package:wallet_exe/widgets/item_transaction.dart';
 
 class CardTransaction extends StatelessWidget {
-  List<Transaction> _list = List<Transaction>();
+  List<Transaction> _list = [];
   DateTime _date;
   int _totalDay = 0;
   CardTransaction(this._list, this._date);
@@ -68,7 +68,7 @@ class CardTransaction extends StatelessWidget {
         Expanded(
           flex: 5,
           child: ListTile(
-            Title: Text("Tổng:",
+            title: Text("Tổng:",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             trailing: Text(_totalDay.abs().toString(),
                 style: TextStyle(
@@ -100,16 +100,16 @@ class CardTransaction extends StatelessWidget {
         ),
         child: ExpansionTile(
           initiallyExpanded: true,
-          Title: Column(
+          title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 _getTitle(),
-                style: Theme.of(context).textTheme.Title,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               Text(
                 _getDate(),
-                style: Theme.of(context).textTheme.subTitle,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ],
           ),

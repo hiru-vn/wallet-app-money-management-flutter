@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
               print(snapshot.data);
             }
             return MaterialApp(
-              Title: 'Wallet exe',
+              title: 'Wallet exe',
               theme: snapshot.hasData
                   ? _buildThemeData(snapshot.data)
                   : ThemeData(),
@@ -68,9 +68,10 @@ class MyApp extends StatelessWidget {
   _buildThemeData(AppTheme appTheme) {
     return ThemeData(
       brightness: appTheme.theme.brightness,
-      primarySwatch: appTheme.theme.primarySwatch,
-      accentColor: appTheme.theme.accentColor,
       fontFamily: 'Quicksand',
+      colorScheme:
+          ColorScheme.fromSwatch(primarySwatch: appTheme.theme.primarySwatch)
+              .copyWith(secondary: appTheme.theme.accentColor),
     );
   }
 }

@@ -38,7 +38,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
   }
 
   List<CategorySpend> _applyfilter(List<CategorySpend> list) {
-    List<CategorySpend> result = List<CategorySpend>();
+    List<CategorySpend> result = [];
     for (int i = 0; i < list.length; i++) {
       //if (list[i].)
     }
@@ -77,7 +77,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Biểu đồ chi',
-                        style: Theme.of(context).textTheme.Title),
+                        style: Theme.of(context).textTheme.titleMedium),
                     DropdownButton(
                       value: _currentOption,
                       items: _dropDownMenuItems,
@@ -126,7 +126,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
       Colors.black54,
     ];
 
-    List<CategorySpend> data = List<CategorySpend>();
+    List<CategorySpend> data = [];
     CategorySpend last = CategorySpend("khác", 0);
     for (int i = 0; i < list.length; i++) {
       if (data.length < 6) {

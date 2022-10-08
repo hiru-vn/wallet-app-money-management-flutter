@@ -4,7 +4,6 @@ class FlutterCircleImagePicker {
   static Future<String> showCircleImagePicker(BuildContext context,
       {double imageSize,
       ShapeBorder imagePickerShape,
-      Widget Title,
       Widget closeChild,
       String searchHintText,
       String noResultsText}) async {
@@ -13,7 +12,7 @@ class FlutterCircleImagePicker {
       builder: (BuildContext context) {
         return AlertDialog(
             shape: imagePickerShape,
-            Title: Title,
+            title: Text('Show image'),
             content: Container(
               constraints: BoxConstraints(maxHeight: 350, minWidth: 450),
               child: Column(children: <Widget>[
@@ -24,8 +23,8 @@ class FlutterCircleImagePicker {
               ]),
             ),
             actions: [
-              FlatButton(
-                padding: EdgeInsets.only(right: 20),
+              TextButton(
+                // padding: EdgeInsets.only(right: 20),
                 onPressed: () => Navigator.of(context).pop(),
                 child: closeChild,
               )

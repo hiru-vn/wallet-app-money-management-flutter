@@ -147,7 +147,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 children: <Widget>[
                   Text(
                     'Số tiền',
-                    style: Theme.of(context).textTheme.t,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Row(
                     children: <Widget>[
@@ -175,10 +175,11 @@ class _TransactionPageState extends State<TransactionPage> {
                             autofocus: true,
                             decoration: InputDecoration(
                               suffixText: 'đ',
-                              suffixStyle: Theme.of(context).textTheme.headline,
+                              suffixStyle:
+                                  Theme.of(context).textTheme.headline1,
                               prefix: Icon(
                                 Icons.monetization_on,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).colorScheme.secondary,
                                 size: 26,
                               ),
                               hintText: '0',
@@ -380,7 +381,7 @@ class _TransactionPageState extends State<TransactionPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: TextButton(
-                color: Theme.of(context).primaryColor,
+                // color: Theme.of(context).primaryColor,
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Row(
@@ -395,7 +396,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       Text(
                         'Ghi',
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),

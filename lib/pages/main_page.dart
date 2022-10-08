@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/fragments/account_fragment.dart';
@@ -11,12 +9,13 @@ import 'package:wallet_exe/fragments/home_fragment.dart';
 import 'package:wallet_exe/fragments/setting_fragment.dart';
 import 'package:wallet_exe/fragments/transaction_fragment.dart';
 import 'package:wallet_exe/pages/add_account_page.dart';
-import 'package:wallet_exe/pages/_transaction_page.dart';
+
+import 'new_transaction_page.dart';
 
 class DrawerItem {
-  String Title;
+  String title;
   IconData icon;
-  DrawerItem(this.Title, this.icon);
+  DrawerItem(this.title, this.icon);
 }
 
 class MainPage extends StatefulWidget {
@@ -73,7 +72,7 @@ class _MainPageState extends State<MainPage> {
       var d = widget.drawerItems[i];
       drawerOptions.add(ListTile(
         leading: Icon(d.icon),
-        title: Text(d.Title),
+        title: Text(d.title),
         selected: i == _selectedDrawerIndex,
         onTap: () => _onSelectItem(i),
       ));
@@ -99,7 +98,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(
-          title: Text(widget.drawerItems[_selectedDrawerIndex].Title),
+          title: Text(widget.drawerItems[_selectedDrawerIndex].title),
           actions: _selectedDrawerIndex == 2
               ? <Widget>[
                   IconButton(

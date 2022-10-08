@@ -71,7 +71,7 @@ class _CardListAccountState extends State<CardListAccount> {
                         Container(
                           width: double.infinity,
                           child: ExpansionTile(
-                            Title: Text(
+                            title: Text(
                               "Đang sử dụng (" +
                                   AccountTable.getTotalByType(
                                       snapshot.data, AccountType.SAVING) +
@@ -88,7 +88,7 @@ class _CardListAccountState extends State<CardListAccount> {
                         Container(
                           width: double.infinity,
                           child: ExpansionTile(
-                            Title: Text(
+                            title: Text(
                               "Tài khoản tiết kiệm (" +
                                   AccountTable.getTotalByType(
                                       snapshot.data, AccountType.SAVING) +

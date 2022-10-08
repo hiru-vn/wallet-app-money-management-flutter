@@ -37,8 +37,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
         imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        Title: Text('Chọn ảnh tài khoản',
-            style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
           textScaleFactor: 1.25,
@@ -94,7 +92,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
 
     return Scaffold(
         appBar: AppBar(
-          Title: Text('Tạo tài khoản mới'),
+          title: Text('Tạo tài khoản mới'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -240,7 +238,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.TitleMedium,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
                       ),

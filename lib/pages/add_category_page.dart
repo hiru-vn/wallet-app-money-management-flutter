@@ -36,7 +36,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         iconSize: 40,
         iconPickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        Title: Text('Chọn icon', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Chọn icon', style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
           textScaleFactor: 1.25,
@@ -89,7 +89,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
     return Scaffold(
         appBar: AppBar(
-          Title: Text('Tạo hạng mục mới'),
+          title: Text('Tạo hạng mục mới'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -170,7 +170,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             // color: Theme.of(context).accentColor,
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
-                                style: Theme.of(context).textTheme.subTitle1),
+                                style: Theme.of(context).textTheme.subtitle1),
                           ),
                         ],
                       ),
@@ -214,7 +214,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-                            style: Theme.of(context).textTheme.TitleMedium,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
                       ),

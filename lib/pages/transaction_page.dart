@@ -153,7 +153,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                               Icon(Icons.create, size: 20),
                             ],
                           ),
-                          color: Theme.of(context).accentColor,
+                          // color: Theme.of(context).accentColor,
                         ),
                       ],
                     ),

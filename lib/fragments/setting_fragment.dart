@@ -32,7 +32,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                   stream: _bloc.outTheme,
                   builder: (context, AsyncSnapshot<AppTheme> snapshot) {
                     return ListTile(
-                      Title: Text('Thiết đặt màu sắc:'),
+                      title: Text('Thiết đặt màu sắc:'),
                       trailing: DropdownButton<AppTheme>(
                         hint: Text("Amber"),
                         value: snapshot.data,
@@ -48,7 +48,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                   },
                 ),
                 ListTile(
-                  Title: Text('Đơn vị tiền tệ:'),
+                  title: Text('Đơn vị tiền tệ:'),
                   trailing: DropdownButton<Currency>(
                     //hint: Text(Currency.VIETNAM.name),
                     value: _currency,
@@ -67,7 +67,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                   ),
                 ),
                 ListTile(
-                  Title: Text('Ngôn ngữ:'),
+                  title: Text('Ngôn ngữ:'),
                   trailing: DropdownButton<Language>(
                     //hint: Text(Currency.VIETNAM.name),
                     value: _language,
@@ -95,13 +95,13 @@ class _SettingFragmentState extends State<SettingFragment> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: TextButton.icon(
-                          color: Theme.of(context).primaryColor,
+                          // color: Theme.of(context).primaryColor,
                           icon: Icon(Icons.cloud_upload),
                           label: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Đồng bộ dữ liệu',
-                              style: Theme.of(context).textTheme.Title,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
                           onPressed: _submit,
@@ -120,13 +120,13 @@ class _SettingFragmentState extends State<SettingFragment> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
                         child: TextButton.icon(
-                          color: Colors.redAccent,
+                          // color: Colors.redAccent,
                           icon: Icon(Icons.clear_all),
                           label: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               'Xóa toàn bộ dữ liệu',
-                              style: Theme.of(context).textTheme.Title,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
                           onPressed: _submit,

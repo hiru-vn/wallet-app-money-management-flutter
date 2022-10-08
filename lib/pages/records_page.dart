@@ -16,8 +16,8 @@ class RecordsPage extends StatelessWidget {
     for (int i = 0; i < items.length; i++) {
       list.add(ListTile(
         leading: Icon(items[i].category.icon),
-        Title: Text(items[i].category.name),
-        subTitle: Text(items[i].date.day.toString() +
+        title: Text(items[i].category.name),
+        subtitle: Text(items[i].date.day.toString() +
             '/' +
             items[i].date.month.toString()),
         trailing: Text(
@@ -49,7 +49,7 @@ class RecordsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          Title: Text('Ghi chép gần đây'),
+          title: Text('Ghi chép gần đây'),
         ),
         body: StreamBuilder<List<Transaction>>(
             stream: bloc.transactionListStream,

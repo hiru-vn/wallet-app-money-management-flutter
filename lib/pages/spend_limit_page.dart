@@ -61,7 +61,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
 
     return Scaffold(
         appBar: AppBar(
-          Title: Text('Sửa hạn mức'),
+          title: Text('Sửa hạn mức'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -95,7 +95,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                     children: <Widget>[
                       Text(
                         'Hạn mức',
-                        style: Theme.of(context).textTheme.Title,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Row(
                         children: <Widget>[
@@ -124,10 +124,11 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 decoration: InputDecoration(
                                   suffixText: 'đ',
                                   suffixStyle:
-                                      Theme.of(context).textTheme.headline,
+                                      Theme.of(context).textTheme.titleMedium,
                                   prefix: Icon(
                                     Icons.monetization_on,
-                                    color: Theme.of(context).accentColor,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     size: 26,
                                   ),
                                   hintText: '0',
@@ -221,7 +222,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5),
                                   child: TextButton(
-                                    color: Theme.of(context).primaryColor,
+                                    // color: Theme.of(context).primaryColor,
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Row(
@@ -239,7 +240,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                             'Lưu',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .Title,
+                                                .titleMedium,
                                           ),
                                         ],
                                       ),
@@ -252,7 +253,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5),
                                 child: TextButton(
-                                  color: Theme.of(context).buttonColor,
+                                  // color: Theme.of(context).buttonColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),
                                     child: Row(
@@ -268,8 +269,9 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                         ),
                                         Text(
                                           'Xóa',
-                                          style:
-                                              Theme.of(context).textTheme.Title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
                                         ),
                                       ],
                                     ),
@@ -295,7 +297,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 }

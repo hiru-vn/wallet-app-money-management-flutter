@@ -39,7 +39,7 @@ class _CategoryPageState extends State<CategoryPage> {
 
     return Scaffold(
         appBar: AppBar(
-          Title: Text('Chọn hạng mục'),
+          title: Text('Chọn hạng mục'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(

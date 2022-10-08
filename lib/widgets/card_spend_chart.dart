@@ -56,7 +56,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Trung bình tháng:',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(textToCurrency(
                         (totalYear / DateTime.now().month).round().toString()) +
@@ -71,7 +71,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Tổng chi:',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -109,7 +109,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(_getTitle(),
-                              style: Theme.of(context).textTheme.Title),
+                              style: Theme.of(context).textTheme.titleMedium),
                           TextButton(
                             onPressed: () => _selectDate(context),
                             child: Row(
@@ -121,7 +121,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                                 Icon(Icons.create, size: 20),
                               ],
                             ),
-                            color: Theme.of(context).accentColor,
+                            // color: Theme.of(context).accentColor,
                           ),
                         ],
                       ),
@@ -166,7 +166,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
   }
 
   List<charts.Series<MoneySpend, String>> _getData(List<Transaction> list) {
-    List<int> totalByMonth = List<int>();
+    List<int> totalByMonth = [];
     int totalMonth = 0;
     int flagMonth = 1;
     list.sort((a, b) {

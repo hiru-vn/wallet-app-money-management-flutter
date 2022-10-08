@@ -24,13 +24,15 @@ class TransactionTable {
         '$description TEXT,'
         '$idCategory INTEGER NOT NULL,'
         '$idAccount INTEGER NOT NULL)');
-    
-    db.execute('INSERT INTO $tableName VALUES(null,"2007-01-01 10:00:00",0,"",1,1)');
+
+    db.execute(
+        'INSERT INTO $tableName VALUES(null,"2007-01-01 10:00:00",0,"",1,1)');
   }
 
   Future<List<trans.Transaction>> getAll() async {
     final Database db = DatabaseHelper.instance.database;
-    final List<Map<String, dynamic>> maps = await db.rawQuery( // watch out!! this could be buggy, more than one column name id
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+        // watch out!! this could be buggy, more than one column name id
         'SELECT * from transaction_table, account , category where transaction_table.id_account = account.id_account and category.id = transaction_table.id_category');
 
     return List.generate(maps.length, (index) {
@@ -40,8 +42,8 @@ class TransactionTable {
 
   //get income, outcome per duration
   List<int> getTotal(
-    List<trans.Transaction> list, DurationFilter durationFilter) {
-    List<int> result = List<int>();
+      List<trans.Transaction> list, DurationFilter durationFilter) {
+    List<int> result = [];
     int income = 0;
     int outcome = 0;
     for (int i = 0; i < list.length; i++) {
@@ -83,10 +85,12 @@ class TransactionTable {
 
   Future<void> update(trans.Transaction transaction) async {
     final Database db = DatabaseHelper.instance.database;
-    await db.update(tableName, transaction.toMap() , where: '$id = ?', whereArgs: [transaction.id]);
+    await db.update(tableName, transaction.toMap(),
+        where: '$id = ?', whereArgs: [transaction.id]);
   }
 
-  Future<List<CategorySpend>> getAmountSpendPerCategory(TransactionType type) async {
+  Future<List<CategorySpend>> getAmountSpendPerCategory(
+      TransactionType type) async {
     final Database db = DatabaseHelper.instance.database;
     int typeid = type.value;
     final List<Map<String, dynamic>> maps = await db.rawQuery(
@@ -98,18 +102,22 @@ class TransactionTable {
 
   // return the amount that would reach to spend limit
   Future<int> getMoneySpendByDuration(SpendLimitType type) async {
-    int result=0;
+    int result = 0;
     final Database db = DatabaseHelper.instance.database;
-    List<Map<String, dynamic>> maps = await db.rawQuery('SELECT * from account, transaction_table , category where transaction_table.id_account = account.id_account and category.id = transaction_table.id_category');
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        'SELECT * from account, transaction_table , category where transaction_table.id_account = account.id_account and category.id = transaction_table.id_category');
     List<trans.Transaction> list = List.generate(maps.length, (index) {
       return trans.Transaction.fromMap(maps[index]);
     });
-    list=list.where((item) => item.category.transactionType == TransactionType.EXPENSE).toList();
+    list = list
+        .where(
+            (item) => item.category.transactionType == TransactionType.EXPENSE)
+        .toList();
 
     if (type == SpendLimitType.MONTHLY) {
-      for (int i =0; i< list.length; i++) {
-        if (list[i].date.month == DateTime.now().month){
-          result+=list[i].amount;
+      for (int i = 0; i < list.length; i++) {
+        if (list[i].date.month == DateTime.now().month) {
+          result += list[i].amount;
         }
       }
     }
