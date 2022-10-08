@@ -128,7 +128,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('(Đơn vị: VND)'),
+                      Text('(Đơn vị: Nghìn)'),
                       Container(
                         height: 200,
                         width: double.infinity,
