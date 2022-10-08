@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 class CurrencyTextFormatter extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
 <<<<<<< HEAD
-<<<<<<< HEAD
       TextEditingValue oldValue, TextEditingValue Value) {
     if (Value.text.length == 0) {
       return Value.copyWith(text: '');
@@ -19,8 +18,6 @@ class CurrencyTextFormatter extends TextInputFormatter {
         selection: TextSelection.collapsed(
             offset: String.length - selectionIndexFromTheRight),
 =======
-=======
->>>>>>> parent of 4e15e8e (update new version)
     TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.length == 0) {
       return newValue.copyWith(text: '');
@@ -32,9 +29,6 @@ class CurrencyTextFormatter extends TextInputFormatter {
       return new TextEditingValue(
         text: newString,
         selection: TextSelection.collapsed(offset: newString.length - selectionIndexFromTheRight),
-<<<<<<< HEAD
->>>>>>> parent of 4e15e8e (update new version)
-=======
 >>>>>>> parent of 4e15e8e (update new version)
       );
     } else {

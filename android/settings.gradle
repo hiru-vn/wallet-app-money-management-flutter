@@ -3,13 +3,8 @@ include ':app'
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 def plugins =  Properties()
 def pluginsFile =  File(flutterProjectRoot.toFile(), '.flutter-plugins')
-=======
-def plugins = new Properties()
-def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')
->>>>>>> parent of 4e15e8e (update new version)
 =======
 def plugins = new Properties()
 def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')

@@ -242,11 +242,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                           Text(
                             'Tạo',
 <<<<<<< HEAD
-<<<<<<< HEAD
                             style: Theme.of(context).textTheme.TitleMedium,
-=======
-                            style: Theme.of(context).textTheme.title,
->>>>>>> parent of 4e15e8e (update new version)
 =======
                             style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)

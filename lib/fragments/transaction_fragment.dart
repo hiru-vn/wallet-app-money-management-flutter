@@ -113,11 +113,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                             Text(
                               'Tài khoản:',
 <<<<<<< HEAD
-<<<<<<< HEAD
                               style: Theme.of(context).textTheme.headline4,
-=======
-                              style: Theme.of(context).textTheme.subhead,
->>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.subhead,
 >>>>>>> parent of 4e15e8e (update new version)

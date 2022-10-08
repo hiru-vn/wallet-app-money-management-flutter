@@ -49,11 +49,8 @@ class MessageLabel extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor,
 <<<<<<< HEAD
-<<<<<<< HEAD
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
 =======
-=======
->>>>>>> parent of 4e15e8e (update new version)
               borderRadius: BorderRadius.all(new Radius.circular(5.0)),
 >>>>>>> parent of 4e15e8e (update new version)
             ),

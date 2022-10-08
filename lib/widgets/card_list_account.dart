@@ -51,7 +51,6 @@ class _CardListAccountState extends State<CardListAccount> {
               case ConnectionState.none:
 
 <<<<<<< HEAD
-<<<<<<< HEAD
                 case ConnectionState.active:
                   return Container(
                     width: double.infinity,
@@ -86,8 +85,6 @@ class _CardListAccountState extends State<CardListAccount> {
                                     (item.type == AccountType.SPENDING))
                                 .toList()),
 =======
-=======
->>>>>>> parent of 4e15e8e (update new version)
               case ConnectionState.active:
                 return Container(
                   width: double.infinity,
@@ -110,15 +107,11 @@ class _CardListAccountState extends State<CardListAccount> {
                           title: Text(
                             "Đang sử dụng ("+ AccountTable.getTotalByType(snapshot.data, AccountType.SAVING) +" đ)",
                             style: Theme.of(context).textTheme.subhead,
-<<<<<<< HEAD
->>>>>>> parent of 4e15e8e (update new version)
-=======
 >>>>>>> parent of 4e15e8e (update new version)
                           ),
                           initiallyExpanded: true,
                           children: _createListAccountTile(snapshot.data.where((item) => (item.type == AccountType.SPENDING)).toList()),
                         ),
-<<<<<<< HEAD
 <<<<<<< HEAD
                         Container(
                           width: double.infinity,
@@ -136,8 +129,6 @@ class _CardListAccountState extends State<CardListAccount> {
                                     (item) => (item.type == AccountType.SAVING))
                                 .toList()),
 =======
-=======
->>>>>>> parent of 4e15e8e (update new version)
                       ),
                       Container(
                         width: double.infinity,
@@ -145,9 +136,6 @@ class _CardListAccountState extends State<CardListAccount> {
                           title: Text(
                             "Tài khoản tiết kiệm ("+ AccountTable.getTotalByType(snapshot.data, AccountType.SAVING) +" đ)",
                             style: Theme.of(context).textTheme.subhead,
-<<<<<<< HEAD
->>>>>>> parent of 4e15e8e (update new version)
-=======
 >>>>>>> parent of 4e15e8e (update new version)
                           ),
                           initiallyExpanded: false,

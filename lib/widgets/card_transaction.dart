@@ -103,19 +103,11 @@ class CardTransaction extends StatelessWidget {
               Text(
                 _getTitle(),
 <<<<<<< HEAD
-<<<<<<< HEAD
                 style: Theme.of(context).textTheme.Title,
               ),
               Text(
                 _getDate(),
                 style: Theme.of(context).textTheme.subTitle,
-=======
-                style: Theme.of(context).textTheme.title,
-              ),
-              Text(
-                _getDate(),
-                style: Theme.of(context).textTheme.subtitle,
->>>>>>> parent of 4e15e8e (update new version)
 =======
                 style: Theme.of(context).textTheme.title,
               ),

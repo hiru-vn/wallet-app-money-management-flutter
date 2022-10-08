@@ -40,11 +40,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
   List<CategorySpend> _applyfilter(List<CategorySpend> list) {
     List<CategorySpend> result = List<CategorySpend>();
 <<<<<<< HEAD
-<<<<<<< HEAD
     for (int i = 0; i < list.length; i++) {
-=======
-    for (int i=0;i<list.length;i++) {
->>>>>>> parent of 4e15e8e (update new version)
 =======
     for (int i=0;i<list.length;i++) {
 >>>>>>> parent of 4e15e8e (update new version)
@@ -83,11 +79,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                   children: <Widget>[
                     Text('Biểu đồ chi',
 <<<<<<< HEAD
-<<<<<<< HEAD
                         style: Theme.of(context).textTheme.Title),
-=======
-                        style: Theme.of(context).textTheme.title),
->>>>>>> parent of 4e15e8e (update new version)
 =======
                         style: Theme.of(context).textTheme.title),
 >>>>>>> parent of 4e15e8e (update new version)

@@ -103,13 +103,8 @@ class _CardEarnChartState extends State<CardEarnChart> {
                         children: <Widget>[
                           Text('Thu nhập năm nay',
 <<<<<<< HEAD
-<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
                           TextButton(
-=======
-                              style: Theme.of(context).textTheme.title),
-                          RaisedButton(
->>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.title),
                           RaisedButton(

@@ -144,11 +144,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
 <<<<<<< HEAD
-<<<<<<< HEAD
                   child: TextButton(
-=======
-                  child: RaisedButton(
->>>>>>> parent of 4e15e8e (update new version)
 =======
                   child: RaisedButton(
 >>>>>>> parent of 4e15e8e (update new version)
@@ -168,11 +164,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                           Text(
                             'Tạo',
 <<<<<<< HEAD
-<<<<<<< HEAD
                             style: Theme.of(context).textTheme.Title,
-=======
-                            style: Theme.of(context).textTheme.title,
->>>>>>> parent of 4e15e8e (update new version)
 =======
                             style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)

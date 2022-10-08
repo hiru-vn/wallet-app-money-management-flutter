@@ -200,11 +200,7 @@ class MaximunSpendItem extends StatelessWidget {
                         children: <Widget>[
                           Text(this._spendLimit.type.name,
 <<<<<<< HEAD
-<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
-=======
-                              style: Theme.of(context).textTheme.title),
->>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.title),
 >>>>>>> parent of 4e15e8e (update new version)
@@ -222,11 +218,7 @@ class MaximunSpendItem extends StatelessWidget {
                               textToCurrency(_spendLimit.amount.toString()) +
                                   ' đ',
 <<<<<<< HEAD
-<<<<<<< HEAD
                               style: Theme.of(context).textTheme.Title),
-=======
-                              style: Theme.of(context).textTheme.title),
->>>>>>> parent of 4e15e8e (update new version)
 =======
                               style: Theme.of(context).textTheme.title),
 >>>>>>> parent of 4e15e8e (update new version)
@@ -249,11 +241,8 @@ class MaximunSpendItem extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Theme.of(context).accentColor,
 <<<<<<< HEAD
-<<<<<<< HEAD
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
 =======
-=======
->>>>>>> parent of 4e15e8e (update new version)
                         borderRadius:
                             BorderRadius.all(new Radius.circular(5.0)),
 >>>>>>> parent of 4e15e8e (update new version)

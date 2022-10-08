@@ -171,11 +171,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
 <<<<<<< HEAD
-<<<<<<< HEAD
                                 style: Theme.of(context).textTheme.subTitle1),
-=======
-                                style: Theme.of(context).textTheme.subtitle),
->>>>>>> parent of 4e15e8e (update new version)
 =======
                                 style: Theme.of(context).textTheme.subtitle),
 >>>>>>> parent of 4e15e8e (update new version)
@@ -223,11 +219,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           Text(
                             'Tạo',
 <<<<<<< HEAD
-<<<<<<< HEAD
                             style: Theme.of(context).textTheme.TitleMedium,
-=======
-                            style: Theme.of(context).textTheme.title,
->>>>>>> parent of 4e15e8e (update new version)
 =======
                             style: Theme.of(context).textTheme.title,
 >>>>>>> parent of 4e15e8e (update new version)

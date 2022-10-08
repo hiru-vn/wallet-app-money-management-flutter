@@ -21,7 +21,6 @@ class ItemAccountChoose extends StatelessWidget {
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
 <<<<<<< HEAD
-<<<<<<< HEAD
         Title: Text(this._account.name,
             style: Theme.of(context).textTheme.subTitle),
         subTitle: Text(textToCurrency(this._account.balance.toString())),
@@ -30,11 +29,6 @@ class ItemAccountChoose extends StatelessWidget {
       onTap: () {
         Navigator.pop(context, this._account);
       },
-=======
-        onTap: () {
-          Navigator.pop(context, this._account);
-        },
->>>>>>> parent of 4e15e8e (update new version)
 =======
         onTap: () {
           Navigator.pop(context, this._account);

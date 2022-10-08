@@ -33,11 +33,7 @@ class _CategoryPageState extends State<CategoryPage> {
     var _bloc = CategoryBloc();
     _bloc.initData();
 <<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> parent of 4e15e8e (update new version)
 =======
     
 >>>>>>> parent of 4e15e8e (update new version)
