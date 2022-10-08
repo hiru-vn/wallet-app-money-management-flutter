@@ -52,7 +52,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List();
+    List<DropdownMenuItem<String>> items = [];
     for (TransactionType option in _option) {
       items.add(DropdownMenuItem(value: option.name, child: Text(option.name)));
     }
@@ -166,15 +166,11 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           SizedBox(
                             width: 10,
                           ),
-                          RaisedButton(
-                            color: Theme.of(context).accentColor,
+                          TextButton(
+                            // color: Theme.of(context).accentColor,
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
-<<<<<<< HEAD
                                 style: Theme.of(context).textTheme.subTitle1),
-=======
-                                style: Theme.of(context).textTheme.subtitle),
->>>>>>> parent of 4e15e8e (update new version)
                           ),
                         ],
                       ),
@@ -202,8 +198,8 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
+                  child: TextButton(
+                    // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(
@@ -218,11 +214,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           ),
                           Text(
                             'Tạo',
-<<<<<<< HEAD
                             style: Theme.of(context).textTheme.TitleMedium,
-=======
-                            style: Theme.of(context).textTheme.title,
->>>>>>> parent of 4e15e8e (update new version)
                           ),
                         ],
                       ),

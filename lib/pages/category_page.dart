@@ -32,11 +32,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     var _bloc = CategoryBloc();
     _bloc.initData();
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> parent of 4e15e8e (update new version)
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
@@ -80,7 +76,10 @@ class _CategoryPageState extends State<CategoryPage> {
                               vertical: 10, horizontal: 15),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).brightness == Brightness.dark? Colors.black45: Colors.white,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.black45
+                                    : Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
                             boxShadow: [
                               BoxShadow(
@@ -92,7 +91,7 @@ class _CategoryPageState extends State<CategoryPage> {
                           ),
                           child: TextField(
                             onChanged: (text) {
-                              this.setState((){
+                              this.setState(() {
                                 _filter = text.trim();
                               });
                             },
@@ -108,19 +107,34 @@ class _CategoryPageState extends State<CategoryPage> {
                         SizedBox(
                           height: 15,
                         ),
-                        CardCategoryList('TẤT CẢ', snapshot.data.where((item)=>(item.name.contains(this._filter))).toList()),
+                        CardCategoryList(
+                            'TẤT CẢ',
+                            snapshot.data
+                                .where((item) =>
+                                    (item.name.contains(this._filter)))
+                                .toList()),
                         SizedBox(
                           height: 15,
                         ),
                         CardCategoryList(
                             'Hạng mục chi',
-                            snapshot.data.where((item)=>(item.transactionType == TransactionType.EXPENSE)).where((item)=>(item.name.contains(this._filter))).toList()),
+                            snapshot.data
+                                .where((item) => (item.transactionType ==
+                                    TransactionType.EXPENSE))
+                                .where((item) =>
+                                    (item.name.contains(this._filter)))
+                                .toList()),
                         SizedBox(
                           height: 15,
                         ),
                         CardCategoryList(
                             'Hạng mục thu',
-                            snapshot.data.where((item)=>(item.transactionType == TransactionType.INCOME)).where((item)=>(item.name.contains(this._filter))).toList()),
+                            snapshot.data
+                                .where((item) => (item.transactionType ==
+                                    TransactionType.INCOME))
+                                .where((item) =>
+                                    (item.name.contains(this._filter)))
+                                .toList()),
                         SizedBox(
                           height: 15,
                         ),

@@ -92,7 +92,10 @@ class _MainPageState extends State<MainPage> {
             MaterialPageRoute(builder: (context) => TransactionPage()),
           );
         },
-        child: Icon(Icons.add, color: Colors.white,),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       appBar: AppBar(

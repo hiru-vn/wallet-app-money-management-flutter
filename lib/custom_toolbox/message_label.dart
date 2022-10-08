@@ -48,11 +48,7 @@ class MessageLabel extends StatelessWidget {
             padding: const EdgeInsets.all(3.0),
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor,
-<<<<<<< HEAD
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
-=======
-              borderRadius: BorderRadius.all(new Radius.circular(5.0)),
->>>>>>> parent of 4e15e8e (update new version)
             ),
             child: Text("Hôm nay"),
           ),
