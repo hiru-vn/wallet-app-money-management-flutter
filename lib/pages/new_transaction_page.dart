@@ -9,6 +9,7 @@ import 'package:wallet_exe/event/account_event.dart';
 import 'package:wallet_exe/event/transaction_event.dart';
 import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
+import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
 import '../bloc/category_bloc.dart';
@@ -115,7 +116,14 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
 
       _blocAccount.event.add(UpdateAccountEvent(_account));
 
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainPage(
+            index: 0,
+          ),
+        ),
+      );
     }
 
     return Scaffold(
