@@ -65,6 +65,7 @@ class _CardbalanceState extends State<Cardbalance> {
                   DurationFilter.valueFromName(this._currentOption));
               final inCome = values[0];
               final outCome = values[1];
+              final accumulation = inCome - outCome;
               var sum = inCome + outCome;
               if (sum == 0) sum = 1;
               var inComeHeight = inCome / sum * 120 + 5;
@@ -205,10 +206,23 @@ class _CardbalanceState extends State<Cardbalance> {
                                         style: TextStyle(fontSize: 16)),
                                     Text(
                                       textToCurrency(
-                                              (inCome - outCome).toString()) +
-                                          ' đ',
+                                        accumulation > 100000000 ||
+                                                accumulation < -100000000
+                                            ? accumulation.toString().substring(
+                                                0,
+                                                accumulation.toString().length -
+                                                    6)
+                                            : accumulation.toString(),
+                                      ),
                                       style: TextStyle(fontSize: 18),
-                                    )
+                                    ),
+                                    Text(
+                                      accumulation > 100000000 ||
+                                              accumulation < -100000000
+                                          ? 'tr đ'
+                                          : 'đ',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
                                   ],
                                 ),
                                 SizedBox(height: 10),

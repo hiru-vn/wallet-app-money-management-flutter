@@ -91,8 +91,7 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
     _categoryBloc.initData();
     _bloc.initData();
     _blocAccount.initData();
-
-    void _submit() {
+    _submit() {
       if (!_formBalanceKey.currentState.validate()) {
         return;
       }
