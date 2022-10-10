@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/event/account_event.dart';
+import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/pages/update_account_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
-class ItemAccount extends StatelessWidget {
+class ItemAccount extends StatefulWidget {
   final Account _account;
 
   const ItemAccount(this._account);
 
+  @override
+  State<ItemAccount> createState() => _ItemAccountState();
+}
+
+class _ItemAccountState extends State<ItemAccount> {
   @override
   Widget build(BuildContext context) {
     final bloc = AccountBloc();
@@ -21,10 +27,21 @@ class ItemAccount extends StatelessWidget {
       if (option == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => UpdateAccountPage(_account)),
+          MaterialPageRoute(
+              builder: (context) => UpdateAccountPage(widget._account)),
         );
       } else if (option == 1) {
-        bloc.event.add(DeleteAccountEvent(this._account));
+        setState(() {
+          bloc.event.add(DeleteAccountEvent(widget._account));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MainPage(
+                index: 2,
+              ),
+            ),
+          );
+        });
       }
     }
 
@@ -58,11 +75,12 @@ class ItemAccount extends StatelessWidget {
                 child: ListTile(
               leading: Padding(
                 padding: EdgeInsets.all(5),
-                child: Image.asset(this._account.img),
+                child: Image.asset(this.widget._account.img),
               ),
-              title: Text(this._account.name,
+              title: Text(this.widget._account.name,
                   style: Theme.of(context).textTheme.subtitle1),
-              subtitle: Text(textToCurrency(this._account.balance.toString())),
+              subtitle:
+                  Text(textToCurrency(this.widget._account.balance.toString())),
               trailing: _simplePopup(),
             ));
           default:

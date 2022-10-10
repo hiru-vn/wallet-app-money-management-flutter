@@ -23,6 +23,7 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
 
     // prevent null
     if (temp != null) _currentIndex = temp;
+    setState(() {});
   }
 
   // @override
@@ -77,7 +78,7 @@ class _CardMaximunSpendState extends State<CardMaximunSpend> {
                             style: Theme.of(context).textTheme.titleMedium),
                         IconButton(
                           icon: Icon(Icons.settings),
-                          onPressed: this._chooseSpendLimit,
+                          onPressed: _chooseSpendLimit,
                         ),
                       ],
                     ),

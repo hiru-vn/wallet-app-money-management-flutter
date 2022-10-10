@@ -25,6 +25,7 @@ class _CardListAccountState extends State<CardListAccount> {
     for (int i = 0; i < listAccount.length; i++) {
       list.add(ItemAccount(listAccount[i]));
     }
+
     return list;
   }
 
@@ -39,6 +40,7 @@ class _CardListAccountState extends State<CardListAccount> {
         StreamBuilder<List<Account>>(
             stream: bloc.accountListStream,
             builder: (context, snapshot) {
+              print(snapshot.data);
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
                   return Center(

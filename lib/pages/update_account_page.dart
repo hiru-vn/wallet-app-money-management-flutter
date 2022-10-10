@@ -3,6 +3,7 @@ import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
 import 'package:wallet_exe/event/account_event.dart';
+import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/circle_image_picker.dart';
 
@@ -95,7 +96,14 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
           _imgUrl);
       account.id = this._account.id;
       bloc.event.add(UpdateAccountEvent(account));
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => MainPage(
+                index: 2,
+              )),
+        ),
+      );
     }
 
     return Scaffold(

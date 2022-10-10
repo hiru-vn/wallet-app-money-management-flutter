@@ -16,21 +16,29 @@ class DrawerItem {
 }
 
 class MainPage extends StatefulWidget {
+  final int index;
+
   final drawerItems = [
-    new DrawerItem("Tổng quan", Icons.home),
-    new DrawerItem("Các giao dịch", Icons.account_balance_wallet),
-    new DrawerItem("Danh sách tài khoản", Icons.view_list),
-    new DrawerItem("Biểu đồ", Icons.pie_chart),
-    new DrawerItem("Cài đặt", Icons.settings),
+    DrawerItem("Tổng quan", Icons.home),
+    DrawerItem("Các giao dịch", Icons.account_balance_wallet),
+    DrawerItem("Danh sách tài khoản", Icons.view_list),
+    DrawerItem("Biểu đồ", Icons.pie_chart),
+    DrawerItem("Cài đặt", Icons.settings),
   ];
 
-  MainPage({Key key}) : super(key: key);
+  MainPage({Key key, this.index}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    _selectedDrawerIndex = widget.index != null ? widget.index : 0;
+    super.initState();
+  }
+
   int _selectedDrawerIndex = 0;
 
   _getDrawerItemWidget(int pos) {

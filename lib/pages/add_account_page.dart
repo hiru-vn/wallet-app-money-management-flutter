@@ -3,8 +3,11 @@ import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
 import 'package:wallet_exe/event/account_event.dart';
+import 'package:wallet_exe/pages/main_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 import 'package:wallet_exe/widgets/circle_image_picker.dart';
+
+import '../fragments/account_fragment.dart';
 
 class AddAccountPage extends StatefulWidget {
   AddAccountPage({Key key}) : super(key: key);
@@ -88,7 +91,16 @@ class _AddAccountPageState extends State<AddAccountPage> {
           Icons.account_balance_wallet,
           this._imgUrl);
       _bloc.event.add(AddAccountEvent(account));
-      Navigator.pop(context);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => MainPage(
+            index: 2,
+          ),
+        ),
+      );
+      //     .then((value) {
+      //   setState(() {});
+      // });
     }
 
     return Scaffold(
