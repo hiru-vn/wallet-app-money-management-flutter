@@ -36,6 +36,11 @@ class BalanceDetailPage extends StatelessWidget {
               print(snapshot.error.toString());
               return Center(child: Text(snapshot.error.toString()));
             } else if (snapshot.hasData) {
+              double total = 0;
+              for (int i = 0; i < snapshot.data.length; i++) {
+                total += snapshot.data[i].balance;
+              }
+
               return Column(
                 children: <Widget>[
                   SizedBox(
@@ -48,11 +53,16 @@ class BalanceDetailPage extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  Container(
-                    height: 320,
-                    width: double.infinity,
-                    child: BalanceChartCircle(_createData(snapshot.data)),
-                  ),
+                  total > 0
+                      ? Container(
+                          height: 320,
+                          width: double.infinity,
+                          child: BalanceChartCircle(_createData(snapshot.data)),
+                        )
+                      : Container(
+                          height: 320,
+                          width: double.infinity,
+                        ),
                   Text('Đơn vị: nghìn'),
                 ],
               );

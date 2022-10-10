@@ -71,6 +71,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
             print(snapshot.error.toString());
             return Center(child: Text(snapshot.error.toString()));
           } else if (snapshot.hasData) {
+            print(snapshot.data.length);
             return Column(
               children: <Widget>[
                 Row(
@@ -90,11 +91,13 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 320,
-                  width: double.infinity,
-                  child: SpendChartCircle(_createData(snapshot.data)),
-                ),
+                snapshot.data.length > 1
+                    ? Container(
+                        height: 320,
+                        width: double.infinity,
+                        child: SpendChartCircle(_createData(snapshot.data)),
+                      )
+                    : Container(),
                 Text('Đơn vị: VND'),
               ],
             );
