@@ -204,24 +204,32 @@ class _CardbalanceState extends State<Cardbalance> {
                                   children: <Widget>[
                                     Text('Tích lũy',
                                         style: TextStyle(fontSize: 16)),
-                                    Text(
-                                      textToCurrency(
-                                        accumulation > 100000000 ||
-                                                accumulation < -100000000
-                                            ? accumulation.toString().substring(
-                                                0,
-                                                accumulation.toString().length -
-                                                    6)
-                                            : accumulation.toString(),
-                                      ),
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    Text(
-                                      accumulation > 100000000 ||
-                                              accumulation < -100000000
-                                          ? 'tr đ'
-                                          : 'đ',
-                                      style: TextStyle(fontSize: 18),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          textToCurrency(
+                                            accumulation > 100000000 ||
+                                                    accumulation < -100000000
+                                                ? accumulation
+                                                    .toString()
+                                                    .substring(
+                                                        0,
+                                                        accumulation
+                                                                .toString()
+                                                                .length -
+                                                            6)
+                                                : accumulation.toString(),
+                                          ),
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        Text(
+                                          accumulation > 100000000 ||
+                                                  accumulation < -100000000
+                                              ? 'tr đ'
+                                              : 'đ',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
