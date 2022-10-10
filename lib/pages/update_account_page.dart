@@ -8,7 +8,7 @@ import 'package:wallet_exe/widgets/circle_image_picker.dart';
 
 class UpdateAccountPage extends StatefulWidget {
   Account _account;
-  UpdateAccountPage(_account);
+  UpdateAccountPage(this._account);
 
   @override
   _UpdateAccountPageState createState() => _UpdateAccountPageState();
@@ -45,6 +45,8 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
         imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text('Chọn ảnh tài khoản',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
           textScaleFactor: 1.25,
@@ -79,26 +81,26 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
     bloc.initData();
 
     _submit() {
-      if (!_formNameKey.currentState.validate()) {
+      if (!this._formNameKey.currentState.validate()) {
         return;
       }
-      if (!_formBalanceKey.currentState.validate()) {
+      if (!this._formBalanceKey.currentState.validate()) {
         return;
       }
       Account account = Account(
           _nameController.text,
           currencyToInt(_balanceController.text),
-          AccountType.valueFromName(_currentOption),
+          AccountType.valueFromName(this._currentOption),
           Icons.account_balance_wallet,
           _imgUrl);
-      account.id = _account.id;
+      account.id = this._account.id;
       bloc.event.add(UpdateAccountEvent(account));
       Navigator.pop(context);
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_account.name),
+        title: Text(this._account.name),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -152,7 +154,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                       decoration: InputDecoration(
                           suffixText: 'đ',
                           hintText: 'Số dư ban đầu',
-                          hintStyle: TextStyle(fontSize: 12),
+                          hintStyle: TextStyle(fontSize: 20),
                           icon: Icon(
                             Icons.attach_money,
                             size: 30,
@@ -172,7 +174,7 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
                           child: SizedBox(
                             height: 38,
                             width: 38,
-                            child: Image.asset(_imgUrl),
+                            child: Image.asset(this._imgUrl),
                           ),
                         ),
                         IconButton(
@@ -224,9 +226,6 @@ class _UpdateAccountPageState extends State<UpdateAccountPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ),
                   // color: Theme.of(context).primaryColor,
                   child: Padding(
                     padding: EdgeInsets.all(10),

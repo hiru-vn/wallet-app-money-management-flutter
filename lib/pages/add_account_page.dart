@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/enums/account_type.dart';
@@ -37,6 +36,8 @@ class _AddAccountPageState extends State<AddAccountPage> {
         imageSize: 60,
         imagePickerShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text('Chọn ảnh tài khoản',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         closeChild: Text(
           'Đóng',
           textScaleFactor: 1.25,
@@ -69,19 +70,23 @@ class _AddAccountPageState extends State<AddAccountPage> {
   Widget build(BuildContext context) {
     var _bloc = AccountBloc();
 
+    // ScreenUtil.instance = ScreenUtil.init(context);
+    // ScreenUtil.instance =
+    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+
     void _submit() {
-      if (!_formNameKey.currentState.validate()) {
+      if (!this._formNameKey.currentState.validate()) {
         return;
       }
-      if (!_formBalanceKey.currentState.validate()) {
+      if (!this._formBalanceKey.currentState.validate()) {
         return;
       }
       Account account = Account(
           _nameController.text,
           currencyToInt(_balanceController.text),
-          AccountType.valueFromName(_currentOption),
+          AccountType.valueFromName(this._currentOption),
           Icons.account_balance_wallet,
-          _imgUrl);
+          this._imgUrl);
       _bloc.event.add(AddAccountEvent(account));
       Navigator.pop(context);
     }
@@ -167,7 +172,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                             child: SizedBox(
                               height: 38,
                               width: 38,
-                              child: Image.asset(_imgUrl),
+                              child: Image.asset(this._imgUrl),
                             ),
                           ),
                           IconButton(
@@ -219,9 +224,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
                     // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),

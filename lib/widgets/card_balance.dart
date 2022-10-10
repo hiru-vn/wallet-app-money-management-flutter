@@ -61,8 +61,8 @@ class _CardbalanceState extends State<Cardbalance> {
                 return SizedBox(
                   height: 15,
                 );
-              final values = TransactionTable().getTotal(
-                  snapshot.data, DurationFilter.valueFromName(_currentOption));
+              final values = TransactionTable().getTotal(snapshot.data,
+                  DurationFilter.valueFromName(this._currentOption));
               final inCome = values[0];
               final outCome = values[1];
               var sum = inCome + outCome;

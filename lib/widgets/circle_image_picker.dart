@@ -4,6 +4,7 @@ class FlutterCircleImagePicker {
   static Future<String> showCircleImagePicker(BuildContext context,
       {double imageSize,
       ShapeBorder imagePickerShape,
+      Widget title,
       Widget closeChild,
       String searchHintText,
       String noResultsText}) async {
@@ -12,7 +13,7 @@ class FlutterCircleImagePicker {
       builder: (BuildContext context) {
         return AlertDialog(
             shape: imagePickerShape,
-            title: Text('Show image'),
+            title: title,
             content: Container(
               constraints: BoxConstraints(maxHeight: 350, minWidth: 450),
               child: Column(children: <Widget>[
@@ -24,9 +25,6 @@ class FlutterCircleImagePicker {
             ),
             actions: [
               TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                ),
                 // padding: EdgeInsets.only(right: 20),
                 onPressed: () => Navigator.of(context).pop(),
                 child: closeChild,
@@ -131,9 +129,9 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
 // class SearchBar extends StatefulWidget {
 //   final String searchHintText;
 //   static TextEditingController searchTextController =
-//        TextEditingController();
+//       new TextEditingController();
 
-//   SearchBar({searchHintText, Key key}) : super(key: key);
+//   SearchBar({this.searchHintText, Key key}) : super(key: key);
 
 //   @override
 //   _SearchBarState createState() => _SearchBarState();
@@ -141,7 +139,7 @@ class _CircleImagePickerState extends State<CircleImagePicker> {
 
 // class _SearchBarState extends State<SearchBar> {
 //   _search(String searchValue) {
-//     Map<String, ImageData> searchResult =  Map<String, ImageData>();
+//     Map<String, ImageData> searchResult = new Map<String, ImageData>();
 
 //     imgUrl.forEach((String key, String val) {
 //       if (key.toLowerCase().contains(searchValue.toLowerCase())) {

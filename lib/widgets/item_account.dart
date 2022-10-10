@@ -24,7 +24,7 @@ class ItemAccount extends StatelessWidget {
           MaterialPageRoute(builder: (context) => UpdateAccountPage(_account)),
         );
       } else if (option == 1) {
-        bloc.event.add(DeleteAccountEvent(_account));
+        bloc.event.add(DeleteAccountEvent(this._account));
       }
     }
 
@@ -58,11 +58,11 @@ class ItemAccount extends StatelessWidget {
                 child: ListTile(
               leading: Padding(
                 padding: EdgeInsets.all(5),
-                child: Image.asset(_account.img),
+                child: Image.asset(this._account.img),
               ),
-              title: Text(_account.name,
+              title: Text(this._account.name,
                   style: Theme.of(context).textTheme.subtitle1),
-              subtitle: Text(textToCurrency(_account.balance.toString())),
+              subtitle: Text(textToCurrency(this._account.balance.toString())),
               trailing: _simplePopup(),
             ));
           default:

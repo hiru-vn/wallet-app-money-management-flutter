@@ -29,7 +29,7 @@ class SpendLimitType {
   }
 
   static getAllType() {
-    return [WEEKLY, MONTHLY, QUATERLY, YEARLY];
+    return [WEEKLY,MONTHLY,QUATERLY,YEARLY];
   }
 
   static SpendLimitType valueFromName(String name) {

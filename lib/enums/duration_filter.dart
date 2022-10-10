@@ -16,12 +16,7 @@ class DurationFilter {
   String get name => _name;
 
   static getAllType() {
-    return [
-      DurationFilter.TODAY._name,
-      DurationFilter.THISWEEK._name,
-      DurationFilter.THISMONTH.name,
-      DurationFilter.THISYEAR.name
-    ];
+    return [DurationFilter.TODAY._name, DurationFilter.THISWEEK._name, DurationFilter.THISMONTH.name, DurationFilter.THISYEAR.name];
   }
 
   static DurationFilter valueOf(int value) {
@@ -54,21 +49,21 @@ class DurationFilter {
     }
   }
 
-  static bool checkValidInDurationFromNow(
-      DateTime date, DurationFilter filter) {
+  static bool checkValidInDurationFromNow(DateTime date, DurationFilter filter) {
     DateTime now = DateTime.now();
 
     if (filter == DurationFilter.TODAY) {
-      return (date.day == now.day &&
-          date.month == now.month &&
-          date.year == now.year);
-    } else if (filter == DurationFilter.THISWEEK) {
+      return (date.day == now.day && date.month == now.month && date.year == now.year);
+    }
+    else if (filter == DurationFilter.THISWEEK) {
       return Jiffy(date).week == Jiffy(now).week && date.year == now.year;
-    } else if (filter == DurationFilter.THISMONTH) {
+    }
+    else if (filter == DurationFilter.THISMONTH) {
       // print(date.month);
       // print(now.month);
       return date.month == now.month && date.year == now.year;
-    } else if (filter == DurationFilter.THISYEAR) {
+    }
+    else if (filter == DurationFilter.THISYEAR) {
       return date.year == now.year;
     }
     return false;

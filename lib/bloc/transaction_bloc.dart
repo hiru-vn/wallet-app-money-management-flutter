@@ -67,7 +67,6 @@ class TransactionBloc extends BaseBloc {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 }

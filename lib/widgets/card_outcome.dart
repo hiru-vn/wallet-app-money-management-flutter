@@ -76,8 +76,10 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Biểu đồ chi',
-                        style: Theme.of(context).textTheme.titleMedium),
+                    Text(
+                      'Biểu đồ chi',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                     DropdownButton(
                       value: _currentOption,
                       items: _dropDownMenuItems,
@@ -93,7 +95,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
                   width: double.infinity,
                   child: SpendChartCircle(_createData(snapshot.data)),
                 ),
-                Text('Đơn vị: nghìn'),
+                Text('Đơn vị: VND'),
               ],
             );
           }
@@ -141,7 +143,7 @@ class _CardOutcomeChartState extends State<CardOutcomeChart> {
     }
 
     return [
-      charts.Series<CategorySpend, String>(
+      new charts.Series<CategorySpend, String>(
         id: 'CategorySpend',
         domainFn: (CategorySpend spend, _) => spend.category,
         measureFn: (CategorySpend spend, _) => spend.money,

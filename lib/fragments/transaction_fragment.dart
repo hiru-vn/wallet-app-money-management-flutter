@@ -53,15 +53,15 @@ class _TransactionFragmentState extends State<TransactionFragment> {
           list.where((item) => (item.account.name == _currentOption)).toList();
 
     // if user find day
-    if (selectedDate.day != DateTime.now().day ||
-        selectedDate.month != DateTime.now().month ||
-        selectedDate.year != DateTime.now().year) {
+    if (this.selectedDate.day != DateTime.now().day ||
+        this.selectedDate.month != DateTime.now().month ||
+        this.selectedDate.year != DateTime.now().year) {
       filter = filter
           .where((item) => (item.date.year == selectedDate.year &&
               item.date.month == selectedDate.month &&
               item.date.day == selectedDate.day))
           .toList();
-      result.add(CardTransaction(filter, selectedDate));
+      result.add(CardTransaction(filter, this.selectedDate));
       return result;
     }
 
@@ -112,7 +112,7 @@ class _TransactionFragmentState extends State<TransactionFragment> {
                           children: <Widget>[
                             Text(
                               'Tài khoản:',
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.subtitle1,
                             ),
                             SizedBox(
                               width: 10,

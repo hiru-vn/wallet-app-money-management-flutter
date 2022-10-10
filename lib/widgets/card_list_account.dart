@@ -76,7 +76,7 @@ class _CardListAccountState extends State<CardListAccount> {
                                   AccountTable.getTotalByType(
                                       snapshot.data, AccountType.SAVING) +
                                   " đ)",
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                             initiallyExpanded: true,
                             children: _createListAccountTile(snapshot.data
@@ -93,7 +93,7 @@ class _CardListAccountState extends State<CardListAccount> {
                                   AccountTable.getTotalByType(
                                       snapshot.data, AccountType.SAVING) +
                                   " đ)",
-                              style: Theme.of(context).textTheme.headline4,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                             initiallyExpanded: false,
                             children: _createListAccountTile(snapshot.data

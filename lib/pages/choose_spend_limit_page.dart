@@ -11,8 +11,8 @@ class ChooseSpendLimitPage extends StatefulWidget {
 }
 
 class _ChooseSpendLimitPageState extends State<ChooseSpendLimitPage> {
-  _submit(BuildContext context, int index) {
-    Navigator.pop(context, index);
+  _submit(BuildContext context, int newIndex) {
+    Navigator.pop(context, newIndex);
   }
 
   // @override

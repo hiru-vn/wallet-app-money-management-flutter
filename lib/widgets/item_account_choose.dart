@@ -16,13 +16,13 @@ class ItemAccountChoose extends StatelessWidget {
           padding: EdgeInsets.all(5),
           child: Image.asset(_account.img),
         ),
-        title:
-            Text(_account.name, style: Theme.of(context).textTheme.subtitle1),
-        subtitle: Text(textToCurrency(_account.balance.toString())),
+        title: Text(this._account.name,
+            style: Theme.of(context).textTheme.subtitle1),
+        subtitle: Text(textToCurrency(this._account.balance.toString())),
         trailing: Icon(Icons.keyboard_arrow_right),
       ),
       onTap: () {
-        Navigator.pop(context, _account);
+        Navigator.pop(context, this._account);
       },
     ));
   }

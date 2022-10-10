@@ -42,11 +42,14 @@ class _ItemCategoryState extends State<ItemCategory> {
         title: Text(widget._category.name),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          Navigator.pop(
-            context,
-            widget._category,
-          );
-          setState(() {});
+          Category category;
+          setState(() {
+            category = widget._category;
+            Navigator.pop(
+              context,
+              category,
+            );
+          });
         },
       ),
     );

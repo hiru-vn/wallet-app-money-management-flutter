@@ -13,10 +13,13 @@ class BalanceChartCircle extends StatelessWidget {
       _seriesList,
       animate: animate,
       animationDuration: Duration(milliseconds: 500),
-      defaultRenderer:
-          charts.ArcRendererConfig(arcWidth: 60, arcRendererDecorators: [
-        charts.ArcLabelDecorator(labelPosition: charts.ArcLabelPosition.outside)
-      ]),
+      defaultRenderer: charts.ArcRendererConfig(
+        arcWidth: 60,
+        arcRendererDecorators: [
+          charts.ArcLabelDecorator(
+              labelPosition: charts.ArcLabelPosition.outside)
+        ],
+      ),
       behaviors: [
         charts.DatumLegend(
             position: charts.BehaviorPosition.bottom,

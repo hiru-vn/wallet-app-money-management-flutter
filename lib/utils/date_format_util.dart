@@ -17,15 +17,15 @@ String shortDateFormatWithoutMonthAndDay(DateTime date) {
 }
 
 DateTime getDateWithoutTime(DateTime date) {
-  return DateTime(date.year, date.month, date.day);
+  return new DateTime(date.year, date.month, date.day);
 }
 
 DateTime getDateWithoutDayAndTime(DateTime date) {
-  return DateTime(date.year, date.month);
+  return new DateTime(date.year, date.month);
 }
 
 DateTime getDateWithoutMonthAndDayAndTime(DateTime date) {
-  return DateTime(date.year);
+  return new DateTime(date.year);
 }
 
 String convertToISO8601DateFormat(DateTime date) {

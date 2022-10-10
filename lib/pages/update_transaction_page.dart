@@ -11,8 +11,6 @@ import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
-import '../bloc/category_bloc.dart';
-
 class UpdateTransactionPage extends StatefulWidget {
   final Transaction _transaction;
   UpdateTransactionPage(this._transaction);
@@ -83,8 +81,8 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
   }
 
   _getCurrencyColor() {
-    if (_category == null) return Colors.red;
-    return (_category.transactionType == TransactionType.EXPENSE)
+    if (this._category == null) return Colors.red;
+    return (this._category.transactionType == TransactionType.EXPENSE)
         ? Colors.red
         : Colors.green;
   }
@@ -93,14 +91,15 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
   Widget build(BuildContext context) {
     var _bloc = TransactionBloc();
     var _blocAccount = AccountBloc();
-    var _blocCategory = CategoryBloc();
-
     _bloc.initData();
     _blocAccount.initData();
-    _blocCategory.initData();
+
+    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    // ScreenUtil.instance =
+    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     void _submit() {
-      if (!_formBalanceKey.currentState.validate()) {
+      if (!this._formBalanceKey.currentState.validate()) {
         return;
       }
       if (_account == null) return;
@@ -109,36 +108,42 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
       DateTime saveTime = DateTime(_selectedDate.year, _selectedDate.month,
           _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
       Transaction transaction = Transaction(
-          _account,
-          _category,
-          currencyToInt(_balanceController.text),
+          this._account,
+          this._category,
+          currencyToInt(this._balanceController.text),
           saveTime,
-          _descriptionController.text);
-      transaction.id = _transaction.id;
+          this._descriptionController.text);
+      transaction.id = this._transaction.id;
       _bloc.event.add(UpdateTransactionEvent(transaction));
 
-      if (_category.transactionType == TransactionType.EXPENSE) {
-        if (_transaction.category.transactionType == TransactionType.EXPENSE) {
-          _account.balance -=
-              (currencyToInt(_balanceController.text) - _transaction.amount);
-        } else if (_transaction.category.transactionType ==
+      if (this._category.transactionType == TransactionType.EXPENSE) {
+        if (this._transaction.category.transactionType ==
+            TransactionType.EXPENSE) {
+          this._account.balance -=
+              (currencyToInt(this._balanceController.text) -
+                  this._transaction.amount);
+        } else if (this._transaction.category.transactionType ==
             TransactionType.INCOME) {
-          _account.balance -=
-              (currencyToInt(_balanceController.text) + _transaction.amount);
+          this._account.balance -=
+              (currencyToInt(this._balanceController.text) +
+                  this._transaction.amount);
         }
       }
-      if (_category.transactionType == TransactionType.INCOME) {
-        if (_transaction.category.transactionType == TransactionType.EXPENSE) {
-          _account.balance +=
-              (currencyToInt(_balanceController.text) + _transaction.amount);
-        } else if (_transaction.category.transactionType ==
+      if (this._category.transactionType == TransactionType.INCOME) {
+        if (this._transaction.category.transactionType ==
+            TransactionType.EXPENSE) {
+          this._account.balance +=
+              (currencyToInt(this._balanceController.text) +
+                  this._transaction.amount);
+        } else if (this._transaction.category.transactionType ==
             TransactionType.INCOME) {
-          _account.balance +=
-              (currencyToInt(_balanceController.text) - _transaction.amount);
+          this._account.balance +=
+              (currencyToInt(this._balanceController.text) -
+                  this._transaction.amount);
         }
       }
 
-      _blocAccount.event.add(UpdateAccountEvent(_account));
+      _blocAccount.event.add(UpdateAccountEvent(this._account));
 
       Navigator.pop(context);
     }
@@ -201,7 +206,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                             decoration: InputDecoration(
                               suffixText: 'đ',
                               suffixStyle:
-                                  Theme.of(context).textTheme.headline4,
+                                  Theme.of(context).textTheme.headline6,
                               prefix: Icon(
                                 Icons.monetization_on,
                                 color: Theme.of(context).colorScheme.secondary,
@@ -251,7 +256,6 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                           MaterialPageRoute(
                               builder: (context) => CategoryPage()),
                         );
-                        setState(() {});
                       },
                       child: Row(
                         children: <Widget>[
@@ -297,7 +301,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                           Expanded(
                             flex: 1,
                             child: TextField(
-                              controller: _descriptionController,
+                              controller: this._descriptionController,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -332,11 +336,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                         Expanded(
                           flex: 3,
                           child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                _selectDate(context);
-                              });
-                            },
+                            onTap: () => _selectDate(context),
                             child: Text(
                               _getDate(),
                               style: TextStyle(
@@ -347,10 +347,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
-                            _selectTime(context);
-                            setState(() {});
-                          },
+                          onTap: () => _selectTime(context),
                           child: Text(
                             _getTime(),
                             style: TextStyle(
@@ -413,9 +410,6 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
                         // color: Theme.of(context).buttonColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),
@@ -445,9 +439,6 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
                         // color: Theme.of(context).primaryColor,
                         child: Padding(
                           padding: EdgeInsets.all(10),

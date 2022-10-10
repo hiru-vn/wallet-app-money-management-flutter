@@ -68,6 +68,7 @@ class MyApp extends StatelessWidget {
   _buildThemeData(AppTheme appTheme) {
     return ThemeData(
       brightness: appTheme.theme.brightness,
+      primarySwatch: appTheme.theme.primarySwatch,
       fontFamily: 'Quicksand',
     );
   }

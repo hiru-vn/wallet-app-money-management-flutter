@@ -4,17 +4,17 @@ import 'package:wallet_exe/event/base_event.dart';
 class AddCategoryEvent extends BaseEvent {
   Category category;
 
-  AddCategoryEvent(category);
+  AddCategoryEvent(this.category);
 }
 
 class DeleteCategoryEvent extends BaseEvent {
   Category category;
 
-  DeleteCategoryEvent(category);
+  DeleteCategoryEvent(this.category);
 }
 
 class UpdateCategoryEvent extends BaseEvent {
   Category category;
 
-  UpdateCategoryEvent(category);
+  UpdateCategoryEvent(this.category);
 }

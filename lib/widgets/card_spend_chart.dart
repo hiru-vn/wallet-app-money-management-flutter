@@ -31,9 +31,9 @@ class _CardSpendChartState extends State<CardSpendChart> {
   }
 
   _getTitle() {
-    String end = (selectedDate.year == DateTime.now().year)
+    String end = (this.selectedDate.year == DateTime.now().year)
         ? 'nay'
-        : selectedDate.year.toString();
+        : this.selectedDate.year.toString();
     return 'Chi tiêu năm ' + end;
   }
 
@@ -56,7 +56,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Trung bình tháng:',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(textToCurrency(
                         (totalYear / DateTime.now().month).round().toString()) +
@@ -71,7 +71,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
               children: <Widget>[
                 Text(
                   'Tổng chi:',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -111,9 +111,6 @@ class _CardSpendChartState extends State<CardSpendChart> {
                           Text(_getTitle(),
                               style: Theme.of(context).textTheme.titleMedium),
                           TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor,
-                            ),
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[
@@ -209,7 +206,7 @@ class _CardSpendChartState extends State<CardSpendChart> {
     });
 
     return [
-      charts.Series<MoneySpend, String>(
+      new charts.Series<MoneySpend, String>(
         id: 'MoneySpend',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (MoneySpend spend, _) => spend.month.toString(),

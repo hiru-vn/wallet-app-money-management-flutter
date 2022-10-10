@@ -15,18 +15,18 @@ class ItemTransaction extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => UpdateTransactionPage(_transaction)),
+          MaterialPageRoute(builder: (context) => UpdateTransactionPage(_transaction)),
         );
       },
       leading: Padding(
         padding: EdgeInsets.all(10),
         child: Icon(_transaction.category.icon),
       ),
-      title: Text(_transaction.category.name, style: TextStyle(fontSize: 18)),
-      trailing: Text(_transaction.amount.toString(),
+      title:
+          Text(this._transaction.category.name, style: TextStyle(fontSize: 18)),
+      trailing: Text(this._transaction.amount.toString(),
           style: TextStyle(
-              color: _transaction.category.transactionType ==
+              color: this._transaction.category.transactionType ==
                       TransactionType.INCOME
                   ? Colors.green
                   : Colors.red,

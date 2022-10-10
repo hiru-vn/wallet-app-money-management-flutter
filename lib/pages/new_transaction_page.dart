@@ -11,18 +11,20 @@ import 'package:wallet_exe/pages/account_page.dart';
 import 'package:wallet_exe/pages/category_page.dart';
 import 'package:wallet_exe/utils/text_input_formater.dart';
 
-class TransactionPage extends StatefulWidget {
-  TransactionPage({Key key}) : super(key: key);
+import '../bloc/category_bloc.dart';
+
+class NewTransactionPage extends StatefulWidget {
+  NewTransactionPage({Key key}) : super(key: key);
 
   @override
-  _TransactionPageState createState() => _TransactionPageState();
+  _NewTransactionPageState createState() => _NewTransactionPageState();
 }
 
-class _TransactionPageState extends State<TransactionPage> {
+class _NewTransactionPageState extends State<NewTransactionPage> {
   var _balanceController = TextEditingController();
   var _descriptionController = TextEditingController();
   var _formBalanceKey = GlobalKey<FormState>();
-  Category _category;
+  Category category;
   Account _account;
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
@@ -73,39 +75,46 @@ class _TransactionPageState extends State<TransactionPage> {
   }
 
   _getCurrencyColor() {
-    if (_category == null) return Colors.red;
-    return (_category.transactionType == TransactionType.EXPENSE)
+    if (category == null) return Colors.red;
+    return (category.transactionType == TransactionType.EXPENSE)
         ? Colors.red
         : Colors.green;
   }
 
   @override
   Widget build(BuildContext context) {
+    print(category ?? '');
     var _bloc = TransactionBloc();
     var _blocAccount = AccountBloc();
+    var _categoryBloc = CategoryBloc();
+    _categoryBloc.initData();
     _bloc.initData();
     _blocAccount.initData();
+
+    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    // ScreenUtil.instance =
+    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
 
     void _submit() {
       if (!_formBalanceKey.currentState.validate()) {
         return;
       }
       if (_account == null) return;
-      if (_category == null) return;
+      if (category == null) return;
 
       DateTime saveTime = DateTime(_selectedDate.year, _selectedDate.month,
           _selectedDate.day, _selectedTime.hour, _selectedTime.minute);
       Transaction transaction = Transaction(
           _account,
-          _category,
+          category,
           currencyToInt(_balanceController.text),
           saveTime,
           _descriptionController.text);
       _bloc.event.add(AddTransactionEvent(transaction));
 
-      if (_category.transactionType == TransactionType.EXPENSE)
+      if (category.transactionType == TransactionType.EXPENSE)
         _account.balance -= currencyToInt(_balanceController.text);
-      if (_category.transactionType == TransactionType.INCOME)
+      if (category.transactionType == TransactionType.INCOME)
         _account.balance += currencyToInt(_balanceController.text);
 
       _blocAccount.event.add(UpdateAccountEvent(_account));
@@ -216,29 +225,28 @@ class _TransactionPageState extends State<TransactionPage> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: InkWell(
                       onTap: () async {
-                        _category = await Navigator.push(
+                        category = await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => CategoryPage()),
                         );
+                        setState(() {});
                       },
                       child: Row(
                         children: <Widget>[
                           Container(
                             width: 50,
                             child: Icon(
-                              _category == null
-                                  ? Icons.category
-                                  : _category.icon,
+                              category == null ? Icons.category : category.icon,
                               size: 28,
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Text(
-                              _category == null
+                              category == null
                                   ? 'Chọn hạng mục'
-                                  : _category.name,
+                                  : category.name,
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.grey,
@@ -335,6 +343,7 @@ class _TransactionPageState extends State<TransactionPage> {
                           MaterialPageRoute(
                               builder: (context) => AccountPage()),
                         );
+                        setState(() {});
                       },
                       child: Row(
                         children: <Widget>[
@@ -376,7 +385,6 @@ class _TransactionPageState extends State<TransactionPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: TextButton(
-                // color: Theme.of(context).primaryColor,
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Row(
@@ -391,10 +399,9 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       Text(
                         'Ghi',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            .copyWith(color: Theme.of(context).primaryColor),
+                        style: Theme.of(context).textTheme.titleMedium.copyWith(
+                              color: Theme.of(context).primaryColor,
+                            ),
                       ),
                     ],
                   ),

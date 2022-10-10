@@ -49,7 +49,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
               children: <Widget>[
                 Text(
                   'Trung bình tháng:',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(textToCurrency(
                         (totalYear / DateTime.now().month).round().toString()) +
@@ -64,7 +64,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
               children: <Widget>[
                 Text(
                   'Tổng thu nhập:',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(textToCurrency(totalYear.toString()) + ' đ'),
               ],
@@ -104,9 +104,6 @@ class _CardEarnChartState extends State<CardEarnChart> {
                           Text('Thu nhập năm nay',
                               style: Theme.of(context).textTheme.titleMedium),
                           TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor,
-                            ),
                             onPressed: () => _selectDate(context),
                             child: Row(
                               children: <Widget>[
@@ -124,7 +121,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('(Đơn vị: Nghìn)'),
+                      Text('(Đơn vị: VND)'),
                       Container(
                         height: 200,
                         width: double.infinity,
@@ -202,7 +199,7 @@ class _CardEarnChartState extends State<CardEarnChart> {
     });
 
     return [
-      charts.Series<MoneySpend, String>(
+      new charts.Series<MoneySpend, String>(
         id: 'MoneySpend',
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (MoneySpend spend, _) => spend.month.toString(),

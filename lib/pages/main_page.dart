@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_exe/bloc/account_bloc.dart';
 import 'package:wallet_exe/fragments/account_fragment.dart';
@@ -9,22 +7,21 @@ import 'package:wallet_exe/fragments/home_fragment.dart';
 import 'package:wallet_exe/fragments/setting_fragment.dart';
 import 'package:wallet_exe/fragments/transaction_fragment.dart';
 import 'package:wallet_exe/pages/add_account_page.dart';
-
-import 'new_transaction_page.dart';
+import 'package:wallet_exe/pages/new_transaction_page.dart';
 
 class DrawerItem {
   String title;
   IconData icon;
-  DrawerItem(title, icon);
+  DrawerItem(this.title, this.icon);
 }
 
 class MainPage extends StatefulWidget {
   final drawerItems = [
-    DrawerItem("Tổng quan", Icons.home),
-    DrawerItem("Các giao dịch", Icons.account_balance_wallet),
-    DrawerItem("Danh sách tài khoản", Icons.view_list),
-    DrawerItem("Biểu đồ", Icons.pie_chart),
-    DrawerItem("Cài đặt", Icons.settings),
+    new DrawerItem("Tổng quan", Icons.home),
+    new DrawerItem("Các giao dịch", Icons.account_balance_wallet),
+    new DrawerItem("Danh sách tài khoản", Icons.view_list),
+    new DrawerItem("Biểu đồ", Icons.pie_chart),
+    new DrawerItem("Cài đặt", Icons.settings),
   ];
 
   MainPage({Key key}) : super(key: key);
@@ -70,21 +67,25 @@ class _MainPageState extends State<MainPage> {
     var drawerOptions = <Widget>[];
     for (var i = 0; i < widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
-      drawerOptions.add(ListTile(
-        leading: Icon(d.icon),
-        title: Text(d.title),
+      drawerOptions.add(new ListTile(
+        leading: new Icon(d.icon),
+        title: new Text(d.title),
         selected: i == _selectedDrawerIndex,
         onTap: () => _onSelectItem(i),
       ));
       if (i == 3) drawerOptions.add(Divider());
     }
 
+    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    // ScreenUtil.instance =
+    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TransactionPage()),
+            MaterialPageRoute(builder: (context) => NewTransactionPage()),
           );
         },
         child: Icon(
@@ -98,7 +99,9 @@ class _MainPageState extends State<MainPage> {
           actions: _selectedDrawerIndex == 2
               ? <Widget>[
                   IconButton(
-                    icon: Icon(Icons.add),
+                    icon: Icon(
+                      Icons.add,
+                    ),
                     onPressed: _actionAdd,
                   )
                 ]

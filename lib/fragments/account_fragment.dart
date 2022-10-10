@@ -41,7 +41,7 @@ class _AccountFragmentState extends State<AccountFragment> {
                   } else if (snapshot.hasData) {
                     return Text(
                       'Tổng: ' + textToCurrency(snapshot.data.toString()) + 'đ',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.bodyText1,
                     );
                   }
                   return Container(

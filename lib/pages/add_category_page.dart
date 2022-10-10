@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/bloc/category_bloc.dart';
 import 'package:wallet_exe/data/model/Category.dart';
 import 'package:wallet_exe/enums/transaction_type.dart';
@@ -66,7 +65,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   _submit(_bloc) {
-    if (!_formNameKey.currentState.validate()) {
+    if (!this._formNameKey.currentState.validate()) {
       return;
     }
     //add data
@@ -74,7 +73,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         _nameController.text,
         _iconData,
         Colors.blueAccent,
-        TransactionType.valueFromName(_currentOption),
+        TransactionType.valueFromName(this._currentOption),
         _descriptionController.text); //TO DO
     _bloc.event.add(AddCategoryEvent(category));
     Navigator.pop(context);
@@ -83,6 +82,10 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   @override
   Widget build(BuildContext context) {
     var _bloc = CategoryBloc();
+
+    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    // ScreenUtil.instance =
+    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
     return Scaffold(
         appBar: AppBar(
           title: Text('Tạo hạng mục mới'),
@@ -163,9 +166,6 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             width: 10,
                           ),
                           TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor,
-                            ),
                             // color: Theme.of(context).accentColor,
                             onPressed: _pickIcon,
                             child: Text('Chọn icon',
@@ -198,9 +198,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
+                    // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(

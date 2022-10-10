@@ -2,7 +2,6 @@ import 'package:wallet_exe/utils/text_input_formater.dart';
 import '../model/Account.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../enums/account_type.dart';
-
 import '../database_helper.dart';
 
 class AccountTable {

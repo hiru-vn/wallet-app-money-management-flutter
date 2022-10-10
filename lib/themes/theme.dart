@@ -6,16 +6,16 @@ class MyTheme {
   Color accentColor;
 
   MyTheme({
-    brightness,
-    primarySwatch,
-    accentColor,
+    this.brightness,
+    this.primarySwatch,
+    this.accentColor,
   });
 }
 
 class AppTheme {
   String name;
   MyTheme theme;
-  AppTheme(name, theme);
+  AppTheme(this.name, this.theme);
 }
 
 List<AppTheme> myThemes = [

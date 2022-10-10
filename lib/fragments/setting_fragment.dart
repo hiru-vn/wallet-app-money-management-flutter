@@ -94,16 +94,16 @@ class _SettingFragmentState extends State<SettingFragment> {
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: TextButton.icon(
-                          // color: Theme.of(context).primaryColor,
+                        child: IconButton(
+                          color: Theme.of(context).primaryColor,
                           icon: Icon(Icons.cloud_upload),
-                          label: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              'Đồng bộ dữ liệu',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
+                          // label: Padding(
+                          //   padding: EdgeInsets.symmetric(vertical: 10),
+                          //   child: Text(
+                          //     'Đồng bộ dữ liệu',
+                          //     style: Theme.of(context).textTheme.title,
+                          //   ),
+                          // ),
                           onPressed: _submit,
                         ),
                       ),
@@ -119,16 +119,16 @@ class _SettingFragmentState extends State<SettingFragment> {
                       flex: 1,
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: TextButton.icon(
-                          // color: Colors.redAccent,
+                        child: IconButton(
+                          color: Colors.redAccent,
                           icon: Icon(Icons.clear_all),
-                          label: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              'Xóa toàn bộ dữ liệu',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ),
+                          // label: Padding(
+                          //   padding: EdgeInsets.symmetric(vertical: 10),
+                          //   child: Text(
+                          //     'Xóa toàn bộ dữ liệu',
+                          //     style: Theme.of(context).textTheme.title,
+                          //   ),
+                          // ),
                           onPressed: _submit,
                         ),
                       ),

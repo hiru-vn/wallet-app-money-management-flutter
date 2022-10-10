@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wallet_exe/data/dao/account_table.dart';
 import 'package:wallet_exe/data/model/Account.dart';
 import 'package:wallet_exe/pages/balance_detail_page.dart';
@@ -50,6 +49,7 @@ class _HomeFragmentState extends State<HomeFragment> {
               child: Container(
                 width: double.infinity,
                 height: 70,
+                // .setHeight(170),
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.blueGrey
@@ -69,7 +69,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                             child: Icon(
                               Icons.attach_money,
                               size: 30,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).canvasColor,
                             ),
                           ),
                           FutureBuilder(

@@ -9,14 +9,15 @@ class SpendLimit {
   SpendLimitType type;
 
   SpendLimit(
-      //idUserAccount,
-      amount,
-      type);
+    //this.idUserAccount,
+    this.amount,
+    this.type
+  );
 
   SpendLimit.copyOf(SpendLimit copy) {
-    id = copy.id;
-    amount = copy.amount;
-    type = copy.type;
+    this.id = copy.id;
+    this.amount = copy.amount;
+    this.type = copy.type;
   }
 
   // getter
@@ -24,16 +25,15 @@ class SpendLimit {
     return {
       //'idUserAccount': idUserAccount,
       SpendLimitTable().id: id,
-      SpendLimitTable().amount: amount,
-      SpendLimitTable().type: type.value,
+      SpendLimitTable().amount : amount,
+      SpendLimitTable().type : type.value,
     };
   }
-
   // setter
   SpendLimit.fromMap(Map<String, dynamic> map) {
-    //idUserAccount: map['idUserAccount'],
-    id = map[SpendLimitTable().id];
-    amount = map[SpendLimitTable().amount];
-    type = SpendLimitType.valueOf(map[SpendLimitTable().type]);
+      //idUserAccount: map['idUserAccount'],
+      id = map[SpendLimitTable().id];
+      amount= map[SpendLimitTable().amount];
+      type= SpendLimitType.valueOf(map[SpendLimitTable().type]);
   }
 }

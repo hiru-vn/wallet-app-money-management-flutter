@@ -23,11 +23,11 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
 
   @override
   void initState() {
-    _category = widget._category;
+    this._category = widget._category;
     _dropDownMenuItems = getDropDownMenuItems();
-    _currentOption = _category.transactionType.name;
-    _nameController.text = _category.name;
-    //_descriptionController = _category.description;
+    _currentOption = this._category.transactionType.name;
+    _nameController.text = this._category.name;
+    //_descriptionController = this._category.description;
 
     super.initState();
   }
@@ -47,7 +47,7 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
   }
 
   _submit(_bloc) {
-    if (!_formNameKey.currentState.validate()) {
+    if (!this._formNameKey.currentState.validate()) {
       return;
     }
     //add data
@@ -55,9 +55,9 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
         _nameController.text,
         Icons.ac_unit,
         Colors.blueAccent,
-        TransactionType.valueFromName(_currentOption),
+        TransactionType.valueFromName(this._currentOption),
         ''); //TO DO
-    category.id = _category.id;
+    category.id = this._category.id;
     _bloc.event.add(UpdateCategoryEvent(category));
     Navigator.pop(context);
   }
@@ -145,9 +145,6 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                    ),
                     // color: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: EdgeInsets.all(10),

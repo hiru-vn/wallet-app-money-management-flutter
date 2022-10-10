@@ -23,7 +23,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
     _bloc.initData();
 
     _submit() {
-      if (!_formspendLimitKey.currentState.validate()) {
+      if (!this._formspendLimitKey.currentState.validate()) {
         return;
       }
 
@@ -36,7 +36,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
     }
 
     _delete() {
-      if (!_formspendLimitKey.currentState.validate()) {
+      if (!this._formspendLimitKey.currentState.validate()) {
         return;
       }
 
@@ -52,7 +52,8 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
       var temp = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => SpendLimitTypePage(widget._spendLimit.type)),
+          builder: (context) => SpendLimitTypePage(widget._spendLimit.type),
+        ),
       );
 
       // prevent null
@@ -222,10 +223,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5),
                                   child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
-                                    ),
                                     // color: Theme.of(context).primaryColor,
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
@@ -257,10 +254,6 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5),
                                 child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                  ),
                                   // color: Theme.of(context).buttonColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(10),
@@ -305,6 +298,7 @@ class _SpendLimitPageState extends State<SpendLimitPage> {
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
   }
 }
