@@ -91,10 +91,6 @@ class _NewTransactionPageState extends State<NewTransactionPage> {
     _bloc.initData();
     _blocAccount.initData();
 
-    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
-
     void _submit() {
       if (!_formBalanceKey.currentState.validate()) {
         return;

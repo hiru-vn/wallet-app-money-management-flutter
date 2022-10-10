@@ -83,9 +83,6 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   Widget build(BuildContext context) {
     var _bloc = CategoryBloc();
 
-    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
     return Scaffold(
         appBar: AppBar(
           title: Text('Tạo hạng mục mới'),

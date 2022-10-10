@@ -84,10 +84,6 @@ class _MainPageState extends State<MainPage> {
       if (i == 3) drawerOptions.add(Divider());
     }
 
-    // ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {

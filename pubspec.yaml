@@ -19,8 +19,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil: ^5.5.4
-
   # icon picker
   flutter_iconpicker: ^3.2.1
 

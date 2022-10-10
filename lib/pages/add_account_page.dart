@@ -73,10 +73,6 @@ class _AddAccountPageState extends State<AddAccountPage> {
   Widget build(BuildContext context) {
     var _bloc = AccountBloc();
 
-    // ScreenUtil.instance = ScreenUtil.init(context);
-    // ScreenUtil.instance =
-    //     ScreenUtil(width: 1080, height: 1920, allowFontScaling: true);
-
     void _submit() {
       if (!this._formNameKey.currentState.validate()) {
         return;
