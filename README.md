@@ -1,8 +1,6 @@
 # Money Management - Flutter - SE346 UIT
 
-* __Built by: Hei Dun Luv__ - __`Hate and Love`__ 
-  
-    * 17520583 - Nguyễn Quang Huy  
+* __Built by: Nguyễn Quang Huy  
 
 <p align="center"> <img src ="./assets/logo.png" /> </p>
 <p align="center"> Ứng dụng quản lý chi tiêu - hãy chi tiêu thông minh </p>
